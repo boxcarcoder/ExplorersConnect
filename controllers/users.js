@@ -2,6 +2,8 @@ const usersRouter = require('express').Router();
 const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
+const gravatar = require('gravatar');
+const bcrypt = require('bcryptjs');
 
 // @route   GET api/users
 // @desc    Test route for users route
@@ -28,12 +30,32 @@ usersRouter.post(
 
     try {
       //check if user exists already.
-      let foundUser = await User.findOne({ email: email });
+      let foundUser = await User.findOne({ email });
       if (foundUser) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'User exists already.' }] });
       }
+
+      //if user doesn't exist, create a new user
+      let avatar = gravatar.url(email, {
+        s: '200',
+        r: 'pg',
+        d: 'mp'
+      });
+
+      let newUser = new User({
+        name,
+        email,
+        avatar,
+        password
+      });
+
+      //encrypt the password and register user into the db
+      let salt = await bcrypt.genSalt(10);
+      newUser.password = await bcrypt.hash(password, salt);
+
+      await newUser.save();
     } catch (err) {
       res.status(500).json('Server error.');
     }
