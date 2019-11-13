@@ -6,6 +6,7 @@ const usersRouter = require('./controllers/users');
 const authRouter = require('./controllers/auth');
 const profilesRouter = require('./controllers/profiles');
 const postsRouter = require('./controllers/posts');
+const bodyParser = require('body-parser');
 
 // mongoose
 //   .connect(config.MONGODB_URI, {
@@ -25,7 +26,8 @@ const connectDB = async () => {
   try {
     await mongoose.connect(config.MONGODB_URI, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useCreateIndex: true
     });
     console.log('database connected successfully.');
   } catch (err) {
@@ -34,6 +36,8 @@ const connectDB = async () => {
   }
 };
 connectDB();
+
+app.use(bodyParser.json());
 
 // Define routes
 app.use('/api/users', usersRouter);
