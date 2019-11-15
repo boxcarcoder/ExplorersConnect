@@ -1,5 +1,4 @@
 const usersRouter = require('express').Router();
-const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 const gravatar = require('gravatar');
@@ -8,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../utils/config');
 
 // @route   GET api/users
-// @desc    Test route for users route
+// @desc    Register a user.
 // @access  Public
 usersRouter.post(
   '/',
