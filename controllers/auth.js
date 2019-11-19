@@ -42,7 +42,7 @@ authRouter.post(
       if (!foundUser) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid credentials1.' }] });
+          .json({ errors: [{ msg: 'Invalid credentials.' }] });
       }
 
       //check password to grant log in
@@ -51,7 +51,7 @@ authRouter.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid credentials2.' }] });
+          .json({ errors: [{ msg: 'Invalid credentials.' }] });
       }
 
       //after the user is registered, return a token for authentication
