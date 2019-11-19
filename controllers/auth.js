@@ -1,10 +1,14 @@
 const authRouter = require('express').Router();
 const auth = require('../middlewares/auth');
 const User = require('../models/User');
+const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('../utils/config');
 
 // @route   GET api/auth
 // @desc    Protected route to access a user's profile.
-// @access  Public
+// @access  Private
 authRouter.get('/', auth, async (req, res) => {
   //an HTTP request to this protected route must be decoded by the auth middleware.
   try {
@@ -16,7 +20,7 @@ authRouter.get('/', auth, async (req, res) => {
 });
 
 // @route   POST api/auth
-// @desc    Protected route to log a user in.
+// @desc    Route to log a user in.
 // @access  Public
 authRouter.post(
   '/',
@@ -33,18 +37,27 @@ authRouter.post(
     const { email, password } = req.body;
 
     try {
-      //check if user exists already.
+      //confirm user is in database.
       let foundUser = await User.findOne({ email });
       if (!foundUser) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid credentials.' }] });
+          .json({ errors: [{ msg: 'Invalid credentials1.' }] });
+      }
+
+      //check password to grant log in
+      let isMatch = await bcrypt.compare(password, foundUser.password);
+
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Invalid credentials2.' }] });
       }
 
       //after the user is registered, return a token for authentication
       let payload = {
         user: {
-          id: newUser.id
+          id: foundUser.id
         }
       };
       jwt.sign(
@@ -57,7 +70,8 @@ authRouter.post(
         }
       );
     } catch (err) {
-      res.status(500).json('Server error.');
+      //res.status(500).json('Server error');
+      console.error(err.message);
     }
   }
 );
