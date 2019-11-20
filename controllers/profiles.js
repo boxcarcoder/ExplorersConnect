@@ -1,16 +1,18 @@
 const profilesRouter = require('express').Router();
-const mongoose = require('mongoose');
 const Profile = require('../models/Profile');
 const auth = require('../middlewares/auth');
 const { check, validationResult } = require('express-validator');
 
 // @route   GET api/profiles/me
-// @desc    Fetch a user's profile
-// @access  Private
+// @desc    Fetch a logged in user's profile
+// @access  Private since it's for the logged in user
 profilesRouter.get('/me', auth, async (req, res) => {
   try {
-    // find the profile of a requested user
-    let profile = await Profile.findOne({ user: req.user.id });
+    // find the profile of the logged in user
+    let profile = await Profile.findOne({ user: req.user.id }).populate(
+      'user',
+      ['name', 'avatar']
+    );
 
     if (!profile) {
       res.status(400).json('This profile does not exist.');
@@ -18,14 +20,14 @@ profilesRouter.get('/me', auth, async (req, res) => {
 
     res.json(profile);
   } catch (err) {
-    console.error(err.message);
+    //console.error(err.message);
     res.status(500).json('Server error.');
   }
 });
 
 // @route   POST api/profiles
-// @desc    Create a profile for a user
-// @access  Private
+// @desc    Create a profile for a logged in user
+// @access  Private since it's for the logged in user
 profilesRouter.post(
   '/',
   [
@@ -50,7 +52,7 @@ profilesRouter.post(
       bio,
       country,
       //passions,
-      gears,
+      //gears,
       youtube,
       twitter,
       facebook,
@@ -62,9 +64,6 @@ profilesRouter.post(
     profileFields.user = req.user.id;
     if (bio) profileFields.bio = bio;
     if (country) profileFields.country = country;
-    if (gears) {
-      profileFields.gears = gears.split(',').map(gear => gear.trim()); //turn comma separated string into array by split, then map to remove spaces from each index
-    }
 
     //Build social object for our profile's fields object
     profileFields.social = {};
@@ -97,10 +96,54 @@ profilesRouter.post(
   }
 );
 
+// @route   GET api/profiles/
+// @desc    Fetch a user's profile
+// @access  Public since we're requesting all profiles, not just one which will need a token
+profilesRouter.get('/', async (req, res) => {
+  try {
+    // find the profile of a requested user
+    let profiles = await Profile.find().populate('user', ['name', 'avatar']);
+
+    if (!profiles) {
+      res.status(400).json('There are no profiles.');
+    }
+
+    res.json(profiles);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server error.');
+  }
+});
+
+// @route   GET api/profiles/user/:userID
+// @desc    Fetch a user's profile by user ID
+// @access  Public for anyone to look up a profile
+profilesRouter.get('/user/:userID', async (req, res) => {
+  try {
+    // find the profile of a requested user
+    let profile = await Profile.findOne({
+      user: req.params.userID
+    }).populate('user', ['name', 'avatar']);
+
+    if (!profile) {
+      res.status(400).json('There is no profile for this user.');
+    }
+
+    res.json(profile);
+  } catch (err) {
+    //console.error(err.message);
+    res.status(500).json('Server error.');
+  }
+});
+
 module.exports = profilesRouter;
 
+// array of objects
 // if (passions) {
 //   profileFields.passions = passions
 //     .split(',')
 //     .map(passion => passion.trim());
+// }
+// if (gears) {
+//   profileFields.gears = gears.split(',').map(gear => gear.trim()); //turn comma separated string into array by split, then map to remove spaces from each index
 // }
