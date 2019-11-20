@@ -7,39 +7,63 @@ const profileSchema = new mongoose.Schema({
     ref: 'user' //reference the model we're referring to
   },
   bio: {
-    type: String
+    type: String,
+    required: true
+  },
+  country: {
+    type: String,
+    required: true
   },
   passions: [
     {
       hiking: {
         locations: {
           type: [String]
+        },
+        favorite: {
+          type: Boolean,
+          default: false
         }
       },
       camping: {
         locations: {
           type: [String]
+        },
+        favorite: {
+          type: Boolean,
+          default: false
         }
       },
       waterSports: {
         locations: {
           type: [String]
+        },
+        favorite: {
+          type: Boolean,
+          default: false
         }
       },
       snowSports: {
         locations: {
           type: [String]
+        },
+        favorite: {
+          type: Boolean,
+          default: false
         }
       },
       rockClimbing: {
         locations: {
           type: [String]
+        },
+        favorite: {
+          type: Boolean,
+          default: false
         }
-      },
-      required: true
+      }
     }
   ],
-  gear: [
+  gears: [
     {
       winter: {
         type: [String]
@@ -52,8 +76,7 @@ const profileSchema = new mongoose.Schema({
       },
       fall: {
         type: [String]
-      },
-      required: true
+      }
     }
   ],
   social: {
