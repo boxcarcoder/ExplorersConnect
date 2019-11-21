@@ -136,6 +136,24 @@ profilesRouter.get('/user/:userID', async (req, res) => {
   }
 });
 
+// @route   DELETE api/profiles/
+// @desc    Delete a user, profile, and posts
+// @access  Private since only a logged in user can delete their profile
+profilesRouter.get('/', auth, async (req, res) => {
+  try {
+    //todo - remove posts
+
+    await Profile.findOneAndRemove({ user: req.user.id });
+
+    await User.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: 'User and their profile deleted.' });
+  } catch (err) {
+    //console.error(err.message);
+    res.status(500).json('Server error.');
+  }
+});
+
 module.exports = profilesRouter;
 
 // array of objects
