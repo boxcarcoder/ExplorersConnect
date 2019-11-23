@@ -237,4 +237,54 @@ profilesRouter.put('/gears', auth, async (req, res) => {
   }
 });
 
+// @route   DELETE api/profiles/passions:passionsID
+// @desc    Delete a profile's passions by ID
+// @access  Private since only a logged in user can update their profile
+profilesRouter.delete('/passions/:passionsID', auth, async (req, res) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    if (!profile) res.status(400).json('This profile does not exist.');
+
+    //get the index of the removed passions
+    let removeIdx = profile.passions
+      .map(obj => obj.id)
+      .indexOf(req.params.passionsID);
+
+    profile.passions.splice(removeIdx, 1);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server error.');
+  }
+});
+
+// @route   DELETE api/profiles/passions:gearsID
+// @desc    Delete a profile's gears by ID
+// @access  Private since only a logged in user can update their profile
+profilesRouter.delete('/gears/:gearsID', auth, async (req, res) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    if (!profile) res.status(400).json('This profile does not exist.');
+
+    //get the index of the removed passions
+    let removeIdx = profile.gears
+      .map(obj => obj.id)
+      .indexOf(req.params.gearsID);
+
+    profile.gears.splice(removeIdx, 1);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server error.');
+  }
+});
+
 module.exports = profilesRouter;
