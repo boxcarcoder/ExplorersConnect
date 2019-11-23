@@ -65,16 +65,19 @@ const profileSchema = new mongoose.Schema({
   ],
   gears: [
     {
-      winter: {
+      hiking: {
         type: [String]
       },
-      spring: {
+      camping: {
         type: [String]
       },
-      summer: {
+      waterSports: {
         type: [String]
       },
-      fall: {
+      snowSports: {
+        type: [String]
+      },
+      rockClimbing: {
         type: [String]
       }
     }

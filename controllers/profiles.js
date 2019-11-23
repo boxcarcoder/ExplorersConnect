@@ -197,4 +197,44 @@ profilesRouter.put('/passions', auth, async (req, res) => {
   }
 });
 
+// @route   PUT api/profiles/gears
+// @desc    Update a profile's gears
+// @access  Private since only a logged in user can update their profile
+profilesRouter.put('/gears', auth, async (req, res) => {
+  try {
+    let { hiking, camping, waterSports, snowSports, rockClimbing } = req.body;
+
+    //convert comma separated string into array
+    if (hiking) hiking = hiking.split(',').map(gear => gear.trim());
+    if (camping) camping = camping.split(',').map(gear => gear.trim());
+    if (waterSports)
+      waterSports = waterSports.split(',').map(gear => gear.trim());
+    if (snowSports) snowSports = snowSports.split(',').map(gear => gear.trim());
+    if (rockClimbing)
+      rockClimbing = rockClimbing.split(',').map(gear => gear.trim());
+
+    //update the logged in user's gears
+    let updatedGears = {
+      hiking,
+      camping,
+      waterSports,
+      snowSports,
+      rockClimbing
+    };
+
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    if (!profile) res.status(400).json('This profile does not exist.');
+
+    profile.gears.unshift(updatedGears);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.messsage);
+    res.status(500).json('Server error.');
+  }
+});
+
 module.exports = profilesRouter;
