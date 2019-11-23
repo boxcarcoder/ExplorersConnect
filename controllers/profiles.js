@@ -1,5 +1,6 @@
 const profilesRouter = require('express').Router();
 const Profile = require('../models/Profile');
+const User = require('../models/User');
 const auth = require('../middlewares/auth');
 const { check, validationResult } = require('express-validator');
 
@@ -20,7 +21,6 @@ profilesRouter.get('/me', auth, async (req, res) => {
 
     res.json(profile);
   } catch (err) {
-    //console.error(err.message);
     res.status(500).json('Server error.');
   }
 });
@@ -48,16 +48,7 @@ profilesRouter.post(
     }
 
     // create a profile for a user
-    const {
-      bio,
-      country,
-      //passions,
-      //gears,
-      youtube,
-      twitter,
-      facebook,
-      instagram
-    } = req.body;
+    const { bio, country, youtube, twitter, facebook, instagram } = req.body;
 
     //Build object for the profile's fields
     let profileFields = {};
@@ -131,7 +122,6 @@ profilesRouter.get('/user/:userID', async (req, res) => {
 
     res.json(profile);
   } catch (err) {
-    //console.error(err.message);
     res.status(500).json('Server error.');
   }
 });
@@ -139,7 +129,7 @@ profilesRouter.get('/user/:userID', async (req, res) => {
 // @route   DELETE api/profiles/
 // @desc    Delete a user, profile, and posts
 // @access  Private since only a logged in user can delete their profile
-profilesRouter.get('/', auth, async (req, res) => {
+profilesRouter.delete('/', auth, async (req, res) => {
   try {
     //todo - remove posts
 
@@ -149,19 +139,62 @@ profilesRouter.get('/', auth, async (req, res) => {
 
     res.json({ msg: 'User and their profile deleted.' });
   } catch (err) {
-    //console.error(err.message);
+    console.error(err.message);
+    res.status(500).json('Server error.');
+  }
+});
+
+// @route   PUT api/profiles/passions
+// @desc    Update a profile's passions
+// @access  Private since only a logged in user can update their profile
+profilesRouter.put('/passions', auth, async (req, res) => {
+  try {
+    const { hiking, camping, waterSports, snowSports, rockClimbing } = req.body;
+
+    console.log('req.body: ', req.body);
+
+    //convert comma separated string into array
+    if (hiking)
+      hiking.locations = hiking.locations.split(',').map(place => place.trim());
+    if (camping)
+      camping.locations = camping.locations
+        .split(',')
+        .map(place => place.trim());
+    if (waterSports)
+      waterSports.locations = waterSports.locations
+        .split(',')
+        .map(place => place.trim());
+    if (snowSports)
+      snowSports.locations = snowSports.locations
+        .split(',')
+        .map(place => place.trim());
+    if (rockClimbing)
+      rockClimbing.locations = rockClimbing.locations
+        .split(',')
+        .map(place => place.trim());
+
+    //update the logged in user's passions
+    let updatedPassions = {
+      hiking,
+      camping,
+      waterSports,
+      snowSports,
+      rockClimbing
+    };
+
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    if (!profile) res.status(400).json('This profile does not exist.');
+
+    profile.passions.unshift(updatedPassions);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
     res.status(500).json('Server error.');
   }
 });
 
 module.exports = profilesRouter;
-
-// array of objects
-// if (passions) {
-//   profileFields.passions = passions
-//     .split(',')
-//     .map(passion => passion.trim());
-// }
-// if (gears) {
-//   profileFields.gears = gears.split(',').map(gear => gear.trim()); //turn comma separated string into array by split, then map to remove spaces from each index
-// }
