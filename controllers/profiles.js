@@ -52,7 +52,7 @@ profilesRouter.post(
 
     //Build object for the profile's fields
     let profileFields = {};
-    profileFields.user = req.user.id;
+    profileFields.user = req.user.id; // get the user ID from the token of the logged in user
     if (bio) profileFields.bio = bio;
     if (country) profileFields.country = country;
 
