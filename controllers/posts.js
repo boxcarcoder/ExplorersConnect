@@ -106,4 +106,58 @@ postsRouter.delete('/:postID', auth, async (req, res) => {
   }
 });
 
+// @route   PUT api/posts/like/:postID
+// @desc    Like a post
+// @access  Private since only a logged in user can like posts
+postsRouter.put('/like/:postID', auth, async (req, res) => {
+  try {
+    let post = await Post.findById(req.params.postID);
+
+    // check if the post has been liked already by the user
+    // prettier-ignore
+    if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+      return res.status(400).json('Cannot like more than once');
+    }
+
+    // add the user to the post's likes array
+    post.likes.unshift({ user: req.user.id });
+
+    await post.save();
+
+    res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error.');
+  }
+});
+
+// @route   PUT api/posts/unlike/:postID
+// @desc    Unlike a post
+// @access  Private since only a logged in user can unlike posts
+postsRouter.put('/unlike/:postID', auth, async (req, res) => {
+  try {
+    let post = await Post.findById(req.params.postID);
+
+    // check if the post has been liked already by the user
+    // prettier-ignore
+    if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0 ) {
+      return res.status(400).json('Post has not been liked yet.');
+    }
+
+    //get the remove index
+    let removeIdx = post.likes
+      .map(like => like.user.toString)
+      .indexOf(req.user.id);
+
+    post.likes.splice(removeIdx, 1);
+
+    await post.save();
+
+    res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server Error.');
+  }
+});
+
 module.exports = postsRouter;

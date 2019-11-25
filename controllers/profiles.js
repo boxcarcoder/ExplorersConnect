@@ -246,7 +246,7 @@ profilesRouter.delete('/passions/:passionsID', auth, async (req, res) => {
 
     if (!profile) res.status(400).json('This profile does not exist.');
 
-    //get the index of the removed passions
+    //get the remove index
     let removeIdx = profile.passions
       .map(obj => obj.id)
       .indexOf(req.params.passionsID);
@@ -271,7 +271,7 @@ profilesRouter.delete('/gears/:gearsID', auth, async (req, res) => {
 
     if (!profile) res.status(400).json('This profile does not exist.');
 
-    //get the index of the removed passions
+    //get the remove index
     let removeIdx = profile.gears
       .map(obj => obj.id)
       .indexOf(req.params.gearsID);
