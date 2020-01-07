@@ -1,0 +1,167 @@
+@import 'config';
+@import 'utilities';
+@import 'form';
+
+// core styles
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Baskerville', serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #fff;
+  color: #333;
+  border: none !important;
+}
+
+a {
+  text-decoration: none;
+  color: $primary-color;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
+
+// navbar styles
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7 rem 2 rem;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  border-bottom: solid 1px $primary-color;
+  opacity: 0.8;
+
+  ul {
+    display: flex;
+  }
+
+  a {
+    color: #fff;
+    padding: 0.45rem;
+    margin: 0 0.25rem;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+// landing page styles
+.landing {
+  position: relative;
+  background: url('../img/ted-bryan-yu-5mezpWin6T8-unsplash.jpg') no-repeat
+    center center/cover;
+  height: 100vh;
+
+  &-inner {
+    color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+// credit box styles
+.credit-box {
+  &-abs {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0.6;
+  }
+
+  &-rel {
+    //position: relative;
+    opacity: 0.6;
+  }
+}
+
+//profiles page styles
+.profile {
+  display: grid;
+  grid-template-columns: 2fr 4fr 2fr;
+  grid-gap: 2rem;
+  align-items: center;
+  padding: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+//profile page styles
+.profile-grid {
+  display: grid;
+  grid-template-areas: 'top top' 'about about' 'location gear';
+  grid-gap: 1rem;
+
+  .profile-top {
+    grid-area: top;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    img {
+      width: 250px;
+    }
+
+    .icons a {
+      color: $light-color;
+      margin: 0 0.2rem;
+
+      &:hover {
+        color: $dark-color;
+      }
+    }
+  }
+  .profile-about {
+    grid-area: about;
+    text-align: center;
+  }
+  .profile-location {
+    grid-area: location;
+    text-align: center;
+  }
+  .profile-gear {
+    grid-area: gear;
+    text-align: center;
+  }
+}
+
+// Posts page style
+.post {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 2rem;
+  align-items: center;
+
+  & > div:first-child {
+    text-align: center;
+  }
+
+  img {
+    width: 130px;
+  }
+}
+
+.post-form-header {
+  padding: 0.5rem;
+}
