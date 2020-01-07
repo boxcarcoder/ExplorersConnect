@@ -3,7 +3,6 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../middlewares/auth');
 
 const Post = require('../models/Post');
-const Profile = require('../models/Profile');
 const User = require('../models/User');
 
 // @route   POST api/posts
@@ -67,7 +66,7 @@ postsRouter.get('/:postID', async (req, res) => {
   try {
     let post = await Post.findById(req.params.postID); //sort posts by most recent
 
-    if (!post) return res.status(400).json('This post could not be found.');
+    if (!post) return res.status(404).json('This post could not be found.');
 
     res.json(post);
   } catch (err) {
@@ -87,7 +86,7 @@ postsRouter.delete('/:postID', auth, async (req, res) => {
   try {
     let post = await Post.findById(req.params.postID);
 
-    if (!post) return res.status(400).json('This post could not be found.');
+    if (!post) return res.status(404).json('This post could not be found.');
 
     // check if user is the logged in user
     if (req.user.id !== post.user.toString()) {
@@ -113,7 +112,7 @@ postsRouter.put('/like/:postID', auth, async (req, res) => {
   try {
     let post = await Post.findById(req.params.postID);
 
-    // check if the post has been liked already by the user
+    // check if the post has been liked already by the logged in user
     // prettier-ignore
     if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
       return res.status(400).json('Cannot like more than once');
@@ -138,7 +137,7 @@ postsRouter.put('/unlike/:postID', auth, async (req, res) => {
   try {
     let post = await Post.findById(req.params.postID);
 
-    // check if the post has been liked already by the user
+    // check if the post has been liked already by the logged in user
     // prettier-ignore
     if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0 ) {
       return res.status(400).json('Post has not been liked yet.');
@@ -146,7 +145,7 @@ postsRouter.put('/unlike/:postID', auth, async (req, res) => {
 
     //get the remove index
     let removeIdx = post.likes
-      .map(like => like.user.toString)
+      .map(like => like.user.toString())
       .indexOf(req.user.id);
 
     post.likes.splice(removeIdx, 1);
@@ -157,6 +156,84 @@ postsRouter.put('/unlike/:postID', auth, async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server Error.');
+  }
+});
+
+// @route   POST api/posts/comment/:postID
+// @desc    Comment on a post
+// @access  Private since only a logged in user can comment on a post
+postsRouter.post(
+  '/comment/:postID',
+  [
+    auth,
+    [
+      check('text', 'Please enter text for the post.')
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      // retrieve the logged in user from the db
+      let user = await User.findById(req.user.id).select('-password');
+      // retrieve the post by the post ID
+      let post = await Post.findById(req.params.id);
+
+      // add new comment to the post
+      let newComment = {
+        text: req.body.text, //get the post text from the req
+        name: user.name, //get the name and avatar of the logged in user from the db
+        avatar: user.avatar,
+        user: req.user.id // get the user ID from the token of the logged in user
+      };
+      post.comments.unshift(newComment);
+
+      await post.save();
+      res.json(post.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json('Server error.');
+    }
+  }
+);
+
+// @route   DELETE api/posts/comment/:postID/:commentID
+// @desc    Delete a comment from a post
+// @access  Private since only a logged in user can delete a comment
+postsRouter.delete('/comment/:postID/:commentID', auth, async (req, res) => {
+  try {
+    let post = await Post.findById(req.params.id);
+
+    //retrieve the comment
+    let comment = post.comments.find(
+      comment => comment.id === req.params.commentID
+    );
+
+    if (!comment) return res.status(404).json('Comment does not exist.');
+
+    // check if user is the logged in user
+    if (req.user.id !== comment.user.toString()) {
+      return res.status(401).json('User is not authorized.');
+    }
+
+    //get the remove index
+    let removeIdx = post.comments
+      .map(comment => comment.user.toString())
+      .indexOf(req.user.id);
+
+    post.comments.splice(removeIdx, 1);
+
+    await post.save();
+
+    res.json(post.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server error.');
   }
 });
 

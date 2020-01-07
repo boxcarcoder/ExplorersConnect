@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "test": "TESTING"
+    "test": "TESTING",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run watch\" \"npm run client\" "
   },
   "author": "brendan",
   "license": "ISC",
@@ -18,7 +20,13 @@
     "express-validator": "^6.2.0",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.11",
-    "nodemon": "^1.19.4"
+    "mongoose": "^5.7.11"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.2",
+    "node-sass": "^4.13.0",
+    "nodemon": "^2.0.2",
+    "sass": "^1.24.2",
+    "typescript": "^3.7.4"
   }
 }

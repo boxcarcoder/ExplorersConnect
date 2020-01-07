@@ -11,7 +11,7 @@ profilesRouter.get('/me', auth, async (req, res) => {
   try {
     // find the profile of the logged in user
     let profile = await Profile.findOne({ user: req.user.id }).populate(
-      'user',
+      'User',
       ['name', 'avatar']
     );
 
@@ -88,12 +88,12 @@ profilesRouter.post(
 );
 
 // @route   GET api/profiles/
-// @desc    Fetch a user's profile
+// @desc    Fetch all profiles
 // @access  Public since we're requesting all profiles, not just one which will need a token
 profilesRouter.get('/', async (req, res) => {
   try {
     // find the profile of a requested user
-    let profiles = await Profile.find().populate('user', ['name', 'avatar']);
+    let profiles = await Profile.find().populate('User', ['name', 'avatar']);
 
     if (!profiles) {
       res.status(400).json('There are no profiles.');
@@ -114,7 +114,7 @@ profilesRouter.get('/user/:userID', async (req, res) => {
     // find the profile of a requested user
     let profile = await Profile.findOne({
       user: req.params.userID
-    }).populate('user', ['name', 'avatar']);
+    }).populate('User', ['name', 'avatar']);
 
     if (!profile) {
       res.status(400).json('There is no profile for this user.');
