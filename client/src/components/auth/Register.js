@@ -11,7 +11,7 @@ const Register = () => {
   });
 
   //destructuring: name === formData.name
-  let { name, email, password, confirmPassword } = formData;
+  const { name, email, password, confirmPassword } = formData;
 
   // spread operator: ...formData === copy of formData based on each attribute
   const handleNameChange = e => {
@@ -37,19 +37,28 @@ const Register = () => {
     setFormData({ ...formData, confirmPassword: e.target.value });
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      console.log('pls confirm your password.');
+    } else {
+      console.log('register successful.');
+    }
+  };
+
   return (
     <section className='container'>
       <h1 className='large text-primary'>Sign up</h1>
       <p className='lead'>
         <i className='fas fa-user-circle'> Create Your Account</i>
       </p>
-      <form action='dashboard.html' className='form'>
+      <form onSubmit={handleSubmit} className='form'>
         <div className='form-group'>
           <input
             type='text'
             placeholder='Name'
             value={name}
-            onChange={handleNameChange}
+            onChange={e => handleNameChange(e)}
             required
           />
         </div>
