@@ -10,7 +10,7 @@ export const setAlert = (msg, alertType) => dispatch => {
 
   // the action
   dispatch({
-    actionType: SET_ALERT,
+    type: SET_ALERT,
     payload: { msg, alertType, id }
   });
 };

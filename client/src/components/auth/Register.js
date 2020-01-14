@@ -47,7 +47,7 @@ const Register = ({ setAlert }) => {
     if (password !== confirmPassword) {
       // after connecting the setAlert action, we can use it by passing a prop to the component.
       // pass a message and alert type to the setAlert action.
-      setAlert('pls confirm your password.', 'danger');
+      setAlert('Passwords did not match.', 'danger');
     } else {
       console.log('register successful.');
     }
@@ -106,7 +106,7 @@ const Register = ({ setAlert }) => {
 };
 
 // validate data types of values passed through props
-Register.PropTypes = {
+Register.propTypes = {
   setAlert: PropTypes.func.isRequired
 };
 
