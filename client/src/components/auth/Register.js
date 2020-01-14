@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Register = () => {
+//redux
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types';
+
+const Register = ({ setAlert }) => {
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
     name: '',
@@ -40,7 +45,9 @@ const Register = () => {
   const handleSubmit = e => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      console.log('pls confirm your password.');
+      // after connecting the setAlert action, we can use it by passing a prop to the component.
+      // pass a message and alert type to the setAlert action.
+      setAlert('pls confirm your password.', 'danger');
     } else {
       console.log('register successful.');
     }
@@ -98,4 +105,11 @@ const Register = () => {
   );
 };
 
-export default Register;
+// validate data types of values passed through props
+Register.PropTypes = {
+  setAlert: PropTypes.func.isRequired
+};
+
+// in order to use connect() to use actions.
+// this will allow us to access props.setAlert
+export default connect(null, { setAlert })(Register);

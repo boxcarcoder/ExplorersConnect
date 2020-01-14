@@ -1,13 +1,16 @@
 import uuid from 'uuid';
 import { SET_ALERT, REMOVE_ALERT } from './types';
 
-// dispatch from thunk middleware
-// the setAlert action will dispatch to the reducer
-// an action consists of a type and may consist of a payload too
+// dispatch from thunk middleware.
+
+// The setAlert action takes a message and alert type.
+// Generates an id, and dispatches the message, alert type, and id to the reducer.
 export const setAlert = (msg, alertType) => dispatch => {
   let id = uuid.v4();
+
+  // the action
   dispatch({
-    type: SET_ALERT,
+    actionType: SET_ALERT,
     payload: { msg, alertType, id }
   });
 };
