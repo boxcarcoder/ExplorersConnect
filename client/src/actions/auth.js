@@ -6,7 +6,7 @@ import {
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
-import { setAuthToken } from '../utils/setAuthToken';
+import setAuthToken from '../utils/setAuthToken';
 
 // Load User.
 export const loadUser = () => async dispatch => {

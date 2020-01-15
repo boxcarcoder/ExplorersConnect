@@ -11,22 +11,37 @@ import Alert from './components/layout/Alert';
 import { Provider } from 'react-redux';
 import store from './store'; // store.js
 
-const App = () => (
-  <Provider store={store}>
-    <Router>
-      <Fragment>
-        <Navbar />
-        <Route exact path='/' component={Landing} />
-        <section className='container'>
-          <Alert />
-          <Switch>
-            <Route exact path='/Register' component={Register} />
-            <Route exact path='/Login' component={Login} />
-          </Switch>
-        </section>
-      </Fragment>
-    </Router>
-  </Provider>
-);
+// To verify token at each load,
+// aka to verify the user is the logged in user at each load
+import setAuthToken from './utils/setAuthToken';
+import { loadUser } from './actions/auth';
+import { useEffect } from 'react';
 
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []); //the effect is only after the first render
+
+  return (
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Route exact path='/' component={Landing} />
+          <section className='container'>
+            <Alert />
+            <Switch>
+              <Route exact path='/Register' component={Register} />
+              <Route exact path='/Login' component={Login} />
+            </Switch>
+          </section>
+        </Fragment>
+      </Router>
+    </Provider>
+  );
+};
 export default App;
