@@ -6,13 +6,32 @@ import {
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
+import { setAuthToken } from '../utils/setAuthToken';
 
 // Load User.
-export const loadUser = () => dispatch => {};
+export const loadUser = () => async dispatch => {
+  // set the token as the header if the token exists
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    // our backend returns the user as the res when GET-ting from /api/auth
+    const res = await axios.get('/api/auth');
+
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR
+    });
+  }
+};
 
 // Register User.
-// Receives an object containing the name, email, and password
-// in an HTTP Request.
+// Receives an object containing the name, email, and password.
 export const register = ({ name, email, password }) => async dispatch => {
   // configuration of the HTTP request to the backend
   const config = {
