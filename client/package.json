@@ -44,5 +44,5 @@
     "sass": "^1.24.2",
     "typescript": "^3.7.4"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:3001"
 }

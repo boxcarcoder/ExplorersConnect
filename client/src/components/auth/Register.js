@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import PropTypes from 'prop-types';
+import { register } from '../../actions/auth';
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register }) => {
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
     name: '',
@@ -20,13 +21,6 @@ const Register = ({ setAlert }) => {
 
   // spread operator: ...formData === copy of formData based on each attribute
   const handleNameChange = e => {
-    // let formDataCopy = {
-    //   name: e.target.value,
-    //   email,
-    //   password,
-    //   confirmPassword
-    // };
-    // setFormData(formDataCopy);
     setFormData({ ...formData, name: e.target.value });
   };
 
@@ -49,7 +43,7 @@ const Register = ({ setAlert }) => {
       // pass a message and alert type to the setAlert action.
       setAlert('Passwords did not match.', 'danger');
     } else {
-      console.log('register successful.');
+      register({ name, email, password });
     }
   };
 
@@ -84,7 +78,7 @@ const Register = ({ setAlert }) => {
             placeholder='Password'
             value={password}
             onChange={e => handlePasswordChange(e)}
-            minLength='6'
+            required
           />
         </div>
         <div className='form-group'>
@@ -93,7 +87,6 @@ const Register = ({ setAlert }) => {
             placeholder='Confirm Password'
             value={confirmPassword}
             onChange={e => handleConfirmPasswordChange(e)}
-            minLength='6'
           />
         </div>
         <input type='submit' value='Register' className='btn btn-primary' />
@@ -107,9 +100,10 @@ const Register = ({ setAlert }) => {
 
 // validate data types of values passed through props
 Register.propTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 };
 
 // in order to use connect() to use actions.
 // this will allow us to access props.setAlert
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
