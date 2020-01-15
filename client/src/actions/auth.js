@@ -1,6 +1,14 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL } from './types';
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR
+} from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
+
+// Load User.
+export const loadUser = () => dispatch => {};
 
 // Register User.
 // Receives an object containing the name, email, and password
@@ -29,8 +37,6 @@ export const register = ({ name, email, password }) => async dispatch => {
   } catch (err) {
     // display errors as alerts using alert action and reducer
     const errors = err.response.data.errors;
-
-    console.log('ERROR');
 
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
