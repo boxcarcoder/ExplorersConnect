@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 //redux
 import { connect } from 'react-redux';
@@ -46,6 +46,11 @@ const Register = ({ setAlert, register }) => {
       register({ name, email, password });
     }
   };
+
+  // once the user is registered, redirect to the dashboard
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <section className='container'>
@@ -101,9 +106,15 @@ const Register = ({ setAlert, register }) => {
 // validate data types of values passed through props
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
+
+//mapping the auth redux state to a usable prop to check for authentication
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated //propName: state
+});
 
 // in order to use connect() to use actions.
 // this will allow us to access props.setAlert
-export default connect(null, { setAlert, register })(Register);
+export default connect(mapStateToProps, { setAlert, register })(Register);

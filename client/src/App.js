@@ -9,10 +9,10 @@ import Alert from './components/layout/Alert';
 
 //redux
 import { Provider } from 'react-redux';
-import store from './store'; // store.js
+import store from './store';
 
-// To verify token at each load,
-// aka to verify the user is the logged in user at each load
+// To verify token at each initial load,
+// aka to verify the user is the logged in user at each initial load
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/auth';
 import { useEffect } from 'react';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 //redux
 import { connect } from 'react-redux';
@@ -29,6 +29,11 @@ const Login = ({ login }) => {
     e.preventDefault();
     login({ email, password });
   };
+
+  // once the user is logged in, redirect to the dashboard
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <section className='container'>
@@ -65,7 +70,13 @@ const Login = ({ login }) => {
 };
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
-export default connect(null, { login })(Login);
+//mapping the auth redux state to a usable prop to check for authentication
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated //propName: state
+});
+
+export default connect(mapStateToProps, { login })(Login);
