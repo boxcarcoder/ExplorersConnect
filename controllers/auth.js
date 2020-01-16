@@ -54,7 +54,7 @@ authRouter.post(
           .json({ errors: [{ msg: 'Invalid credentials.' }] });
       }
 
-      //after the user is registered, return a token for authentication
+      //after the user is logged in, return a token for authentication
       let payload = {
         user: {
           id: foundUser.id
