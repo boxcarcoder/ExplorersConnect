@@ -7,14 +7,12 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
 const Navbar = ({ logout, isAuthenticated, loading }) => {
-
   const authenticatedLinks = (
     <h5>
       <ul>
         <li>
           <a onClick={logout} href='#!'>
-            <i className='fas fa-sign-out-alt' /> {' '}
-            <span>Logout</span>
+            <i className='fas fa-sign-out-alt' /> <span>Logout</span>
           </a>
         </li>
       </ul>
@@ -34,7 +32,6 @@ const Navbar = ({ logout, isAuthenticated, loading }) => {
     </h5>
   );
 
-
   return (
     <nav className='navbar bg-dark'>
       <h1>
@@ -42,14 +39,17 @@ const Navbar = ({ logout, isAuthenticated, loading }) => {
           <i className='fas fa-hiking'></i> ExplorersConnect
         </Link>
       </h1>
-      { !loading ? (<Fragment>{ isAuthenticated ? authenticatedLinks : guestLinks }</Fragment>) : null}
+      {!loading ? (
+        <Fragment>{isAuthenticated ? authenticatedLinks : guestLinks}</Fragment>
+      ) : null}
     </nav>
   );
 };
 
 Navbar.propTypes = {
-  logout: PropTypes.func.isRequired
-}
+  logout: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,

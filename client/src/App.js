@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
+import Dashboard from './components/dashboard/Dashboard';
 
 //redux
 import { Provider } from 'react-redux';
@@ -24,7 +25,7 @@ if (localStorage.token) {
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
-  }, []); //the effect is only after the first render
+  }, []); //the effect is run only after the first render
 
   return (
     <Provider store={store}>
@@ -37,6 +38,7 @@ const App = () => {
             <Switch>
               <Route exact path='/Register' component={Register} />
               <Route exact path='/Login' component={Login} />
+              <Route exact path='/Dashboard' component={Dashboard} />
             </Switch>
           </section>
         </Fragment>
