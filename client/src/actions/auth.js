@@ -4,7 +4,8 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  LOGOUT
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -74,7 +75,7 @@ export const register = ({ name, email, password }) => async dispatch => {
 
 // Login User.
 // Sends an HTTP request to the backend to log in the user.
-// Dispatches the token returned from loggin in into a redux state.
+// Dispatches the token returned from logging in into a redux state.
 export const login = ({ email, password }) => async dispatch => {
   // configuration of the HTTP request to the backend
   const config = {
@@ -108,3 +109,10 @@ export const login = ({ email, password }) => async dispatch => {
     });
   }
 };
+
+// Logout user and clear profile
+export const logout = () => async dispatch => {
+  dispatch({
+    type: LOGOUT
+  })
+}

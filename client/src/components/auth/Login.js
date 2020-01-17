@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Login = ({ login }) => {
+const Login = ({ login, isAuthenticated }) => {
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
     email: '',

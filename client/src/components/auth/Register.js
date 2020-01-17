@@ -7,7 +7,7 @@ import { setAlert } from '../../actions/alert';
 import PropTypes from 'prop-types';
 import { register } from '../../actions/auth';
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
     name: '',
