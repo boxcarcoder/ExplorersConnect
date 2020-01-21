@@ -17,7 +17,7 @@ export default function(state = initialState, action) {
     case GET_PROFILE:
       return {
         ...state,
-        profile: payload, //the payload is the profile data returned from the GET request to the backend route /api/profile/me
+        profile: payload, //the payload is the profile data returned from the GET request to the backend route /api/profiles/me
         loading: false
       };
     case PROFILE_ERROR:
