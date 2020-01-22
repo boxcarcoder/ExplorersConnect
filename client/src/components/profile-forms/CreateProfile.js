@@ -26,6 +26,8 @@ const CreateProfile = () => {
     instagram
   } = formData;
 
+  const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Create Your Profile</h1>
@@ -90,28 +92,36 @@ const CreateProfile = () => {
         </div>
 
         <div className='my-2'>
-          <button type='button' className='btn'>
+          <button
+            onClick={() => toggleSocialInputs(!displaySocialInputs)}
+            type='button'
+            className='btn'
+          >
             Add Social Network Links
           </button>
           <small>Optional</small>
         </div>
 
-        <div className='form-group social-input'>
-          <i className='fab fa-twitter fa-2x'></i>
-          <input type='text' placeholder='Twitter URL' name='twitter' />
-        </div>
-        <div className='form-group social-input'>
-          <i className='fab fa-facebook fa-2x'></i>
-          <input type='text' placeholder='Facebook URL' name='facebook' />
-        </div>
-        <div className='form-group social-input'>
-          <i className='fab fa-youtube fa-2x'></i>
-          <input type='text' placeholder='YouTube URL' name='youtube' />
-        </div>
-        <div className='form-group social-input'>
-          <i className='fab fa-instagram fa-2x'></i>
-          <input type='text' placeholder='Instagram URL' name='instagram' />
-        </div>
+        {displaySocialInputs ? (
+          <Fragment>
+            <div className='form-group social-input'>
+              <i className='fab fa-twitter fa-2x'></i>
+              <input type='text' placeholder='Twitter URL' name='twitter' />
+            </div>
+            <div className='form-group social-input'>
+              <i className='fab fa-facebook fa-2x'></i>
+              <input type='text' placeholder='Facebook URL' name='facebook' />
+            </div>
+            <div className='form-group social-input'>
+              <i className='fab fa-youtube fa-2x'></i>
+              <input type='text' placeholder='YouTube URL' name='youtube' />
+            </div>
+            <div className='form-group social-input'>
+              <i className='fab fa-instagram fa-2x'></i>
+              <input type='text' placeholder='Instagram URL' name='instagram' />
+            </div>
+          </Fragment>
+        ) : null}
 
         <small>* = required fields</small>
         <div className='vert-m-1'>
