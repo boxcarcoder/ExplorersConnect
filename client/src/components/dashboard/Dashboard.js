@@ -3,6 +3,7 @@
 
 import React, { useEffect, Fragment } from 'react';
 import Spinner from '../layout/Spinner';
+import { Link } from 'react-router-dom';
 
 //redux
 import PropTypes from 'prop-types';
@@ -11,7 +12,7 @@ import { getCurrentProfile } from '../../actions/profile';
 
 const Dashboard = ({
   getCurrentProfile,
-  auth,
+  auth: { user} ,
   profile: { profile, loading }
 }) => {
   useEffect(() => {
@@ -21,7 +22,17 @@ const Dashboard = ({
   if (loading && profile === null) {
     return <Spinner />;
   } else {
-    return <Fragment>test</Fragment>;
+    return <Fragment>
+      <h1 className="large text-primary">Dashboard</h1>
+      <p><i className="fas fa-user"></i>Welcome {user && user.name }</p>
+      {profile !== null ? <Fragment>Profile exists for this user.</Fragment> : //check if the logged in user has a profile
+      <Fragment>
+        <p>You have not set up a profile yet!</p>
+        <Link to='/create-profile' className='btn btn-primary vert-m-1'>
+          Create Profile
+        </Link>
+      </Fragment>}
+    </Fragment>;
   }
 };
 
