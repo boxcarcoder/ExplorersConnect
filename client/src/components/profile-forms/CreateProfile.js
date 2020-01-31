@@ -7,6 +7,15 @@ import { connect } from 'react-redux';
 const CreateProfile = () => {
   //create state for form data that requires user input
   const [formData, setFormData] = useState({
+    Hiking: false,
+    Camping: false,
+    Kayaking: false,
+    Rafting: false,
+    Skiing: false,
+    Snowboarding: false,
+    Rockclimbing: false,
+    Other: false,
+    faveRecreation: '',
     website: '',
     bio: '',
     location: '',
@@ -17,6 +26,15 @@ const CreateProfile = () => {
   });
 
   const {
+    Hiking,
+    Camping,
+    Kayaking,
+    Rafting,
+    Skiing,
+    Snowboarding,
+    Rockclimbing,
+    Other,
+    faveRecreation,
     website,
     bio,
     location,
@@ -28,10 +46,20 @@ const CreateProfile = () => {
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
+  // e.target.name is the name of the input
+  // e.target.value is the user input
   const onChange = e => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
+    });
+  };
+
+  // e.target.value is the user clicking the check box
+  const onClick = e => {
+    setFormData({
+      ...formData,
+      [e.target.name]: !e.target.checked
     });
   };
 
@@ -41,30 +69,77 @@ const CreateProfile = () => {
       <p className='lead'>
         <i className='fas fa-user'></i> Let's personalize your profile.
       </p>
+
       <div className='line'></div>
+
       <form className='form'>
+        {/* Check box list */}
         <p className='lead'>Outdoor Recreations</p>
         <small className='form-text'>
           What outdoor recreations do you enjoy?
         </small>
         <div className='form-group'>
-          <input type='checkbox' value='Hiking' /> Hiking
+          <input
+            type='checkbox'
+            name='Hiking'
+            value={Hiking}
+            onClick={e => onClick(e)}
+          />{' '}
+          Hiking
           <br />
-          <input type='checkbox' value='Camping' /> Camping
+          <input
+            type='checkbox'
+            name='Camping'
+            value={Camping}
+            onClick={e => onClick(e)}
+          />{' '}
+          Camping
           <br />
-          <input type='checkbox' value='Kayaking' /> Kayaking
+          <input
+            type='checkbox'
+            name='Kayaking'
+            value={Kayaking}
+            onClick={e => onClick(e)}
+          />{' '}
+          Kayaking
           <br />
-          <input type='checkbox' value='Rafting' /> Rafting
+          <input
+            type='checkbox'
+            name='Rafting'
+            value={Rafting}
+            onClick={e => onClick(e)}
+          />{' '}
+          Rafting
           <br />
-          <input type='checkbox' value='Skiing' /> Skiing
+          <input
+            type='checkbox'
+            name='Skiing'
+            value={Skiing}
+            onClick={e => onClick(e)}
+          />{' '}
+          Skiing
           <br />
-          <input type='checkbox' value='Snowboarding' /> Snowboarding
+          <input
+            type='checkbox'
+            name='Snowboarding'
+            value={Snowboarding}
+            onClick={e => onClick(e)}
+          />{' '}
+          Snowboarding
           <br />
-          <input type='checkbox' value='Rockclimbing' /> Kayaking
+          <input
+            type='checkbox'
+            name='Rockclimbing'
+            value={Rockclimbing}
+            onClick={e => onClick(e)}
+          />{' '}
+          Rockclimbing
           <br />
-          <input type='checkbox' value='Rafting' /> Other
+          <input type='checkbox' name='Other' value={Other} /> Other
           <br />
         </div>
+
+        {/* Favorite recreation dropdown */}
         <small className='form-text'>Which is your favorite recreation?</small>
         <div className='form-group'>
           <select
@@ -83,9 +158,12 @@ const CreateProfile = () => {
             <option value='OtherFave'>Other</option>
           </select>
         </div>
+
         <div className='line'></div>
+
         <p className='lead'>Bio</p>
         <div className='form-group'>
+          {/* Personal Website */}
           <input
             type='text'
             placeholder='Personal Website'
@@ -97,7 +175,9 @@ const CreateProfile = () => {
             Have a blog for adventures or gear reviews?
           </small>
         </div>
+
         <div className='form-group'>
+          {/* Bio */}
           <textarea
             placeholder='A short bio of yourself'
             name='bio'
@@ -106,7 +186,9 @@ const CreateProfile = () => {
           ></textarea>
           <small className='form-text'>Tell us a little about yourself</small>
         </div>
+
         <div className='form-group'>
+          {/* Location */}
           <input
             type='text'
             placeholder='* Location'
@@ -134,6 +216,7 @@ const CreateProfile = () => {
           <Fragment>
             <div className='form-group social-input'>
               <i className='fab fa-twitter fa-2x'></i>
+              {/* Twitter Link */}
               <input
                 type='text'
                 placeholder='Twitter URL'
@@ -144,6 +227,7 @@ const CreateProfile = () => {
             </div>
             <div className='form-group social-input'>
               <i className='fab fa-facebook fa-2x'></i>
+              {/* Facebook Link */}
               <input
                 type='text'
                 placeholder='Facebook URL'
@@ -154,6 +238,7 @@ const CreateProfile = () => {
             </div>
             <div className='form-group social-input'>
               <i className='fab fa-youtube fa-2x'></i>
+              {/* Youtube Link */}
               <input
                 type='text'
                 placeholder='YouTube URL'
@@ -164,6 +249,7 @@ const CreateProfile = () => {
             </div>
             <div className='form-group social-input'>
               <i className='fab fa-instagram fa-2x'></i>
+              {/* Instagram Link */}
               <input
                 type='text'
                 placeholder='Instagram URL'
