@@ -28,6 +28,13 @@ const CreateProfile = () => {
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
+  const onChange = e => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Create Your Profile</h1>
@@ -60,7 +67,11 @@ const CreateProfile = () => {
         </div>
         <small className='form-text'>Which is your favorite recreation?</small>
         <div className='form-group'>
-          <select name='status'>
+          <select
+            name='faveRecreation'
+            value={window.faveRecreation}
+            onChange={e => onChange(e)}
+          >
             <option value='0'>* Favorite Outdoor Recreation</option>
             <option value='HikingFave'>Hiking</option>
             <option value='CampingFave'>Camping</option>
@@ -75,17 +86,34 @@ const CreateProfile = () => {
         <div className='line'></div>
         <p className='lead'>Bio</p>
         <div className='form-group'>
-          <input type='text' placeholder='Personal Website' name='website' />
+          <input
+            type='text'
+            placeholder='Personal Website'
+            name='website'
+            value={website}
+            onChange={e => onChange(e)}
+          />
           <small className='form-text'>
             Have a blog for adventures or gear reviews?
           </small>
         </div>
         <div className='form-group'>
-          <textarea placeholder='A short bio of yourself' name='bio'></textarea>
+          <textarea
+            placeholder='A short bio of yourself'
+            name='bio'
+            value={bio}
+            onChange={e => onChange(e)}
+          ></textarea>
           <small className='form-text'>Tell us a little about yourself</small>
         </div>
         <div className='form-group'>
-          <input type='text' placeholder='* Location' name='location' />
+          <input
+            type='text'
+            placeholder='* Location'
+            name='location'
+            value={location}
+            onChange={e => onChange(e)}
+          />
           <small className='form-text'>
             City & state (eg. Los Angeles, CA)
           </small>
@@ -106,19 +134,43 @@ const CreateProfile = () => {
           <Fragment>
             <div className='form-group social-input'>
               <i className='fab fa-twitter fa-2x'></i>
-              <input type='text' placeholder='Twitter URL' name='twitter' />
+              <input
+                type='text'
+                placeholder='Twitter URL'
+                name='twitter'
+                value={twitter}
+                onChange={e => onChange(e)}
+              />
             </div>
             <div className='form-group social-input'>
               <i className='fab fa-facebook fa-2x'></i>
-              <input type='text' placeholder='Facebook URL' name='facebook' />
+              <input
+                type='text'
+                placeholder='Facebook URL'
+                name='facebook'
+                value={facebook}
+                onChange={e => onChange(e)}
+              />
             </div>
             <div className='form-group social-input'>
               <i className='fab fa-youtube fa-2x'></i>
-              <input type='text' placeholder='YouTube URL' name='youtube' />
+              <input
+                type='text'
+                placeholder='YouTube URL'
+                name='youtube'
+                value={youtube}
+                onChange={e => onChange(e)}
+              />
             </div>
             <div className='form-group social-input'>
               <i className='fab fa-instagram fa-2x'></i>
-              <input type='text' placeholder='Instagram URL' name='instagram' />
+              <input
+                type='text'
+                placeholder='Instagram URL'
+                name='instagram'
+                value={instagram}
+                onChange={e => onChange(e)}
+              />
             </div>
           </Fragment>
         ) : null}
