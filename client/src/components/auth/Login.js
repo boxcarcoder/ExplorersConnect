@@ -25,6 +25,8 @@ const Login = ({ login, isAuthenticated }) => {
   const handlePasswordChange = e => {
     setFormData({ ...formData, password: e.target.value });
   };
+
+  //when the form is submitted, trigger the login action
   const handleSubmit = e => {
     e.preventDefault();
     login({ email, password });

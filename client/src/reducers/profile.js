@@ -1,7 +1,12 @@
-import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE } from '../actions/types';
+import {
+  GET_PROFILE,
+  PROFILE_ERROR,
+  CLEAR_PROFILE,
+  CREATE_PROFILE
+} from '../actions/types';
 
 // profile: When the user logs in, or visits another user's profile page,
-// an HTTP request will be made that returns the profile's data
+// an HTTP request will be made that returns the profile's data.
 // profiles: For the list of all profiles for the explorers page.
 const initialState = {
   profile: null,
@@ -15,9 +20,10 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_PROFILE:
+    case CREATE_PROFILE:
       return {
         ...state,
-        profile: payload, //the payload is the profile data returned from the GET request to the backend route /api/profiles/me
+        profile: payload, //the payload is the profile data returned from the GET or POST request to the backend
         loading: false
       };
     case PROFILE_ERROR:

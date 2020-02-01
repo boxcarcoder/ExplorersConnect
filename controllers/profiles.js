@@ -36,7 +36,7 @@ profilesRouter.post(
       check('bio', 'Please provide a bio')
         .not()
         .isEmpty(),
-      check('country', 'Please provide your current country')
+      check('location', 'Please provide your current location')
         .not()
         .isEmpty()
     ]
@@ -48,13 +48,13 @@ profilesRouter.post(
     }
 
     // create a profile for a user
-    const { bio, country, youtube, twitter, facebook, instagram } = req.body;
+    const { bio, location, youtube, twitter, facebook, instagram } = req.body;
 
     //Build object for the profile's fields
     let profileFields = {};
     profileFields.user = req.user.id; // get the user ID from the token of the logged in user
     if (bio) profileFields.bio = bio;
-    if (country) profileFields.country = country;
+    if (location) profileFields.location = location;
 
     //Build social object for our profile's fields object
     profileFields.social = {};

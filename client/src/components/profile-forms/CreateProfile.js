@@ -1,10 +1,12 @@
 import React, { useState, Fragment } from 'react';
+import { withRouter } from 'react-router-dom'; // to redirect from actions using history.push
 
 //redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createProfile } from '../../actions/profile';
 
-const CreateProfile = () => {
+const CreateProfile = ({ createProfile, history }) => {
   //create state for form data that requires user input
   const [formData, setFormData] = useState({
     Hiking: false,
@@ -55,12 +57,18 @@ const CreateProfile = () => {
     });
   };
 
-  // e.target.value is the user clicking the check box
+  // e.target.checked is the user clicking the check box
   const onClick = e => {
     setFormData({
       ...formData,
       [e.target.name]: !e.target.checked
     });
+  };
+
+  // when the form is submitted, fire the createProfile action
+  const handleSubmit = e => {
+    e.preventDefault();
+    createProfile(formData, history);
   };
 
   return (
@@ -72,7 +80,7 @@ const CreateProfile = () => {
 
       <div className='line'></div>
 
-      <form className='form'>
+      <form className='form' onSubmit={handleSubmit}>
         {/* Check box list */}
         <p className='lead'>Outdoor Recreations</p>
         <small className='form-text'>
@@ -273,8 +281,8 @@ const CreateProfile = () => {
   );
 };
 
-CreateProfile.propTypes = {};
+CreateProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired
+};
 
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(null, { createProfile })(withRouter(CreateProfile));

@@ -10,7 +10,7 @@ const profileSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  country: {
+  location: {
     type: String,
     required: true
   },
