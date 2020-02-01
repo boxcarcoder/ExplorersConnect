@@ -48,13 +48,22 @@ profilesRouter.post(
     }
 
     // create a profile for a user
-    const { bio, location, youtube, twitter, facebook, instagram } = req.body;
+    const {
+      bio,
+      location,
+      website,
+      youtube,
+      twitter,
+      facebook,
+      instagram
+    } = req.body;
 
     //Build object for the profile's fields
     let profileFields = {};
     profileFields.user = req.user.id; // get the user ID from the token of the logged in user
     if (bio) profileFields.bio = bio;
     if (location) profileFields.location = location;
+    if (website) profileFields.website = website;
 
     //Build social object for our profile's fields object
     profileFields.social = {};

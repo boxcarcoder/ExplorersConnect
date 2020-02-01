@@ -4,6 +4,7 @@
 import React, { useEffect, Fragment } from 'react';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
+import DashboardButtons from './DashboardButtons';
 
 //redux
 import PropTypes from 'prop-types';
@@ -12,27 +13,39 @@ import { getCurrentProfile } from '../../actions/profile';
 
 const Dashboard = ({
   getCurrentProfile,
-  auth: { user} ,
+  auth: { user },
   profile: { profile, loading }
 }) => {
+  //on the dashboard's first load, retrieve the logged in user's profile and save it into the profile redux state
   useEffect(() => {
     getCurrentProfile();
-  }, []); //on the dashboard's first load, retrieve the logged in user's profile and save it into the profile redux state
+  }, []);
 
   if (loading && profile === null) {
     return <Spinner />;
   } else {
-    return <Fragment>
-      <h1 className="large text-primary">Dashboard</h1>
-      <p><i className="fas fa-user"></i>Welcome {user && user.name }</p>
-      {profile !== null ? <Fragment>Profile exists for this user.</Fragment> : //check if the logged in user has a profile
+    return (
       <Fragment>
-        <p>You have not set up a profile yet!</p>
-        <Link to='/create-profile' className='btn btn-primary vert-m-1'>
-          Create Profile
-        </Link>
-      </Fragment>}
-    </Fragment>;
+        <h1 className='large text-primary'>Dashboard</h1>
+        <p>
+          <i className='fas fa-user'></i>Welcome {user && user.name}
+        </p>
+
+        {/*check if the logged in user has a profile*/}
+        {profile !== null ? (
+          <Fragment>
+            <DashboardButtons />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <p>You have not set up a profile yet!</p>
+            <Link to='/create-profile' className='btn btn-primary vert-m-1'>
+              Create Profile
+            </Link>
+          </Fragment>
+        )}
+      </Fragment>
+    );
   }
 };
 

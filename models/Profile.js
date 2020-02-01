@@ -6,6 +6,38 @@ const profileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, //{_id:ObjectId:("..."), ...}
     ref: 'User' //reference the model we're referring to
   },
+  Hiking: {
+    type: Boolean,
+    default: false
+  },
+  Camping: {
+    type: Boolean,
+    default: false
+  },
+  Kayaking: {
+    type: Boolean,
+    default: false
+  },
+  Rafting: {
+    type: Boolean,
+    default: false
+  },
+  Skiing: {
+    type: Boolean,
+    default: false
+  },
+  Snowboarding: {
+    type: Boolean,
+    default: false
+  },
+  Rockclimbing: {
+    type: Boolean,
+    default: false
+  },
+  Other: {
+    type: Boolean,
+    default: false
+  },
   bio: {
     type: String,
     required: true
@@ -13,6 +45,9 @@ const profileSchema = new mongoose.Schema({
   location: {
     type: String,
     required: true
+  },
+  website: {
+    type: String
   },
   passions: [
     {
