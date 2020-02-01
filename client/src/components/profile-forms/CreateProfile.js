@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { withRouter } from 'react-router-dom'; // to redirect from actions using history.push
+import { withRouter, Link } from 'react-router-dom'; // to redirect from actions using history.push
 
 //redux
 import PropTypes from 'prop-types';
@@ -68,7 +68,7 @@ const CreateProfile = ({ createProfile, history }) => {
   // when the form is submitted, fire the createProfile action
   const handleSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, false);
   };
 
   return (
@@ -272,9 +272,9 @@ const CreateProfile = ({ createProfile, history }) => {
         <small>* = required fields</small>
         <div className='vert-m-1'>
           <input type='submit' className='btn btn-primary my-1' />
-          <a className='btn btn-light my-1' href='dashboard.html'>
+          <Link className='btn btn-light my-1' to='/dashboard'>
             Go Back
-          </a>
+          </Link>
         </div>
       </form>
     </Fragment>

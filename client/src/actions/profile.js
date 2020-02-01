@@ -60,7 +60,7 @@ export const createProfile = (
     });
 
     // display an alert to notify the user of what they just did
-    dispatch(setAlert(edit ? 'Profile created' : 'Updated profile', 'success'));
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
     // if the user created, not updated a profile, redirect to the dashboard page after their profile is created.
     // redirecting in actions must use history.push from the component's withRouter import

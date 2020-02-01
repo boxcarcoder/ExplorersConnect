@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import { withRouter } from 'react-router-dom'; // to redirect from actions using history.push
+import { withRouter, Link } from 'react-router-dom'; // to redirect from actions using history.push
 
 //redux
 import PropTypes from 'prop-types';
@@ -80,7 +80,7 @@ const EditProfile = ({
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram
     });
-  }, []);
+  }, [loading]);
 
   // e.target.name is the name of the input
   // e.target.value is the user input
@@ -102,7 +102,7 @@ const EditProfile = ({
   // when the form is submitted, fire the createProfile action
   const handleSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, true);
   };
 
   return (
@@ -306,9 +306,9 @@ const EditProfile = ({
         <small>* = required fields</small>
         <div className='vert-m-1'>
           <input type='submit' className='btn btn-primary my-1' />
-          <a className='btn btn-light my-1' href='dashboard.html'>
+          <Link className='btn btn-light my-1' to='/dashboard'>
             Go Back
-          </a>
+          </Link>
         </div>
       </form>
     </Fragment>
