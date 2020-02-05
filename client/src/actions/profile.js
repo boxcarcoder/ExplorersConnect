@@ -1,4 +1,9 @@
-import { GET_PROFILE, PROFILE_ERROR, CREATE_PROFILE } from './types';
+import {
+  GET_PROFILE,
+  PROFILE_ERROR,
+  CREATE_PROFILE,
+  UPDATE_PROFILE
+} from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
@@ -30,11 +35,9 @@ export const getCurrentProfile = () => async dispatch => {
 };
 
 // Create or update profile.
-// The history object has the push method to redirect.
-// Actions use push to redirect as opposed to using <Redirect />
 export const createProfile = (
   formData,
-  history,
+  history, // The history object has the push method to redirect. Actions use push to redirect as opposed to using <Redirect />
   edit = false
 ) => async dispatch => {
   // set the token as the header to gain access to the protected route /api/profiles/me
@@ -67,6 +70,92 @@ export const createProfile = (
     if (!edit) {
       history.push('/dashboard');
     }
+  } catch (err) {
+    // display errors such as missing bio or location
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Add Favorite Locations to Profile
+export const addLocations = (formData, history) => async dispatch => {
+  // set the token as the header to gain access to the protected route /api/profiles/passions
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  // configuration of the HTTP request to the backend
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    // the backend returns the profile data with favorite locations
+    const res = await axios.put('/api/profiles/passions', formData, config);
+
+    // dispatch the profile data to the reducer to save it into the profile redux state
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    // display an alert to notify the user of what they just did
+    dispatch(setAlert('Profile Updated With Favorite Locations', 'success'));
+
+    // redirecting in actions must use history.push from the component's withRouter import
+    history.push('/dashboard');
+  } catch (err) {
+    // display errors such as missing bio or location
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Add Favorite Gears to Profile
+export const addGears = (formData, history) => async dispatch => {
+  // set the token as the header to gain access to the protected route /api/profiles/passions
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  // configuration of the HTTP request to the backend
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    // the backend returns the profile data with favorite gears
+    const res = await axios.put('/api/profiles/gears', formData, config);
+
+    // dispatch the profile data to the reducer to save it into the profile redux state
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    // display an alert to notify the user of what they just did
+    dispatch(setAlert('Profile Updated With Favorite Gears', 'success'));
+
+    // redirecting in actions must use history.push from the component's withRouter import
+    history.push('/dashboard');
   } catch (err) {
     // display errors such as missing bio or location
     const errors = err.response.data.errors;
