@@ -8,10 +8,10 @@ const DashboardButtons = () => {
         <Link to='/edit-profile' className='btn'>
           <i className='fas fa-user-circle text-primary'></i> Edit profile
         </Link>
-        <Link to='/add-destination' className='btn'>
+        <Link to='/add-destinations' className='btn'>
           <i className='fas fa-map-signs text-primary'></i> Add Destinations
         </Link>
-        <Link to='/add-gear' className='btn'>
+        <Link to='/add-gears' className='btn'>
           <i className='fas fa-snowboarding text-primary'></i> Add Gear
         </Link>
       </div>

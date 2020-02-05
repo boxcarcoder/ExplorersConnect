@@ -84,8 +84,8 @@ export const createProfile = (
   }
 };
 
-// Add Favorite Locations to Profile
-export const addLocations = (formData, history) => async dispatch => {
+// Add Favorite Destinations to Profile
+export const addDestinations = (formData, history) => async dispatch => {
   // set the token as the header to gain access to the protected route /api/profiles/passions
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -99,7 +99,7 @@ export const addLocations = (formData, history) => async dispatch => {
   };
 
   try {
-    // the backend returns the profile data with favorite locations
+    // the backend returns the profile data with favorite destinations
     const res = await axios.put('/api/profiles/passions', formData, config);
 
     // dispatch the profile data to the reducer to save it into the profile redux state
@@ -109,7 +109,7 @@ export const addLocations = (formData, history) => async dispatch => {
     });
 
     // display an alert to notify the user of what they just did
-    dispatch(setAlert('Profile Updated With Favorite Locations', 'success'));
+    dispatch(setAlert('Profile Updated With Favorite Destinations', 'success'));
 
     // redirecting in actions must use history.push from the component's withRouter import
     history.push('/dashboard');

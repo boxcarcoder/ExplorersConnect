@@ -2,7 +2,8 @@ import {
   GET_PROFILE,
   PROFILE_ERROR,
   CLEAR_PROFILE,
-  CREATE_PROFILE
+  CREATE_PROFILE,
+  UPDATE_PROFILE
 } from '../actions/types';
 
 // profile: When the user logs in, or visits another user's profile page,
@@ -21,6 +22,7 @@ export default function(state = initialState, action) {
   switch (type) {
     case GET_PROFILE:
     case CREATE_PROFILE:
+    case UPDATE_PROFILE:
       return {
         ...state,
         profile: payload, //the payload is the profile data returned from the GET or POST request to the backend

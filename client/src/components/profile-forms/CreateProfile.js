@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 
 const CreateProfile = ({ createProfile, history }) => {
-  //create state for form data that requires user input
+  //user inputs must have corresponding states
   const [formData, setFormData] = useState({
     Hiking: false,
     Camping: false,
