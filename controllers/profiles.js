@@ -158,13 +158,19 @@ profilesRouter.delete('/', auth, async (req, res) => {
 // @access  Private since only a logged in user can update their profile
 profilesRouter.put('/passions', auth, async (req, res) => {
   try {
-    const { hiking, camping, waterSports, snowSports, rockClimbing } = req.body;
-
-    console.log('req.body: ', req.body);
+    console.log('request from frontend:', req.body);
+    const {
+      hikingTrails,
+      camping,
+      waterSports,
+      snowSports,
+      rockClimbing
+    } = req.body;
 
     //convert comma separated string into array
-    if (hiking)
-      hiking.locations = hiking.locations.split(',').map(place => place.trim());
+    if (hikingTrails) {
+      hikingTrails = hikingTrails.split(',').map(place => place.trim());
+    }
     if (camping)
       camping.locations = camping.locations
         .split(',')

@@ -1,10 +1,19 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const AddDestinations = () => {
+//redux
+import { addDestinations } from '../../actions/profile';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+const AddDestinations = ({ addDestinations, history }) => {
   //user inputs must have corresponding states
   const [formData, setFormData] = useState({
-    hikingTrails: '',
+    hiking: {
+      //testing
+      locations: '',
+      favorite: false
+    },
     campSites: '',
     waterAreas: '',
     slopes: '',
@@ -22,6 +31,11 @@ const AddDestinations = () => {
     });
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    addDestinations(formData, history);
+  };
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Add Destinations</h1>
@@ -32,7 +46,7 @@ const AddDestinations = () => {
       <small>
         Please use comma separated values (eg. Mammoth Lakes, Mt. High)
       </small>
-      <form className='form'>
+      <form className='form' onSubmit={handleSubmit}>
         <div className='line'></div>
         <div className='form-group'>
           <h5>Hiking Trails</h5>
@@ -100,4 +114,8 @@ const AddDestinations = () => {
   );
 };
 
-export default AddDestinations;
+AddDestinations.propTypes = {
+  addDestinations: PropTypes.func.isRequired
+};
+
+export default connect(null, { addDestinations })(withRouter(AddDestinations));
