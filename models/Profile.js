@@ -52,19 +52,19 @@ const profileSchema = new mongoose.Schema({
   destinations: [
     {
       hikingTrails: {
-        type: String
+        type: [String]
       },
       campSites: {
-        type: String
+        type: [String]
       },
       waterAreas: {
-        type: String
+        type: [String]
       },
       slopes: {
-        type: String
+        type: [String]
       },
       crags: {
-        type: String
+        type: [String]
       }
     }
   ],

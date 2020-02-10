@@ -167,27 +167,18 @@ profilesRouter.put('/destinations', auth, async (req, res) => {
       console.log('hikingTrails: ', hikingTrails);
     }
     if (campSites) campSites = campSites.split(',').map(place => place.trim());
-    // if (waterSports)
-    //   waterSports.locations = waterSports.locations
-    //     .split(',')
-    //     .map(place => place.trim());
-    // if (snowSports)
-    //   snowSports.locations = snowSports.locations
-    //     .split(',')
-    //     .map(place => place.trim());
-    // if (rockClimbing)
-    //   rockClimbing.locations = rockClimbing.locations
-    //     .split(',')
-    //     .map(place => place.trim());
+    if (waterAreas)
+      waterAreas = waterAreas.split(',').map(place => place.trim());
+    if (slopes) slopes = slopes.split(',').map(place => place.trim());
+    if (crags) crags = crags.split(',').map(place => place.trim());
 
     //update the logged in user's Destinations
     let updatedDestinations = {
       hikingTrails,
-      campSites
-      // camping,
-      // waterSports,
-      // snowSports,
-      // rockClimbing
+      campSites,
+      waterAreas,
+      slopes,
+      crags
     };
 
     let profile = await Profile.findOne({ user: req.user.id });
@@ -196,9 +187,7 @@ profilesRouter.put('/destinations', auth, async (req, res) => {
 
     profile.destinations.unshift(updatedDestinations);
 
-    console.log('BEFORE SAVE');
     await profile.save();
-    console.log('AFTER SAVE');
 
     res.json(profile);
   } catch (err) {
