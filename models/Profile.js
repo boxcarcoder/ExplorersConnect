@@ -68,6 +68,25 @@ const profileSchema = new mongoose.Schema({
       }
     }
   ],
+  gears: [
+    {
+      hikeGear: {
+        type: [String]
+      },
+      campGear: {
+        type: [String]
+      },
+      waterGear: {
+        type: [String]
+      },
+      snowGear: {
+        type: [String]
+      },
+      rockClimbingGear: {
+        type: [String]
+      }
+    }
+  ],
   social: {
     youtube: {
       type: String

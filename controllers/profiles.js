@@ -201,24 +201,29 @@ profilesRouter.put('/destinations', auth, async (req, res) => {
 // @access  Private since only a logged in user can update their profile
 profilesRouter.put('/gears', auth, async (req, res) => {
   try {
-    let { hiking, camping, waterSports, snowSports, rockClimbing } = req.body;
+    let {
+      hikeGear,
+      campGear,
+      waterGear,
+      snowGear,
+      rockClimbingGear
+    } = req.body;
 
     //convert comma separated string into array
-    if (hiking) hiking = hiking.split(',').map(gear => gear.trim());
-    if (camping) camping = camping.split(',').map(gear => gear.trim());
-    if (waterSports)
-      waterSports = waterSports.split(',').map(gear => gear.trim());
-    if (snowSports) snowSports = snowSports.split(',').map(gear => gear.trim());
-    if (rockClimbing)
-      rockClimbing = rockClimbing.split(',').map(gear => gear.trim());
+    if (hikeGear) hikeGear = hikeGear.split(',').map(gear => gear.trim());
+    if (campGear) campGear = campGear.split(',').map(gear => gear.trim());
+    if (waterGear) waterGear = waterGear.split(',').map(gear => gear.trim());
+    if (snowGear) snowGear = snowGear.split(',').map(gear => gear.trim());
+    if (rockClimbingGear)
+      rockClimbingGear = rockClimbingGear.split(',').map(gear => gear.trim());
 
     //update the logged in user's gears
     let updatedGears = {
-      hiking,
-      camping,
-      waterSports,
-      snowSports,
-      rockClimbing
+      hikeGear,
+      campGear,
+      waterGear,
+      snowGear,
+      rockClimbingGear
     };
 
     let profile = await Profile.findOne({ user: req.user.id });

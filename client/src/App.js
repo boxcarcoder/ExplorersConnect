@@ -11,6 +11,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import EditProfile from './components/profile-forms/EditProfile';
 import AddDestinations from './components/profile-forms/AddDestinations';
+import AddGears from './components/profile-forms/AddGears';
 
 //redux
 import { Provider } from 'react-redux';
@@ -58,6 +59,7 @@ const App = () => {
                 path='/add-destinations'
                 component={AddDestinations}
               />
+              <PrivateRoute exact path='/add-gears' component={AddGears} />
             </Switch>
           </section>
         </Fragment>
