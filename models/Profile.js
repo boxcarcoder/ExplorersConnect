@@ -49,71 +49,22 @@ const profileSchema = new mongoose.Schema({
   website: {
     type: String
   },
-  passions: [
+  destinations: [
     {
-      hiking: {
-        locations: {
-          type: [String]
-        },
-        favorite: {
-          type: Boolean,
-          default: false
-        }
+      hikingTrails: {
+        type: String
       },
-      camping: {
-        locations: {
-          type: [String]
-        },
-        favorite: {
-          type: Boolean,
-          default: false
-        }
+      campSites: {
+        type: String
       },
-      waterSports: {
-        locations: {
-          type: [String]
-        },
-        favorite: {
-          type: Boolean,
-          default: false
-        }
+      waterAreas: {
+        type: String
       },
-      snowSports: {
-        locations: {
-          type: [String]
-        },
-        favorite: {
-          type: Boolean,
-          default: false
-        }
+      slopes: {
+        type: String
       },
-      rockClimbing: {
-        locations: {
-          type: [String]
-        },
-        favorite: {
-          type: Boolean,
-          default: false
-        }
-      }
-    }
-  ],
-  gears: [
-    {
-      hiking: {
-        type: [String]
-      },
-      camping: {
-        type: [String]
-      },
-      waterSports: {
-        type: [String]
-      },
-      snowSports: {
-        type: [String]
-      },
-      rockClimbing: {
-        type: [String]
+      crags: {
+        type: String
       }
     }
   ],

@@ -153,57 +153,52 @@ profilesRouter.delete('/', auth, async (req, res) => {
   }
 });
 
-// @route   PUT api/profiles/passions
-// @desc    Update a profile's passions
+// @route   PUT api/profiles/destinations
+// @desc    Update a profile's destinations
 // @access  Private since only a logged in user can update their profile
-profilesRouter.put('/passions', auth, async (req, res) => {
+profilesRouter.put('/destinations', auth, async (req, res) => {
   try {
     console.log('request from frontend:', req.body);
-    const {
-      hikingTrails,
-      camping,
-      waterSports,
-      snowSports,
-      rockClimbing
-    } = req.body;
+    let { hikingTrails, campSites, waterAreas, slopes, crags } = req.body;
 
     //convert comma separated string into array
     if (hikingTrails) {
       hikingTrails = hikingTrails.split(',').map(place => place.trim());
+      console.log('hikingTrails: ', hikingTrails);
     }
-    if (camping)
-      camping.locations = camping.locations
-        .split(',')
-        .map(place => place.trim());
-    if (waterSports)
-      waterSports.locations = waterSports.locations
-        .split(',')
-        .map(place => place.trim());
-    if (snowSports)
-      snowSports.locations = snowSports.locations
-        .split(',')
-        .map(place => place.trim());
-    if (rockClimbing)
-      rockClimbing.locations = rockClimbing.locations
-        .split(',')
-        .map(place => place.trim());
+    if (campSites) campSites = campSites.split(',').map(place => place.trim());
+    // if (waterSports)
+    //   waterSports.locations = waterSports.locations
+    //     .split(',')
+    //     .map(place => place.trim());
+    // if (snowSports)
+    //   snowSports.locations = snowSports.locations
+    //     .split(',')
+    //     .map(place => place.trim());
+    // if (rockClimbing)
+    //   rockClimbing.locations = rockClimbing.locations
+    //     .split(',')
+    //     .map(place => place.trim());
 
-    //update the logged in user's passions
-    let updatedPassions = {
-      hiking,
-      camping,
-      waterSports,
-      snowSports,
-      rockClimbing
+    //update the logged in user's Destinations
+    let updatedDestinations = {
+      hikingTrails,
+      campSites
+      // camping,
+      // waterSports,
+      // snowSports,
+      // rockClimbing
     };
 
     let profile = await Profile.findOne({ user: req.user.id });
 
     if (!profile) res.status(400).json('This profile does not exist.');
 
-    profile.passions.unshift(updatedPassions);
+    profile.destinations.unshift(updatedDestinations);
 
+    console.log('BEFORE SAVE');
     await profile.save();
+    console.log('AFTER SAVE');
 
     res.json(profile);
   } catch (err) {
@@ -252,32 +247,36 @@ profilesRouter.put('/gears', auth, async (req, res) => {
   }
 });
 
-// @route   DELETE api/profiles/passions:passionsID
-// @desc    Delete a profile's passions by ID
+// @route   DELETE api/profiles/destinations:destinationsID
+// @desc    Delete a profile's destinations by ID
 // @access  Private since only a logged in user can update their profile
-profilesRouter.delete('/passions/:passionsID', auth, async (req, res) => {
-  try {
-    let profile = await Profile.findOne({ user: req.user.id });
+profilesRouter.delete(
+  '/destinations/:destinationsID',
+  auth,
+  async (req, res) => {
+    try {
+      let profile = await Profile.findOne({ user: req.user.id });
 
-    if (!profile) res.status(400).json('This profile does not exist.');
+      if (!profile) res.status(400).json('This profile does not exist.');
 
-    //get the remove index
-    let removeIdx = profile.passions
-      .map(obj => obj.id)
-      .indexOf(req.params.passionsID);
+      //get the remove index
+      let removeIdx = profile.destinations
+        .map(obj => obj.id)
+        .indexOf(req.params.destinationsID);
 
-    profile.passions.splice(removeIdx, 1);
+      profile.destinations.splice(removeIdx, 1);
 
-    await profile.save();
+      await profile.save();
 
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server error.');
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json('Server error.');
+    }
   }
-});
+);
 
-// @route   DELETE api/profiles/passions:gearsID
+// @route   DELETE api/profiles/gears:gearsID
 // @desc    Delete a profile's gears by ID
 // @access  Private since only a logged in user can update their profile
 profilesRouter.delete('/gears/:gearsID', auth, async (req, res) => {

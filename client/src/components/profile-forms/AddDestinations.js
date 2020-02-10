@@ -9,11 +9,7 @@ import PropTypes from 'prop-types';
 const AddDestinations = ({ addDestinations, history }) => {
   //user inputs must have corresponding states
   const [formData, setFormData] = useState({
-    hiking: {
-      //testing
-      locations: '',
-      favorite: false
-    },
+    hikingTrails: '',
     campSites: '',
     waterAreas: '',
     slopes: '',
@@ -25,6 +21,9 @@ const AddDestinations = ({ addDestinations, history }) => {
   // e.target.name is the name of the input
   // e.target.value is the user input
   const onChange = e => {
+    // console.log('[e.target.name]', [e.target.name]);
+    // console.log('e.target.value', e.target.value);
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value

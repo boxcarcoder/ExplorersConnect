@@ -16,8 +16,8 @@ const Landing = ({ isAuthenticated }) => {
         <div className='landing-inner'>
           <h1 className='large'>Explorers Connect</h1>
           <p className='lead'>
-            Create an explorer profile to share your gear, passions, and
-            favorite adventures.
+            Create an explorer profile to share your gear and favorite
+            adventures.
           </p>
           <div className='buttons'>
             <Link to='/register' className='btn btn-primary'>

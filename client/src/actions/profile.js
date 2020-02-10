@@ -86,7 +86,7 @@ export const createProfile = (
 
 // Add Favorite Destinations to Profile
 export const addDestinations = (formData, history) => async dispatch => {
-  // set the token as the header to gain access to the protected route /api/profiles/passions
+  // set the token as the header to gain access to the protected route /api/profiles/destinatons
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -100,7 +100,7 @@ export const addDestinations = (formData, history) => async dispatch => {
 
   try {
     // the backend returns the profile data with favorite destinations
-    const res = await axios.put('/api/profiles/passions', formData, config);
+    const res = await axios.put('/api/profiles/destinations', formData, config);
 
     // dispatch the profile data to the reducer to save it into the profile redux state
     dispatch({
@@ -129,7 +129,7 @@ export const addDestinations = (formData, history) => async dispatch => {
 
 // Add Favorite Gears to Profile
 export const addGears = (formData, history) => async dispatch => {
-  // set the token as the header to gain access to the protected route /api/profiles/passions
+  // set the token as the header to gain access to the protected route /api/profiles/gears
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
