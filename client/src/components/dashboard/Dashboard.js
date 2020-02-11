@@ -5,6 +5,8 @@ import React, { useEffect, Fragment } from 'react';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
 import DashboardButtons from './DashboardButtons';
+import Destinations from './Destinations';
+import Gear from './Gear';
 
 //redux
 import PropTypes from 'prop-types';
@@ -44,6 +46,8 @@ const Dashboard = ({
             </Link>
           </Fragment>
         )}
+        <Destinations />
+        <Gear />
       </Fragment>
     );
   }
