@@ -37,6 +37,8 @@ const Dashboard = ({
         {profile !== null ? (
           <Fragment>
             <DashboardButtons />
+            <Destinations destinations={profile.destinations} />
+            {/*profile from mapStateToProps */}
           </Fragment>
         ) : (
           <Fragment>
@@ -46,8 +48,6 @@ const Dashboard = ({
             </Link>
           </Fragment>
         )}
-        <Destinations />
-        <Gear />
       </Fragment>
     );
   }

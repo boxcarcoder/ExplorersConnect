@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profile: payload, //the payload is the profile data returned from the GET or POST request to the backend
+        profile: payload, //the payload is the profile data returned from the GET, POST, or PUT request to the backend
         loading: false
       };
     case PROFILE_ERROR:

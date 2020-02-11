@@ -1,6 +1,20 @@
 import React, { Fragment } from 'react';
 
-const Destinations = () => {
+//redux
+import { PropTypes } from 'prop-types';
+
+const Destinations = ({ destinations }) => {
+  // Use the profile.destinations state for destinations data.
+  const allDestinations = destinations.map(destination => (
+    <tr key={destination._id}>
+      <td>{destination.hikingTrails}</td>
+      <td>{destination.campSites}</td>
+      <td>{destination.waterAreas}</td>
+      <td>{destination.slopes}</td>
+      <td>{destination.crags}</td>
+    </tr>
+  ));
+
   return (
     <Fragment>
       <h2 className='vert-m-1'>Explored Destinations</h2>
@@ -15,27 +29,7 @@ const Destinations = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Lower Moro Trail</td>
-            <td>Joshua Tree</td>
-            <td>Big Bear Lake</td>
-            <td>Tahoe</td>
-            <td>Red Rock Canyon</td>
-          </tr>
-          <tr>
-            <td>Red Rock Canyon Trail</td>
-            <td>Spruce Grove</td>
-            <td></td>
-            <td></td>
-            <td>Joshua Tree</td>
-          </tr>
-          <tr>
-            <td>Mt.Baldy</td>
-            <td>Mt.Baldy</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {allDestinations}
           <tr>
             <td>
               <button className='btn btn-danger'>Delete</button>
@@ -57,6 +51,10 @@ const Destinations = () => {
       </table>
     </Fragment>
   );
+};
+
+Destinations.propTypes = {
+  destinations: PropTypes.array.isRequired
 };
 
 export default Destinations;
