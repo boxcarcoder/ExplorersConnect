@@ -6,7 +6,7 @@ import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
 import DashboardButtons from './DashboardButtons';
 import Destinations from './Destinations';
-import Gear from './Gear';
+import Gears from './Gears';
 
 //redux
 import PropTypes from 'prop-types';
@@ -38,6 +38,7 @@ const Dashboard = ({
           <Fragment>
             <DashboardButtons />
             <Destinations destinations={profile.destinations} />
+            <Gears gears={profile.gears} />
             {/*profile from mapStateToProps */}
           </Fragment>
         ) : (

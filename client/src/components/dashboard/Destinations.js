@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 
 const Destinations = ({ destinations }) => {
-  // Use the profile.destinations state for destinations data.
+  // Use the profile.destinations state (from Dashboard component) for destinations data.
   const allDestinations = destinations.map(destination => (
     <tr key={destination._id}>
       <td>{destination.hikingTrails}</td>

@@ -1,6 +1,20 @@
 import React, { Fragment } from 'react';
 
-const Gear = () => {
+//redux
+import { PropTypes } from 'prop-types';
+
+const Gears = ({ gears }) => {
+  // Use the profile.gears state (from Dashboard component) for gears data.
+  const allGears = gears.map(gear => (
+    <tr key={gear._id}>
+      <td>{gear.hikeGear}</td>
+      <td>{gear.campGear}</td>
+      <td>{gear.waterGear}</td>
+      <td>{gear.snowGear}</td>
+      <td>{gear.rockClimbingGear}</td>
+    </tr>
+  ));
+
   return (
     <Fragment>
       <h2 className='vert-m-1'>Essential Gear</h2>
@@ -15,27 +29,7 @@ const Gear = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Salomon Odyssey Pro</td>
-            <td>NatureHike CloudUp 2</td>
-            <td>Chaco Z1</td>
-            <td>Burton Board</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Black Diamond Distance Z</td>
-            <td>Aegismax M2</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>Thermarest Prolite Plus</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {allGears}
           <tr>
             <td>
               <button className='btn btn-danger'>Delete</button>
@@ -59,4 +53,8 @@ const Gear = () => {
   );
 };
 
-export default Gear;
+Gears.propTypes = {
+  gears: PropTypes.array.isRequired
+};
+
+export default Gears;
