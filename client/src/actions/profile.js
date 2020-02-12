@@ -169,3 +169,41 @@ export const addGears = (formData, history) => async dispatch => {
     });
   }
 };
+
+//Delete Destinations
+export const deleteDestinations = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/profiles/destinations/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Destinations removed.', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+//Delete Gears
+export const deleteGears = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/profiles/gears/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Gears removed.', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};

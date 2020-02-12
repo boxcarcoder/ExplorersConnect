@@ -241,7 +241,7 @@ profilesRouter.put('/gears', auth, async (req, res) => {
   }
 });
 
-// @route   DELETE api/profiles/destinations:destinationsID
+// @route   DELETE api/profiles/destinations/:destinationsID
 // @desc    Delete a profile's destinations by ID
 // @access  Private since only a logged in user can update their profile
 profilesRouter.delete(
@@ -270,7 +270,7 @@ profilesRouter.delete(
   }
 );
 
-// @route   DELETE api/profiles/gears:gearsID
+// @route   DELETE api/profiles/gears/:gearsID
 // @desc    Delete a profile's gears by ID
 // @access  Private since only a logged in user can update their profile
 profilesRouter.delete('/gears/:gearsID', auth, async (req, res) => {
