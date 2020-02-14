@@ -2,8 +2,10 @@ import React, { Fragment } from 'react';
 
 //redux
 import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteDestinations } from '../../actions/profile';
 
-const Destinations = ({ destinations }) => {
+const Destinations = ({ destinations, deleteDestinations }) => {
   // Use the profile.destinations state (from Dashboard component) for destinations data.
   const allDestinations = destinations.map(destination => (
     <tr key={destination._id}>
@@ -12,6 +14,14 @@ const Destinations = ({ destinations }) => {
       <td>{destination.waterAreas}</td>
       <td>{destination.slopes}</td>
       <td>{destination.crags}</td>
+      <td>
+        <button
+          onClick={() => deleteDestinations(destination._id)}
+          className='btn btn-danger'
+        >
+          Delete
+        </button>
+      </td>
     </tr>
   ));
 
@@ -26,35 +36,18 @@ const Destinations = ({ destinations }) => {
             <th>Water Sports</th>
             <th>Snow Sports</th>
             <th>Rock Climbing</th>
+            <th>Remove?</th>
           </tr>
         </thead>
-        <tbody>
-          {allDestinations}
-          <tr>
-            <td>
-              <button className='btn btn-danger'>Delete</button>
-            </td>
-            <td>
-              <button className='btn btn-danger'>Delete</button>
-            </td>
-            <td>
-              <button className='btn btn-danger'>Delete</button>
-            </td>
-            <td>
-              <button className='btn btn-danger'>Delete</button>
-            </td>
-            <td>
-              <button className='btn btn-danger'>Delete</button>
-            </td>
-          </tr>
-        </tbody>
+        <tbody>{allDestinations}</tbody>
       </table>
     </Fragment>
   );
 };
 
 Destinations.propTypes = {
-  destinations: PropTypes.array.isRequired
+  destinations: PropTypes.array.isRequired,
+  deleteDestinations: PropTypes.func.isRequired
 };
 
-export default Destinations;
+export default connect(null, { deleteDestinations })(Destinations);
