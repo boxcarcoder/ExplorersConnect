@@ -59,18 +59,15 @@ const CreateProfile = ({ createProfile, history }) => {
 
   // e.target.checked is the user clicking the check box
   const onClick = e => {
-    console.log('[e.target.name] before: ', [e.target.name]);
     setFormData({
       ...formData,
-      [e.target.name]: !e.target.checked
+      [e.target.name]: e.target.checked
     });
-    console.log('[e.target.name] after: ', [e.target.name]);
   };
 
   // when the form is submitted, fire the createProfile action
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('form data from CREATE PROFILE: ', formData);
     createProfile(formData, history, false);
   };
 

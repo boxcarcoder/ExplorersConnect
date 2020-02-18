@@ -51,6 +51,15 @@ profilesRouter.post(
 
     // create a profile for a user
     const {
+      Hiking,
+      Camping,
+      Kayaking,
+      Rafting,
+      Skiing,
+      Snowboarding,
+      Rockclimbing,
+      Other,
+      faveRecreation,
       bio,
       location,
       website,
@@ -66,6 +75,18 @@ profilesRouter.post(
     if (bio) profileFields.bio = bio;
     if (location) profileFields.location = location;
     if (website) profileFields.website = website;
+
+    if (Hiking) profileFields.Hiking = Hiking;
+    if (Camping) profileFields.Camping = Camping;
+    if (Kayaking) profileFields.Kayaking = Kayaking;
+
+    if (Rafting) profileFields.Rafting = Rafting;
+    if (Skiing) profileFields.Skiing = Skiing;
+    if (Snowboarding) profileFields.Snowboarding = Snowboarding;
+
+    if (Rockclimbing) profileFields.Rockclimbing = Rockclimbing;
+    if (Other) profileFields.Other = Other;
+    if (faveRecreation) profileFields.faveRecreation = faveRecreation;
 
     //Build social object for our profile's fields object
     profileFields.social = {};
