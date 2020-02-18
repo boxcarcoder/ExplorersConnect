@@ -21,6 +21,8 @@ export const getCurrentProfile = () => async dispatch => {
     // the backend returns the profile of the logged in user
     const res = await axios.get('/api/profiles/me');
 
+    console.log('fetched current profile from backend: ', res);
+
     // dispatch profile data to reducer to save the profile data into the profile redux state
     dispatch({
       type: GET_PROFILE,

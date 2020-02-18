@@ -47,6 +47,8 @@ profilesRouter.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    console.log('POST REQUEST TO API/PROFILES: ', req.body);
+
     // create a profile for a user
     const {
       bio,
@@ -158,7 +160,6 @@ profilesRouter.delete('/', auth, async (req, res) => {
 // @access  Private since only a logged in user can update their profile
 profilesRouter.put('/destinations', auth, async (req, res) => {
   try {
-    console.log('request from frontend:', req.body);
     let { hikingTrails, campSites, waterAreas, slopes, crags } = req.body;
 
     //convert comma separated string into array

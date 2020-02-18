@@ -55,8 +55,11 @@ const EditProfile = ({
 
   // run getCurrentProfile to fetch profile data for the state
   useEffect(() => {
+    console.log('---EDITING PROFILE---');
+
     getCurrentProfile();
 
+    console.log('profile data during first load: ', profile);
     // set the form data with the current profile values (from getCurrentProfile)
     setFormData({
       Hiking: loading || !profile.Hiking ? '' : profile.Hiking,
@@ -93,15 +96,20 @@ const EditProfile = ({
 
   // e.target.checked is the user clicking the check box
   const onClick = e => {
+    console.log('EDIT PROFILE [e.target.name] at click: ', [e.target.name]);
+    console.log('EDIT PROFILE e.target.name at click: ', e.target.name);
+    console.log('EDIT PROFILE e.target.checked click: ', e.target.checked);
+
     setFormData({
       ...formData,
-      [e.target.name]: !e.target.checked
+      [e.target.name]: e.target.checked
     });
   };
 
   // when the form is submitted, fire the createProfile action
   const handleSubmit = e => {
     e.preventDefault();
+    console.log('form data from EDIT PROFILE: ', formData);
     createProfile(formData, history, true);
   };
 
