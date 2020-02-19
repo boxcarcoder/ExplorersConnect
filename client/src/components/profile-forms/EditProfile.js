@@ -94,7 +94,6 @@ const EditProfile = ({
 
   // e.target.checked is the user clicking the check box
   const onClick = e => {
-    console.log('EDIT PROFILE [e.target.name] at click: ', [e.target.name]);
     setFormData({
       ...formData,
       [e.target.name]: e.target.checked
@@ -126,7 +125,7 @@ const EditProfile = ({
           <input
             type='checkbox'
             name='Hiking'
-            value={Hiking}
+            checked={Hiking}
             onClick={e => onClick(e)}
           />{' '}
           Hiking
@@ -134,7 +133,7 @@ const EditProfile = ({
           <input
             type='checkbox'
             name='Camping'
-            value={Camping}
+            checked={Camping}
             onClick={e => onClick(e)}
           />{' '}
           Camping
@@ -142,7 +141,7 @@ const EditProfile = ({
           <input
             type='checkbox'
             name='Kayaking'
-            value={Kayaking}
+            checked={Kayaking}
             onClick={e => onClick(e)}
           />{' '}
           Kayaking
@@ -150,7 +149,7 @@ const EditProfile = ({
           <input
             type='checkbox'
             name='Rafting'
-            value={Rafting}
+            checked={Rafting}
             onClick={e => onClick(e)}
           />{' '}
           Rafting
@@ -158,7 +157,7 @@ const EditProfile = ({
           <input
             type='checkbox'
             name='Skiing'
-            value={Skiing}
+            checked={Skiing}
             onClick={e => onClick(e)}
           />{' '}
           Skiing
@@ -166,7 +165,7 @@ const EditProfile = ({
           <input
             type='checkbox'
             name='Snowboarding'
-            value={Snowboarding}
+            checked={Snowboarding}
             onClick={e => onClick(e)}
           />{' '}
           Snowboarding
@@ -174,12 +173,12 @@ const EditProfile = ({
           <input
             type='checkbox'
             name='Rockclimbing'
-            value={Rockclimbing}
+            checked={Rockclimbing}
             onClick={e => onClick(e)}
           />{' '}
           Rockclimbing
           <br />
-          <input type='checkbox' name='Other' value={Other} /> Other
+          <input type='checkbox' name='Other' checked={Other} /> Other
           <br />
         </div>
 

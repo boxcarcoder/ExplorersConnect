@@ -72,20 +72,22 @@ profilesRouter.post(
     //Build object for the profile's fields
     let profileFields = {};
     profileFields.user = req.user.id; // get the user ID from the token of the logged in user
+
+    //If these fields are populated, fill out profileFields to save into DB
     if (bio) profileFields.bio = bio;
     if (location) profileFields.location = location;
     if (website) profileFields.website = website;
 
-    if (Hiking) profileFields.Hiking = Hiking;
-    if (Camping) profileFields.Camping = Camping;
-    if (Kayaking) profileFields.Kayaking = Kayaking;
+    //Save recreations into profileFields for both true and false.
+    profileFields.Hiking = Hiking;
+    profileFields.Camping = Camping;
+    profileFields.Kayaking = Kayaking;
+    profileFields.Rafting = Rafting;
+    profileFields.Skiing = Skiing;
+    profileFields.Snowboarding = Snowboarding;
+    profileFields.Rockclimbing = Rockclimbing;
+    profileFields.Other = Other;
 
-    if (Rafting) profileFields.Rafting = Rafting;
-    if (Skiing) profileFields.Skiing = Skiing;
-    if (Snowboarding) profileFields.Snowboarding = Snowboarding;
-
-    if (Rockclimbing) profileFields.Rockclimbing = Rockclimbing;
-    if (Other) profileFields.Other = Other;
     if (faveRecreation) profileFields.faveRecreation = faveRecreation;
 
     //Build social object for our profile's fields object
