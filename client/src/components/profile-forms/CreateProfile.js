@@ -90,7 +90,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <input
             type='checkbox'
             name='Hiking'
-            value={Hiking}
+            checked={Hiking}
             onClick={e => onClick(e)}
           />{' '}
           Hiking
@@ -98,7 +98,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <input
             type='checkbox'
             name='Camping'
-            value={Camping}
+            checked={Camping}
             onClick={e => onClick(e)}
           />{' '}
           Camping
@@ -106,7 +106,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <input
             type='checkbox'
             name='Kayaking'
-            value={Kayaking}
+            checked={Kayaking}
             onClick={e => onClick(e)}
           />{' '}
           Kayaking
@@ -114,7 +114,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <input
             type='checkbox'
             name='Rafting'
-            value={Rafting}
+            checked={Rafting}
             onClick={e => onClick(e)}
           />{' '}
           Rafting
@@ -122,7 +122,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <input
             type='checkbox'
             name='Skiing'
-            value={Skiing}
+            checked={Skiing}
             onClick={e => onClick(e)}
           />{' '}
           Skiing
@@ -130,7 +130,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <input
             type='checkbox'
             name='Snowboarding'
-            value={Snowboarding}
+            checked={Snowboarding}
             onClick={e => onClick(e)}
           />{' '}
           Snowboarding
@@ -138,7 +138,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <input
             type='checkbox'
             name='Rockclimbing'
-            value={Rockclimbing}
+            checked={Rockclimbing}
             onClick={e => onClick(e)}
           />{' '}
           Rockclimbing
@@ -152,7 +152,7 @@ const CreateProfile = ({ createProfile, history }) => {
         <div className='form-group'>
           <select
             name='faveRecreation'
-            value={window.faveRecreation}
+            value={faveRecreation}
             onChange={e => onChange(e)}
           >
             <option value='0'>* Favorite Outdoor Recreation</option>
