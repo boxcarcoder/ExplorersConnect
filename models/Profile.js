@@ -49,6 +49,9 @@ const profileSchema = new mongoose.Schema({
   website: {
     type: String
   },
+  faveRecreation: {
+    type: String
+  },
   destinations: [
     {
       hikingTrails: {

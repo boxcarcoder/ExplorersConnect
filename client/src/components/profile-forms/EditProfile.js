@@ -60,16 +60,16 @@ const EditProfile = ({
 
     // prefill the form data with the current profile values (from getCurrentProfile)
     setFormData({
-      Hiking: loading || !profile.Hiking ? '' : profile.Hiking,
-      Camping: loading || !profile.Camping ? '' : profile.Camping,
-      Kayaking: loading || !profile.Kayaking ? '' : profile.Kayaking,
-      Rafting: loading || !profile.Rafting ? '' : profile.Rafting,
-      Skiing: loading || !profile.Skiing ? '' : profile.Skiing,
+      Hiking: loading || !profile.Hiking ? false : profile.Hiking,
+      Camping: loading || !profile.Camping ? false : profile.Camping,
+      Kayaking: loading || !profile.Kayaking ? false : profile.Kayaking,
+      Rafting: loading || !profile.Rafting ? false : profile.Rafting,
+      Skiing: loading || !profile.Skiing ? false : profile.Skiing,
       Snowboarding:
-        loading || !profile.Snowboarding ? '' : profile.Snowboarding,
+        loading || !profile.Snowboarding ? false : profile.Snowboarding,
       Rockclimbing:
-        loading || !profile.Rockclimbing ? '' : profile.Rockclimbing,
-      Other: loading || !profile.Other ? '' : profile.Other,
+        loading || !profile.Rockclimbing ? false : profile.Rockclimbing,
+      Other: loading || !profile.Other ? false : profile.Other,
       faveRecreation:
         loading || !profile.faveRecreation ? '' : profile.faveRecreation,
       website: loading || !profile.website ? '' : profile.website,
