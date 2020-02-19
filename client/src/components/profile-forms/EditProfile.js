@@ -187,7 +187,7 @@ const EditProfile = ({
         <div className='form-group'>
           <select
             name='faveRecreation'
-            value={window.faveRecreation}
+            value={faveRecreation}
             onChange={e => onChange(e)}
           >
             <option value='0'>* Favorite Outdoor Recreation</option>
