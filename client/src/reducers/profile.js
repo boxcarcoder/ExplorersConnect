@@ -3,7 +3,8 @@ import {
   PROFILE_ERROR,
   CLEAR_PROFILE,
   CREATE_PROFILE,
-  UPDATE_PROFILE
+  UPDATE_PROFILE,
+  GET_ALL_PROFILES
 } from '../actions/types';
 
 // profile: When the user logs in, or visits another user's profile page,
@@ -25,7 +26,13 @@ export default function(state = initialState, action) {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profile: payload, //the payload is the profile data returned from the GET, POST, or PUT request to the backend
+        profile: payload, //the payload is the profile data returned from the backend
+        loading: false
+      };
+    case GET_ALL_PROFILES:
+      return {
+        ...state,
+        profiles: payload, //the payload is the profiles data returned from the backend
         loading: false
       };
     case PROFILE_ERROR:

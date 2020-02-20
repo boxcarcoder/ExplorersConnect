@@ -1,8 +1,14 @@
 import React, { Fragment } from 'react';
 import hikerPic from '../../img/luke-pamer-KBpnPk44tOA-unsplash.jpg';
 import snowboardPic from '../../img/joshua-reddekopp-9BpTTLoTv9w-unsplash.jpg';
+import { Link } from 'react-router-dom';
 
-const Profiles = () => {
+//redux
+import { connect } from 'react-redux';
+import { getAllProfiles } from '../../actions/profile';
+import PropTypes from 'prop-types';
+
+const Profiles = ({ getAllProfiles }) => {
   return (
     <Fragment>
       <h1 className='large text-primary'>Explorers</h1>
@@ -17,9 +23,9 @@ const Profiles = () => {
           <div>
             <h2>John Doe</h2>
             <p>Seattle, WA</p>
-            <a href='profile.html' className='btn btn-primary'>
+            <Link to='/profile' className='btn btn-primary'>
               View Profile
-            </a>
+            </Link>
           </div>
 
           <ul>
@@ -38,9 +44,9 @@ const Profiles = () => {
           <div>
             <h2>Jane Doe</h2>
             <p>Denver, CO</p>
-            <a href='profile.html' className='btn btn-primary'>
+            <Link to='/profile' className='btn btn-primary'>
               View Profile
-            </a>
+            </Link>
           </div>
 
           <ul>
@@ -60,4 +66,12 @@ const Profiles = () => {
   );
 };
 
-export default Profiles;
+Profiles.propTypes = {
+  getAllProfiles: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, { getAllProfiles })(Profiles);

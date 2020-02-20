@@ -4,7 +4,8 @@ import {
   CREATE_PROFILE,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
+  GET_ALL_PROFILES
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
@@ -26,6 +27,29 @@ export const getCurrentProfile = () => async dispatch => {
     // dispatch profile data to reducer to save the profile data into the profile redux state
     dispatch({
       type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('ERROR FROM PROFILE ACTION:', err);
+    // dispatch error message and HTTP error status to the profile redux state
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get all users' profiles.
+export const getAllProfiles = () => async dispatch => {
+  try {
+    // the backend returns all profiles
+    const res = await axios.get('/api/profiles/');
+
+    console.log('fetched all profiles from backend: ', res);
+
+    // dispatch profile data to reducer to save the profile data into the profile redux state
+    dispatch({
+      type: GET_ALL_PROFILES,
       payload: res.data
     });
   } catch (err) {

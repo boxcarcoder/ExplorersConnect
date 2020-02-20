@@ -126,7 +126,7 @@ profilesRouter.post(
 // @access  Public since we're requesting all profiles, not just one which will need a token
 profilesRouter.get('/', async (req, res) => {
   try {
-    // find the profile of a requested user
+    // find the profile of all users
     let profiles = await Profile.find().populate('User', ['name', 'avatar']);
 
     if (!profiles) {
