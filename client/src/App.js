@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import './scss/App.scss';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
@@ -12,6 +13,7 @@ import CreateProfile from './components/profile-forms/CreateProfile';
 import EditProfile from './components/profile-forms/EditProfile';
 import AddDestinations from './components/profile-forms/AddDestinations';
 import AddGears from './components/profile-forms/AddGears';
+import Profiles from './components/profiles/Profiles';
 
 //redux
 import { Provider } from 'react-redux';
@@ -43,6 +45,7 @@ const App = () => {
             <Switch>
               <Route exact path='/Register' component={Register} />
               <Route exact path='/Login' component={Login} />
+              <Route exact path='/Profiles' component={Profiles} />
               <PrivateRoute exact path='/Dashboard' component={Dashboard} />
               <PrivateRoute
                 exact
