@@ -7,7 +7,7 @@ import { setAlert } from '../../actions/alert';
 import PropTypes from 'prop-types';
 import { register } from '../../actions/auth';
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ setAlert, register, auth: { isAuthenticated } }) => {
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
     name: '',
@@ -107,12 +107,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  auth: PropTypes.object.isRequired
 };
 
 //mapping the auth redux state to a usable prop to check for authentication
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated //propName: state
+  auth: state.auth //propName: state
 });
 
 // in order to use connect() to use actions.

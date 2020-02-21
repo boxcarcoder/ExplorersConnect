@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, auth: { isAuthenticated } }) => {
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
     email: '',
@@ -73,13 +73,12 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-  loading: PropTypes.bool
+  auth: PropTypes.object.isRequired
 };
 
 //mapping the auth redux state to a usable prop to check for authentication
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated //propName: state
+  auth: state.auth //propName: state
 });
 
 export default connect(mapStateToProps, { login })(Login);

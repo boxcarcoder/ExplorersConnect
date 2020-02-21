@@ -1,14 +1,21 @@
-import React, { Fragment } from 'react';
-import hikerPic from '../../img/luke-pamer-KBpnPk44tOA-unsplash.jpg';
-import snowboardPic from '../../img/joshua-reddekopp-9BpTTLoTv9w-unsplash.jpg';
+import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ProfileItem from './ProfileItem';
 
 //redux
 import { connect } from 'react-redux';
 import { getAllProfiles } from '../../actions/profile';
 import PropTypes from 'prop-types';
 
-const Profiles = ({ getAllProfiles }) => {
+const Profiles = ({ getAllProfiles, profile: { profiles } }) => {
+
+  //on the Profiles page's first load, retrieve all profiles and save it into the profile redux state
+  useEffect(() => {
+    getAllProfiles();
+  }, []);
+
+  
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Explorers</h1>
@@ -17,57 +24,15 @@ const Profiles = ({ getAllProfiles }) => {
         explorers
       </p>
       <div className='profiles'>
-        <div className='profile bg-light'>
-          <img className='round-img' src={hikerPic} alt='hiker' />
-
-          <div>
-            <h2>John Doe</h2>
-            <p>Seattle, WA</p>
-            <Link to='/profile' className='btn btn-primary'>
-              View Profile
-            </Link>
-          </div>
-
-          <ul>
-            <li className='text-primary'>
-              <i className='fas fa-check'></i> Camping
-            </li>
-            <li className='text-primary'>
-              <i className='fas fa-check'></i> Hiking
-            </li>
-          </ul>
-        </div>
-
-        <div className='profile bg-light'>
-          <img className='round-img' src={snowboardPic} alt='snowboarder' />
-
-          <div>
-            <h2>Jane Doe</h2>
-            <p>Denver, CO</p>
-            <Link to='/profile' className='btn btn-primary'>
-              View Profile
-            </Link>
-          </div>
-
-          <ul>
-            <li className='text-primary'>
-              <i className='fas fa-check'></i> Hiking
-            </li>
-            <li className='text-primary'>
-              <i className='fas fa-check'></i> Kayaking
-            </li>
-            <li className='text-primary'>
-              <i className='fas fa-check'></i> Snowboarding
-            </li>
-          </ul>
-        </div>
+        <ProfileItem profiles={profiles} />       
       </div>
     </Fragment>
   );
 };
 
 Profiles.propTypes = {
-  getAllProfiles: PropTypes.func.isRequired
+  getAllProfiles: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
