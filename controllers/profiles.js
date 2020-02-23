@@ -1,6 +1,6 @@
 const profilesRouter = require('express').Router();
-const Profile = require('../models/Profile');
-const User = require('../models/User');
+const profile = require('../models/Profile');
+const user = require('../models/User');
 const auth = require('../middlewares/auth');
 const { check, validationResult } = require('express-validator');
 
@@ -10,16 +10,15 @@ const { check, validationResult } = require('express-validator');
 profilesRouter.get('/me', auth, async (req, res) => {
   try {
     // find the profile of the logged in user
-    let profile = await Profile.findOne({ user: req.user.id }).populate(
-      'User',
-      ['name', 'avatar']
-    );
+    let myProfile = await profile
+      .findOne({ user: req.user.id })
+      .populate('user', ['name', 'avatar']);
 
-    if (!profile) {
+    if (!myProfile) {
       res.status(400).json('This profile does not exist.');
     }
 
-    res.json(profile);
+    res.json(myProfile);
   } catch (err) {
     res.status(500).json('Server error.');
   }
@@ -98,22 +97,22 @@ profilesRouter.post(
     if (instagram) profileFields.social.instagram = instagram;
 
     try {
-      let profile = await Profile.findOne({ user: req.user.id });
+      let myProfile = await profile.findOne({ user: req.user.id });
 
-      if (profile) {
+      if (myProfile) {
         //update the profile
-        profile = await Profile.findOneAndUpdate(
+        myProfile = await profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
           { new: true }
         );
-        return res.json(profile);
+        return res.json(myProfile);
       }
 
       // Create a new profile
-      profile = new Profile(profileFields);
-      await profile.save();
-      res.json(profile);
+      myProfile = new profile(profileFields);
+      await myProfile.save();
+      res.json(myProfile);
     } catch (err) {
       console.error(err.message);
       res.status(500).json('Server error.');
@@ -127,7 +126,7 @@ profilesRouter.post(
 profilesRouter.get('/', async (req, res) => {
   try {
     // find the profile of all users
-    let profiles = await Profile.find().populate('User', ['name', 'avatar']);
+    let profiles = await profile.find().populate('User', ['name', 'avatar']);
 
     if (!profiles) {
       res.status(400).json('There are no profiles.');
@@ -146,15 +145,17 @@ profilesRouter.get('/', async (req, res) => {
 profilesRouter.get('/user/:userID', async (req, res) => {
   try {
     // find the profile of a requested user
-    let profile = await Profile.findOne({
-      user: req.params.userID
-    }).populate('User', ['name', 'avatar']);
+    let myProfile = await profile
+      .findOne({
+        user: req.params.userID
+      })
+      .populate('user', ['name', 'avatar']);
 
-    if (!profile) {
+    if (!myProfile) {
       res.status(400).json('There is no profile for this user.');
     }
 
-    res.json(profile);
+    res.json(myProfile);
   } catch (err) {
     res.status(500).json('Server error.');
   }
@@ -167,9 +168,9 @@ profilesRouter.delete('/', auth, async (req, res) => {
   try {
     //todo - remove posts
 
-    await Profile.findOneAndRemove({ user: req.user.id });
+    await profile.findOneAndRemove({ user: req.user.id });
 
-    await User.findOneAndRemove({ _id: req.user.id });
+    await user.findOneAndRemove({ _id: req.user.id });
 
     res.json({ msg: 'User and their profile deleted.' });
   } catch (err) {
@@ -205,15 +206,15 @@ profilesRouter.put('/destinations', auth, async (req, res) => {
       crags
     };
 
-    let profile = await Profile.findOne({ user: req.user.id });
+    let myProfile = await profile.findOne({ user: req.user.id });
 
-    if (!profile) res.status(400).json('This profile does not exist.');
+    if (!myProfile) res.status(400).json('This profile does not exist.');
 
-    profile.destinations.unshift(updatedDestinations);
+    myProfile.destinations.unshift(updatedDestinations);
 
-    await profile.save();
+    await myProfile.save();
 
-    res.json(profile);
+    res.json(myProfile);
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server error.');
@@ -250,15 +251,15 @@ profilesRouter.put('/gears', auth, async (req, res) => {
       rockClimbingGear
     };
 
-    let profile = await Profile.findOne({ user: req.user.id });
+    let myProfile = await profile.findOne({ user: req.user.id });
 
-    if (!profile) res.status(400).json('This profile does not exist.');
+    if (!myProfile) res.status(400).json('This profile does not exist.');
 
-    profile.gears.unshift(updatedGears);
+    myProfile.gears.unshift(updatedGears);
 
-    await profile.save();
+    await myProfile.save();
 
-    res.json(profile);
+    res.json(myProfile);
   } catch (err) {
     console.error(err.messsage);
     res.status(500).json('Server error.');
@@ -273,20 +274,20 @@ profilesRouter.delete(
   auth,
   async (req, res) => {
     try {
-      let profile = await Profile.findOne({ user: req.user.id });
+      let myProfile = await profile.findOne({ user: req.user.id });
 
-      if (!profile) res.status(400).json('This profile does not exist.');
+      if (!myProfile) res.status(400).json('This profile does not exist.');
 
       //get the remove index
-      let removeIdx = profile.destinations
+      let removeIdx = myProfile.destinations
         .map(obj => obj.id)
         .indexOf(req.params.destinationsID);
 
-      profile.destinations.splice(removeIdx, 1);
+      myProfile.destinations.splice(removeIdx, 1);
 
-      await profile.save();
+      await myProfile.save();
 
-      res.json(profile);
+      res.json(myProfile);
     } catch (err) {
       console.error(err.message);
       res.status(500).json('Server error.');
@@ -299,20 +300,20 @@ profilesRouter.delete(
 // @access  Private since only a logged in user can update their profile
 profilesRouter.delete('/gears/:gearsID', auth, async (req, res) => {
   try {
-    let profile = await Profile.findOne({ user: req.user.id });
+    let myProfile = await profile.findOne({ user: req.user.id });
 
-    if (!profile) res.status(400).json('This profile does not exist.');
+    if (!myProfile) res.status(400).json('This profile does not exist.');
 
     //get the remove index
-    let removeIdx = profile.gears
+    let removeIdx = myProfile.gears
       .map(obj => obj.id)
       .indexOf(req.params.gearsID);
 
-    profile.gears.splice(removeIdx, 1);
+    myProfile.gears.splice(removeIdx, 1);
 
-    await profile.save();
+    await myProfile.save();
 
-    res.json(profile);
+    res.json(myProfile);
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server error.');

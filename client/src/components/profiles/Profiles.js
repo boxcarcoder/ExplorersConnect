@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import ProfileItem from './ProfileItem';
 
 //redux
@@ -8,13 +7,10 @@ import { getAllProfiles } from '../../actions/profile';
 import PropTypes from 'prop-types';
 
 const Profiles = ({ getAllProfiles, profile: { profiles } }) => {
-
   //on the Profiles page's first load, retrieve all profiles and save it into the profile redux state
   useEffect(() => {
     getAllProfiles();
   }, []);
-
-  
 
   return (
     <Fragment>
@@ -24,7 +20,9 @@ const Profiles = ({ getAllProfiles, profile: { profiles } }) => {
         explorers
       </p>
       <div className='profiles'>
-        <ProfileItem profiles={profiles} />       
+        {profiles.map(profile => (
+          <ProfileItem key={profile._id} profile={profile} />
+        ))}
       </div>
     </Fragment>
   );

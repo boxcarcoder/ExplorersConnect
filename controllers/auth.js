@@ -1,6 +1,6 @@
 const authRouter = require('express').Router();
 const auth = require('../middlewares/auth');
-const User = require('../models/User');
+const user = require('../models/User');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -12,8 +12,8 @@ const config = require('../utils/config');
 authRouter.get('/', auth, async (req, res) => {
   //an HTTP request to this protected route must be decoded by the auth middleware.
   try {
-    let user = await User.findById(req.user.id).select('-password');
-    res.json(user);
+    let myUser = await user.findById(req.user.id).select('-password');
+    res.json(myUser);
   } catch (err) {
     res.status(500).json('Server error.');
   }
@@ -38,7 +38,7 @@ authRouter.post(
 
     try {
       //confirm user is in database.
-      let foundUser = await User.findOne({ email });
+      let foundUser = await user.findOne({ email });
       if (!foundUser) {
         return res
           .status(400)
