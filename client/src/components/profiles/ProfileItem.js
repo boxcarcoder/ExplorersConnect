@@ -17,7 +17,7 @@ const ProfileItem = ({
     bio
   }
 }) => {
-  //console.log('user being sent from Profiles: ', _id);
+  console.log('user being sent from Profiles: ', name);
 
   return (
     <Fragment>

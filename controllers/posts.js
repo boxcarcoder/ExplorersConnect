@@ -3,7 +3,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../middlewares/auth');
 
 const Post = require('../models/Post');
-const User = require('../models/User');
+const user = require('../models/User');
 
 // @route   POST api/posts
 // @desc    Create a post
@@ -26,7 +26,7 @@ postsRouter.post(
 
     try {
       // retrieve the logged in user from the db
-      let user = await User.findById(req.user.id).select('-password');
+      let user = await user.findById(req.user.id).select('-password');
 
       // create new post
       let newPost = new Post({
@@ -180,7 +180,7 @@ postsRouter.post(
 
     try {
       // retrieve the logged in user from the db
-      let user = await User.findById(req.user.id).select('-password');
+      let user = await user.findById(req.user.id).select('-password');
       // retrieve the post by the post ID
       let post = await Post.findById(req.params.id);
 

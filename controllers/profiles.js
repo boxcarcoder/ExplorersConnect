@@ -126,7 +126,7 @@ profilesRouter.post(
 profilesRouter.get('/', async (req, res) => {
   try {
     // find the profile of all users
-    let profiles = await profile.find().populate('User', ['name', 'avatar']);
+    let profiles = await profile.find().populate('user', ['name', 'avatar']);
 
     if (!profiles) {
       res.status(400).json('There are no profiles.');
