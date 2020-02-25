@@ -20,21 +20,17 @@ const ProfileItem = ({
 }) => {
   console.log('user being sent from Profiles: ', Hiking);
 
-  const checkHike = () =>  {
+  const checkHike = () => {
     if (Hiking) {
-      console.log('HIKING TRUE');
       return (
         <li className='text-primary'>
           <i className='fas fa-check'></i> Hiking
         </li>
       );
     }
-    else {
-      console.log('HIKING FALSE');
-    }
-  }
+  };
 
-  const checkCamp = () =>  {
+  const checkCamp = () => {
     if (Camping) {
       return (
         <li className='text-primary'>
@@ -42,9 +38,9 @@ const ProfileItem = ({
         </li>
       );
     }
-  }
+  };
 
-  const checkKayak = () =>  {
+  const checkKayak = () => {
     if (Kayaking) {
       return (
         <li className='text-primary'>
@@ -52,9 +48,9 @@ const ProfileItem = ({
         </li>
       );
     }
-  }
+  };
 
-  const checkRaft = () =>  {
+  const checkRaft = () => {
     if (Rafting) {
       return (
         <li className='text-primary'>
@@ -62,9 +58,9 @@ const ProfileItem = ({
         </li>
       );
     }
-  }
+  };
 
-  const checkSki = () =>  {
+  const checkSki = () => {
     if (Skiing) {
       return (
         <li className='text-primary'>
@@ -72,9 +68,9 @@ const ProfileItem = ({
         </li>
       );
     }
-  }
+  };
 
-  const checkSnowboard = () =>  {
+  const checkSnowboard = () => {
     if (Snowboarding) {
       return (
         <li className='text-primary'>
@@ -82,9 +78,9 @@ const ProfileItem = ({
         </li>
       );
     }
-  }
+  };
 
-  const checkRockclimb = () =>  {
+  const checkRockclimb = () => {
     if (Rockclimbing) {
       return (
         <li className='text-primary'>
@@ -92,13 +88,13 @@ const ProfileItem = ({
         </li>
       );
     }
-  }
+  };
 
   return (
     <Fragment>
       <div className='profile bg-light'>
         <img className='round-img' src={avatar} alt='hiker' />
-        <div className="m-3">
+        <div className='m-3'>
           <h2>{name}</h2>
           <p>{location}</p>
           <p>{bio}</p>
