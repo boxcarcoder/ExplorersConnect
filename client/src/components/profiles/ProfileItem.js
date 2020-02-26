@@ -18,7 +18,6 @@ const ProfileItem = ({
     bio
   }
 }) => {
-  console.log('user being sent from Profiles: ', Hiking);
 
   const checkHike = () => {
     if (Hiking) {
