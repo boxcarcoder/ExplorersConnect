@@ -35,7 +35,7 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
   console.log('destinations: ', destinations); //an array with each index being a set of all locations.
   console.log('gears: ', gears);
 
-
+  // check for favorite activities
   const checkHike = () => {
     if (Hiking) {
       return (
@@ -70,7 +70,7 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
     if (Rafting) {
       return (
         <div className='p-1'>
-          <i class="fas fa-tint"></i> Kayaking
+          <i class="fas fa-tint"></i> Rafting
         </div>
       );
     }
@@ -97,8 +97,6 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
     }
   };
 
- 
-
   const checkRockclimb = () => {
     if (Rockclimbing) {
       return (
@@ -108,6 +106,107 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
       );
     }
   };
+
+  //check for favorite destinations for each activity
+  const checkHikeDestinations = () => {
+    if (Hiking) {
+      return (
+        <Fragment>
+          <p>
+            <strong>Hike Trails</strong>
+            <ul>
+              {destinations.map(destination => (
+                destination.hikingTrails.map(hikingTrail => 
+                  <li>{hikingTrail}</li>
+                )
+              ))}
+            </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>    
+      );
+    }
+  }
+
+  const checkCampDestinations = () => {
+    if (Camping) {
+      return (
+        <Fragment>
+          <p>
+            <strong>Campsites</strong>
+            <ul>
+              {destinations.map(destination => (
+                destination.campSites.map(campSite => 
+                  <li>{campSite}</li>
+                )
+              ))}
+            </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>    
+      );
+    }
+  }
+
+  const checkWaterDestinations = () => {
+    if (Kayaking || Rafting) {
+      return (
+        <Fragment>
+          <p>
+            <strong>Lakes, Rivers, or Oceans</strong>
+            <ul>
+              {destinations.map(destination => (
+                destination.waterAreas.map(waterArea => 
+                  <li>{waterArea}</li>
+                )
+              ))}
+            </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>    
+      );
+    }
+  }
+
+  const checkSnowDestinations = () => {
+    if (Skiing || Snowboarding) {
+      return (
+        <Fragment>
+          <p>
+            <strong>Slopes</strong>
+            <ul>
+              {destinations.map(destination => (
+                destination.slopes.map(slope => 
+                  <li>{slope}</li>
+                )
+              ))}
+            </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>    
+      );
+    }
+  }
+
+  const checkClimbDestinations = () => {
+    if (Rockclimbing) {
+      return (
+        <Fragment>
+          <p>
+            <strong>Crags</strong>
+            <ul>
+              {destinations.map(destination => (
+                destination.crags.map(crag => 
+                  <li>{crag}</li>
+                )
+              ))}
+            </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>    
+      );
+    }
+  }
 
   return (
     <Fragment>
@@ -160,23 +259,12 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
         {/* Destinations */}
         <div className='bg-light p-2 profile-location'>
           <h2 className='text-primary'>Explored</h2>
-          <p>
-            <strong>Hiking</strong>
-            <ul>
-              <li>Chantry Flats</li>
-              <li>Top Of The World</li>
-              <li>Lower Moro Trail</li>
-            </ul>
-          </p>
-          <div className='line'></div>
-          <p>
-            <strong>Camping</strong>
-            <ul>
-              <li>Dry Lake</li>
-              <li>Spruce Grove</li>
-              <li>Cooper Canyon</li>
-            </ul>
-          </p>
+          {checkHikeDestinations()}
+          {checkCampDestinations()}
+          {checkWaterDestinations()}
+          {checkSnowDestinations()}
+          {checkClimbDestinations()}
+
         </div>
 
         {/* Gears */}
