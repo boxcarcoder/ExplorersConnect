@@ -97,7 +97,7 @@ const ProfileItem = ({
           <h2>{name}</h2>
           <p>{location}</p>
           <p>{bio}</p>
-          <Link to='/profile' className='btn btn-primary'>
+          <Link to={`/profile/${_id}`} className='btn btn-primary'>
             View Profile
           </Link>
         </div>

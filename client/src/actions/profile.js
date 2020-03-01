@@ -5,7 +5,8 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
-  GET_ALL_PROFILES
+  GET_ALL_PROFILES,
+  GET_PROFILE_BY_ID
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
@@ -22,15 +23,12 @@ export const getCurrentProfile = () => async dispatch => {
     // the backend returns the profile of the logged in user
     const res = await axios.get('/api/profiles/me');
 
-    console.log('fetched current profile from backend: ', res);
-
     // dispatch profile data to reducer to save the profile data into the profile redux state
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
   } catch (err) {
-    console.log('ERROR FROM PROFILE ACTION:', err);
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({
       type: PROFILE_ERROR,
@@ -45,15 +43,35 @@ export const getAllProfiles = () => async dispatch => {
     // the backend returns all profiles
     const res = await axios.get('/api/profiles/');
 
-    console.log('fetched all profiles from backend: ', res);
-
     // dispatch profile data to reducer to save the profile data into the profile redux state
     dispatch({
       type: GET_ALL_PROFILES,
       payload: res.data
     });
   } catch (err) {
-    console.log('ERROR FROM PROFILE ACTION:', err);
+    // dispatch error message and HTTP error status to the profile redux state
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get profile by ID
+export const getProfileById = id => async dispatch => {
+  try {
+    // the backend returns the profile with that user id
+    const res = await axios.get(`/api/profiles/user/${id}`);
+
+    console.log('id being sent to backend: ', id);
+    console.log('id that was retrieved from backend: ', res.data);
+
+    dispatch({
+      type: GET_PROFILE_BY_ID,
+      payload: res.data
+    });
+
+  } catch (err) {
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({
       type: PROFILE_ERROR,

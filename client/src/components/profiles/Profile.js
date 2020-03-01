@@ -3,34 +3,28 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrentProfile } from '../../actions/profile';
+import { getProfileById } from '../../actions/profile';
 
-const Profile = ({ //should be grabbing profile from profiles array, not current profile. current profile will just place current logged in user's profile into the state.
-  //profile state
-  profile: {
-    //a field within the profile state
-    profile: {
-      user: { name, avatar }, //this field countains a user field, which contains name and avatar
-      bio,
-      location,
-      Hiking,
-      Camping,
-      Kayaking,
-      Rafting,
-      Skiing,
-      Snowboarding,
-      Rockclimbing,
-      Other,
-      destinations,
-      gears
-    }
-  },
-  getCurrentProfile
-}) => {
+const Profile = ({ profile: { profile }, getProfileById, match }) => {
   //when a user's profile page is first loaded, retrieve the profile and store it in the profile redux state
   useEffect(() => {
-    getCurrentProfile();
-  }, []);
+    getProfileById(match.params.id);
+  }, [getProfileById, match.params.id]);
+
+  const {
+    user: { name, avatar }, //this field countains a user field, which contains name and avatar
+    bio,
+    location,
+    Hiking,
+    Camping,
+    Kayaking,
+    Rafting,
+    Skiing,
+    Snowboarding,
+    Rockclimbing,
+    destinations,
+    gears
+  } = profile;
 
   console.log('destinations: ', destinations); //an array with each index being a set of all locations.
   console.log('gears: ', gears);
@@ -44,7 +38,7 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
         </div>
       );
     }
-  }
+  };
 
   const checkCamp = () => {
     if (Camping) {
@@ -60,7 +54,7 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
     if (Kayaking) {
       return (
         <div className='p-1'>
-          <i class="fas fa-water"></i> Kayaking
+          <i class='fas fa-water'></i> Kayaking
         </div>
       );
     }
@@ -70,18 +64,17 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
     if (Rafting) {
       return (
         <div className='p-1'>
-          <i class="fas fa-tint"></i> Rafting
+          <i class='fas fa-tint'></i> Rafting
         </div>
       );
     }
   };
 
-  
   const checkSki = () => {
     if (Skiing) {
       return (
         <div className='p-1'>
-          <i class="fas fa-skiing"></i> Skiing
+          <i class='fas fa-skiing'></i> Skiing
         </div>
       );
     }
@@ -91,7 +84,7 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
     if (Snowboarding) {
       return (
         <div className='p-1'>
-          <i class="fas fa-snowboarding"></i> Snowboarding
+          <i class='fas fa-snowboarding'></i> Snowboarding
         </div>
       );
     }
@@ -101,7 +94,7 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
     if (Rockclimbing) {
       return (
         <div className='p-1'>
-           <i class="fas fa-mountain"></i> Snowboarding
+          <i class='fas fa-mountain'></i> Snowboarding
         </div>
       );
     }
@@ -115,18 +108,18 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
           <p>
             <strong>Hike Trails</strong>
             <ul>
-              {destinations.map(destination => (
-                destination.hikingTrails.map(hikingTrail => 
+              {destinations.map(destination =>
+                destination.hikingTrails.map(hikingTrail => (
                   <li>{hikingTrail}</li>
-                )
-              ))}
+                ))
+              )}
             </ul>
           </p>
           <div className='line'></div>
-        </Fragment>    
+        </Fragment>
       );
     }
-  }
+  };
 
   const checkCampDestinations = () => {
     if (Camping) {
@@ -135,18 +128,16 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
           <p>
             <strong>Campsites</strong>
             <ul>
-              {destinations.map(destination => (
-                destination.campSites.map(campSite => 
-                  <li>{campSite}</li>
-                )
-              ))}
+              {destinations.map(destination =>
+                destination.campSites.map(campSite => <li>{campSite}</li>)
+              )}
             </ul>
           </p>
           <div className='line'></div>
-        </Fragment>    
+        </Fragment>
       );
     }
-  }
+  };
 
   const checkWaterDestinations = () => {
     if (Kayaking || Rafting) {
@@ -155,18 +146,16 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
           <p>
             <strong>Lakes, Rivers, or Oceans</strong>
             <ul>
-              {destinations.map(destination => (
-                destination.waterAreas.map(waterArea => 
-                  <li>{waterArea}</li>
-                )
-              ))}
+              {destinations.map(destination =>
+                destination.waterAreas.map(waterArea => <li>{waterArea}</li>)
+              )}
             </ul>
           </p>
           <div className='line'></div>
-        </Fragment>    
+        </Fragment>
       );
     }
-  }
+  };
 
   const checkSnowDestinations = () => {
     if (Skiing || Snowboarding) {
@@ -175,18 +164,16 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
           <p>
             <strong>Slopes</strong>
             <ul>
-              {destinations.map(destination => (
-                destination.slopes.map(slope => 
-                  <li>{slope}</li>
-                )
-              ))}
+              {destinations.map(destination =>
+                destination.slopes.map(slope => <li>{slope}</li>)
+              )}
             </ul>
           </p>
           <div className='line'></div>
-        </Fragment>    
+        </Fragment>
       );
     }
-  }
+  };
 
   const checkClimbDestinations = () => {
     if (Rockclimbing) {
@@ -195,18 +182,16 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
           <p>
             <strong>Crags</strong>
             <ul>
-              {destinations.map(destination => (
-                destination.crags.map(crag => 
-                  <li>{crag}</li>
-                )
-              ))}
+              {destinations.map(destination =>
+                destination.crags.map(crag => <li>{crag}</li>)
+              )}
             </ul>
           </p>
           <div className='line'></div>
-        </Fragment>    
+        </Fragment>
       );
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -239,9 +224,7 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
         {/* Bio and Passions */}
         <div className='bg-light p-2 profile-about'>
           <h2 className='text-primary'>Bio</h2>
-          <p>
-            {bio}
-          </p>
+          <p>{bio}</p>
 
           <div className='line'></div>
           <h2 className='text-primary'>Passions</h2>
@@ -264,7 +247,6 @@ const Profile = ({ //should be grabbing profile from profiles array, not current
           {checkWaterDestinations()}
           {checkSnowDestinations()}
           {checkClimbDestinations()}
-
         </div>
 
         {/* Gears */}
@@ -300,9 +282,9 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  //state.profile is the profile state containing profile, profiles,loading, error.
+  //state.profile is the profile state containing profile, profiles, loading, error.
   //state.profile.profile is the profile field in the profile state.
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Profile);
+export default connect(mapStateToProps, { getProfileById })(Profile);

@@ -4,7 +4,8 @@ import {
   CLEAR_PROFILE,
   CREATE_PROFILE,
   UPDATE_PROFILE,
-  GET_ALL_PROFILES
+  GET_ALL_PROFILES,
+  GET_PROFILE_BY_ID
 } from '../actions/types';
 
 // profile: When the user logs in, or visits another user's profile page,
@@ -24,6 +25,7 @@ export default function(state = initialState, action) {
     case GET_PROFILE:
     case CREATE_PROFILE:
     case UPDATE_PROFILE:
+    case GET_PROFILE_BY_ID:
       return {
         ...state,
         profile: payload, //the payload is the profile data returned from the backend
