@@ -5,75 +5,65 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteDestinations } from '../../actions/profile';
 
-const Destinations = ({ destinations, deleteDestinations }) => {
-  // const checkHikeDestinations = () => {
-  //   return (
-  //     <td>
-  //       <table>
-  //         <tbody>
-  //           {destinations.map(destination =>
-  //             destination.hikingTrails.map(area => (
-  //               <tr key={destination._id + 1}>{area}</tr>
-  //             ))
-  //           )}
-  //         </tbody>
-  //       </table>
-  //     </td>
-  //   );
-  // };
-
-  // const checkWaterDestinations = () => {
-  //   return (
-  //     <td>
-  //       <table>
-  //         <tbody>
-  //           {destinations.map(destination =>
-  //             destination.waterAreas.map(area => (
-  //               <tr key={destination._id + 2}>{area}</tr>
-  //             ))
-  //           )}
-  //         </tbody>
-  //       </table>
-  //     </td>
-  //   );
-  // };
-
-  // const checkWaterDestinations = () => {
-  //   return (
-  //     <td>
-  //       {destinations.map(destination =>
-  //         destination.waterAreas.map(area => (
-  //           <tr>{area}</tr>
-  //         ))
-  //       )}
-  //     </td>
-  //   );
-  // };
-
-  // // Use the profile.destinations state (from Dashboard component) for destinations data.
-  // const allDestinations = destinations.map(destination =>
-  //   checkWaterDestinations(destination)
-  // );
-
   // Use the profile.destinations state (from Dashboard component) for destinations data.
+const Destinations = ({ destinations, deleteDestinations }) => {
+
+  // 2. for every row created, give the row a td for padding.
+  // css allows td to have padding, but not tr.
   const allWaters = destinations.map(destination =>
-    destination.waterAreas.map(water => <tr>{water}</tr>)
+    destination.waterAreas.map(water => 
+      <tr>
+        <td>
+          {water}
+          <button
+            onClick={() => deleteDestinations(destination._id)}
+            className='btn btn-danger'
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    )
   );
 
   const allHikes = destinations.map(destination =>
-    destination.hikingTrails.map(trail => <tr>{trail}</tr>)
+    destination.hikingTrails.map(trail => 
+      <tr>
+        <td>
+          {trail}
+        </td>
+      </tr>
+    )
   );
 
   const allCamps = destinations.map(destination =>
-    destination.campSites.map(camp => <tr>{camp}</tr>)
+    destination.campSites.map(camp => 
+      <tr>
+        <td>
+          {camp}
+        </td>
+      </tr>
+    )
   );
 
   const allSlopes = destinations.map(destination =>
-    destination.slopes.map(slope => <tr>{slope}</tr>)
+    destination.slopes.map(slope => 
+      <tr>
+        <td>
+          {slope}
+        </td>
+      </tr>
+    )
   );
 
   const allCrags = destinations.map(destination =>
-    destination.crags.map(crag => <tr>{crag}</tr>)
+    destination.crags.map(crag => 
+      <tr>
+        <td>
+          {crag}
+        </td>
+      </tr>
+    )
   );
 
   const allDeletes = destinations.map(destination =>
@@ -125,6 +115,7 @@ const Destinations = ({ destinations, deleteDestinations }) => {
           </tr>
         </thead>
         <tbody>
+          {/*1. each column creates rows*/}
           <td>{allHikes}</td>
           <td>{allCamps}</td>
           <td>{allWaters}</td>
