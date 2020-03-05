@@ -29,7 +29,7 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
   console.log('destinations: ', destinations); //an array with each index being a set of all locations.
   console.log('gears: ', gears);
 
-  // check for favorite activities
+  // ======== Check for favorite activities ========
   const checkHike = () => {
     if (Hiking) {
       return (
@@ -94,13 +94,13 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
     if (Rockclimbing) {
       return (
         <div className='p-1'>
-          <i class='fas fa-mountain'></i> Snowboarding
+          <i class='fas fa-mountain'></i> Rockclimbing
         </div>
       );
     }
   };
 
-  //check for favorite destinations for each activity
+  // ======== Check for favorite destinations for each activity ========
   const checkHikeDestinations = () => {
     if (Hiking) {
       return (
@@ -191,6 +191,98 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
     }
   };
 
+  // ======== Check for favorite gears for each activity ========
+  const checkHikeGears = () => {
+    if (Hiking) {
+      return (
+        <Fragment>
+          <p>
+          <strong>Hiking</strong>
+          <ul>
+            {destinations.map(destination =>
+              <li>{destination.hikingTrails}</li>
+            )}
+          </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>
+      );
+    }
+  }
+
+  const checkCampGears = () => {
+    if (Camping) {
+      return (
+        <Fragment>
+          <p>
+          <strong>Camping</strong>
+          <ul>
+            {destinations.map(destination =>
+              <li>{destination.campSites}</li>
+            )}
+          </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>
+      );
+    }
+  }
+
+  const checkWaterGears = () => {
+    if (Kayaking || Rafting) {
+      return (
+        <Fragment>
+          <p>
+          <strong>Lakes, Rivers, or Oceans</strong>
+          <ul>
+            {destinations.map(destination =>
+              <li>{destination.waterAreas}</li>
+            )}
+          </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>
+      );
+    }
+  }
+
+  const checkSnowGears = () => {
+    if (Skiing || Snowboarding) {
+      return (
+        <Fragment>
+          <p>
+          <strong>Slopes</strong>
+          <ul>
+            {destinations.map(destination =>
+              <li>{destination.slopes}</li>
+            )}
+          </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>
+      );
+    }
+  }
+
+  const checkClimbGears = () => {
+    if (Rockclimbing) {
+      return (
+        <Fragment>
+          <p>
+          <strong>Rock Climbing</strong>
+          <ul>
+            {destinations.map(destination =>
+              <li>{destination.crags}</li>
+            )}
+          </ul>
+          </p>
+          <div className='line'></div>
+        </Fragment>
+      );
+    }
+  }
+  
+
   return (
     <Fragment>
       <Link to='/profiles' className='btn'>
@@ -250,25 +342,11 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
         {/* Gears */}
         <div className='bg-light p-2 profile-gear'>
           <h2 className='text-primary'>Gear</h2>
-          <p>
-            <strong>Hiking</strong>
-            <ul>
-              <li>Black Diamond Distance Z</li>
-              <li>Salomon Odyssey Pro shoes</li>
-              <li>Smartwool Socks</li>
-            </ul>
-          </p>
-          <div className='line'></div>
-          <p>
-            <strong>Camping</strong>
-            <ul>
-              <li>Mountain Hardware Pinole 20</li>
-              <li>Aegismax M2</li>
-              <li>NatureHike CloudUp 2</li>
-              <li>Thermarest Prolite Plus</li>
-              <li>Soto Amicus Stove</li>
-            </ul>
-          </p>
+          {checkHikeGears()}
+          {checkCampGears()}
+          {checkWaterGears()}
+          {checkSnowGears()}
+          {checkClimbGears()}
         </div>
       </div>
     </Fragment>
