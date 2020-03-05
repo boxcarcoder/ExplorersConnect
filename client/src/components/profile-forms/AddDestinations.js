@@ -39,12 +39,9 @@ const AddDestinations = ({ addDestinations, history }) => {
     <Fragment>
       <h1 className='large text-primary'>Add Destinations</h1>
       <p className='lead'>
-        <i className='fas fa-map-signs text-primary'></i> Add any places you've
-        loved exploring.
+        <i className='fas fa-map-signs text-primary'></i> Add where you've explored during your favorite trips.
       </p>
-      <small>
-        Please use comma separated values (eg. Mammoth Lakes, Mt. High)
-      </small>
+
       <form className='form' onSubmit={handleSubmit}>
         <div className='line'></div>
         <div className='form-group'>
@@ -96,10 +93,6 @@ const AddDestinations = ({ addDestinations, history }) => {
             value={crags}
             onChange={e => onChange(e)}
           />
-        </div>
-
-        <div>
-          <small>* = required fields</small>
         </div>
 
         <div className='vert-m-1'>

@@ -45,10 +45,7 @@ const AddGears = ({ addGears, history }) => {
         <i className='fas fa-map-signs text-primary'></i> Add all your essential
         gear for an adventure.
       </p>
-      <small>
-        Please use comma separated values (eg. Big Agnes FlyCreek Tent, AegisMax
-        M2 Sleeping Bag)
-      </small>
+
       <form className='form' onSubmit={handleSubmit}>
         <div className='line'></div>
         <div className='form-group'>
@@ -101,8 +98,6 @@ const AddGears = ({ addGears, history }) => {
             onChange={e => onChange(e)}
           />
         </div>
-
-        <small>* = required fields</small>
 
         <div className='vert-m-1'>
           <input type='submit' className='btn btn-primary my-1' />

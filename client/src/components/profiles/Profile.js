@@ -109,9 +109,7 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
             <strong>Hike Trails</strong>
             <ul>
               {destinations.map(destination =>
-                destination.hikingTrails.map(hikingTrail => (
-                  <li>{hikingTrail}</li>
-                ))
+                <li>{destination.hikingTrails}</li>
               )}
             </ul>
           </p>
@@ -129,7 +127,7 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
             <strong>Campsites</strong>
             <ul>
               {destinations.map(destination =>
-                destination.campSites.map(campSite => <li>{campSite}</li>)
+                <li>{destination.campSites}</li>
               )}
             </ul>
           </p>
@@ -147,7 +145,7 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
             <strong>Lakes, Rivers, or Oceans</strong>
             <ul>
               {destinations.map(destination =>
-                destination.waterAreas.map(waterArea => <li>{waterArea}</li>)
+                <li>{destination.waterAreas}</li>
               )}
             </ul>
           </p>
@@ -165,7 +163,7 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
             <strong>Slopes</strong>
             <ul>
               {destinations.map(destination =>
-                destination.slopes.map(slope => <li>{slope}</li>)
+                <li>{destination.slopes}</li>
               )}
             </ul>
           </p>
@@ -183,7 +181,7 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
             <strong>Crags</strong>
             <ul>
               {destinations.map(destination =>
-                destination.crags.map(crag => <li>{crag}</li>)
+                <li>{destination.crags}</li>
               )}
             </ul>
           </p>
