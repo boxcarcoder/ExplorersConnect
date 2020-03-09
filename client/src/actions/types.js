@@ -17,3 +17,5 @@ export const GET_ALL_PROFILES = 'GET_ALL_PROFILES';
 export const GET_PROFILE_BY_ID = 'GET_PROFILE_BY_ID';
 export const GET_ALL_POSTS = 'GET_ALL_POSTS';
 export const POSTS_ERROR = 'POSTS_ERROR';
+export const SUBMIT_POST_SUCCESS = 'SUBMIT_POST_SUCCESS';
+

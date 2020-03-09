@@ -3,7 +3,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../middlewares/auth');
 
 const Post = require('../models/Post');
-const user = require('../models/User');
+const User = require('../models/User');
 
 // @route   POST api/posts
 // @desc    Create a post
@@ -26,7 +26,10 @@ postsRouter.post(
 
     try {
       // retrieve the logged in user from the db
-      let user = await user.findById(req.user.id).select('-password');
+      let user = await User.findById(req.user.id).select('-password');
+
+      console.log('user: ', user);
+      console.log('req from post action: ', req);
 
       // create new post
       let newPost = new Post({
@@ -39,7 +42,7 @@ postsRouter.post(
       let post = await newPost.save();
       res.json(post);
     } catch (err) {
-      console.error(err.message);
+      console.error('ERROR: ',err.message);
       res.status(500).json('Server error.');
     }
   }
@@ -180,7 +183,7 @@ postsRouter.post(
 
     try {
       // retrieve the logged in user from the db
-      let user = await user.findById(req.user.id).select('-password');
+      let user = await User.findById(req.user.id).select('-password');
       // retrieve the post by the post ID
       let post = await Post.findById(req.params.id);
 

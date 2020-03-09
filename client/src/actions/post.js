@@ -1,8 +1,12 @@
 import {
     GET_ALL_POSTS,
-    POSTS_ERROR
+    POSTS_ERROR,
+    SUBMIT_POST_SUCCESS
   } from './types';
-  import axios from 'axios';
+import axios from 'axios';
+import setAuthToken from '../utils/setAuthToken';
+import { setAlert } from './alert';
+
 
   // Get all posts.
 export const getAllPosts = () => async dispatch => {
@@ -15,6 +19,43 @@ export const getAllPosts = () => async dispatch => {
         })
 
     } catch (err) {
+        // dispatch error message and HTTP error status to the post redux state
+        dispatch({
+            type: POSTS_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
+// Add a post.
+export const addPost = (formData) => async dispatch => {
+    try {
+        //set the token as the header to gain access to the protected route POST /api/posts
+        if (localStorage.token) {
+            setAuthToken(localStorage.token);
+        }
+
+        // configuration of the HTTP request to the backend
+        const config = {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        };
+
+        console.log('attempting to place post into db.');
+        const res = await axios.post('/api/posts', formData, config);
+
+        dispatch({
+            type: SUBMIT_POST_SUCCESS,
+            payload: res.data
+        })
+
+        // display an alert to notify the user of what they just did
+        dispatch(setAlert('Posted successfully.', 'success'));
+
+    } catch (err) {
+        console.log('error posting.');
+
         // dispatch error message and HTTP error status to the post redux state
         dispatch({
             type: POSTS_ERROR,

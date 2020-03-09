@@ -1,6 +1,6 @@
 const usersRouter = require('express').Router();
 const { check, validationResult } = require('express-validator');
-const user = require('../models/User');
+const User = require('../models/User');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -31,8 +31,8 @@ usersRouter.post(
 
     try {
       //check if user exists already.
-      let foundUser = await user.findOne({ email });
-      if (foundUser) {
+      let user = await User.findOne({ email });
+      if (user) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'User exists already.' }] });
@@ -45,7 +45,7 @@ usersRouter.post(
         d: 'mp'
       });
 
-      let newUser = new user({
+      let newUser = new User({
         name,
         email,
         avatar,

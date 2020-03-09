@@ -1,6 +1,7 @@
 import {
     GET_ALL_POSTS,
-    POSTS_ERROR
+    POSTS_ERROR,
+    SUBMIT_POST_SUCCESS
   } from '../actions/types';
 
   const initialState = {
@@ -17,9 +18,15 @@ import {
         case GET_ALL_POSTS:
             return {
                 ...state,
-                posts: payload, //the payload is the profile data returned from the backend
+                posts: payload, //the payload is the posts data returned from the backend
                 loading: false
               };
+        case SUBMIT_POST_SUCCESS:
+            return {
+                ...state,
+                post: payload, // the payload is the post data returned from the backend
+                loading: false
+            }
         case POSTS_ERROR:
             return {
                 ...state,

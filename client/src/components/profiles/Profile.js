@@ -108,9 +108,9 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
           <p>
             <strong>Hike Trails</strong>
             <ul>
-              {destinations.map(destination =>
+              {destinations.map(destination => (
                 <li>{destination.hikingTrails}</li>
-              )}
+              ))}
             </ul>
           </p>
           <div className='line'></div>
@@ -126,9 +126,9 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
           <p>
             <strong>Campsites</strong>
             <ul>
-              {destinations.map(destination =>
+              {destinations.map(destination => (
                 <li>{destination.campSites}</li>
-              )}
+              ))}
             </ul>
           </p>
           <div className='line'></div>
@@ -144,9 +144,9 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
           <p>
             <strong>Lakes, Rivers, or Oceans</strong>
             <ul>
-              {destinations.map(destination =>
+              {destinations.map(destination => (
                 <li>{destination.waterAreas}</li>
-              )}
+              ))}
             </ul>
           </p>
           <div className='line'></div>
@@ -162,9 +162,9 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
           <p>
             <strong>Slopes</strong>
             <ul>
-              {destinations.map(destination =>
+              {destinations.map(destination => (
                 <li>{destination.slopes}</li>
-              )}
+              ))}
             </ul>
           </p>
           <div className='line'></div>
@@ -180,9 +180,9 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
           <p>
             <strong>Crags</strong>
             <ul>
-              {destinations.map(destination =>
+              {destinations.map(destination => (
                 <li>{destination.crags}</li>
-              )}
+              ))}
             </ul>
           </p>
           <div className='line'></div>
@@ -197,91 +197,90 @@ const Profile = ({ profile: { profile }, getProfileById, match }) => {
       return (
         <Fragment>
           <p>
-          <strong>Hiking</strong>
-          <ul>
-            {destinations.map(destination =>
-              <li>{destination.hikingTrails}</li>
-            )}
-          </ul>
+            <strong>Hiking</strong>
+            <ul>
+              {gears.map(gear => (
+                <li>{gear.hikeGear}</li>
+              ))}
+            </ul>
           </p>
           <div className='line'></div>
         </Fragment>
       );
     }
-  }
+  };
 
   const checkCampGears = () => {
     if (Camping) {
       return (
         <Fragment>
           <p>
-          <strong>Camping</strong>
-          <ul>
-            {destinations.map(destination =>
-              <li>{destination.campSites}</li>
-            )}
-          </ul>
+            <strong>Camping</strong>
+            <ul>
+              {gears.map(gear => (
+                <li>{gear.campGear}</li>
+              ))}
+            </ul>
           </p>
           <div className='line'></div>
         </Fragment>
       );
     }
-  }
+  };
 
   const checkWaterGears = () => {
     if (Kayaking || Rafting) {
       return (
         <Fragment>
           <p>
-          <strong>Lakes, Rivers, or Oceans</strong>
-          <ul>
-            {destinations.map(destination =>
-              <li>{destination.waterAreas}</li>
-            )}
-          </ul>
+            <strong>Lakes, Rivers, or Oceans</strong>
+            <ul>
+              {gears.map(gear => (
+                <li>{gear.waterGear}</li>
+              ))}
+            </ul>
           </p>
           <div className='line'></div>
         </Fragment>
       );
     }
-  }
+  };
 
   const checkSnowGears = () => {
     if (Skiing || Snowboarding) {
       return (
         <Fragment>
           <p>
-          <strong>Slopes</strong>
-          <ul>
-            {destinations.map(destination =>
-              <li>{destination.slopes}</li>
-            )}
-          </ul>
+            <strong>Slopes</strong>
+            <ul>
+              {gears.map(gear => (
+                <li>{gear.snowGear}</li>
+              ))}
+            </ul>
           </p>
           <div className='line'></div>
         </Fragment>
       );
     }
-  }
+  };
 
   const checkClimbGears = () => {
     if (Rockclimbing) {
       return (
         <Fragment>
           <p>
-          <strong>Rock Climbing</strong>
-          <ul>
-            {destinations.map(destination =>
-              <li>{destination.crags}</li>
-            )}
-          </ul>
+            <strong>Rock Climbing</strong>
+            <ul>
+              {gears.map(gear => (
+                <li>{gear.rockClimbingGear}</li>
+              ))}
+            </ul>
           </p>
           <div className='line'></div>
         </Fragment>
       );
     }
-  }
-  
+  };
 
   return (
     <Fragment>

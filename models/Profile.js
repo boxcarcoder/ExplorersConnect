@@ -55,38 +55,38 @@ const profileSchema = new mongoose.Schema({
   destinations: [
     {
       hikingTrails: {
-        type: [String]
+        type: String
       },
       campSites: {
-        type: [String]
+        type: String
       },
       waterAreas: {
-        type: [String]
+        type: String
       },
       slopes: {
-        type: [String]
+        type: String
       },
       crags: {
-        type: [String]
+        type: String
       }
     }
   ],
   gears: [
     {
       hikeGear: {
-        type: [String]
+        type: String
       },
       campGear: {
-        type: [String]
+        type: String
       },
       waterGear: {
-        type: [String]
+        type: String
       },
       snowGear: {
-        type: [String]
+        type: String
       },
       rockClimbingGear: {
-        type: [String]
+        type: String
       }
     }
   ],
@@ -110,4 +110,4 @@ const profileSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('profile', profileSchema);
+module.exports = Profile = mongoose.model('profile', profileSchema);
