@@ -24,7 +24,8 @@ const Posts = ({ getAllPosts, addPost, post: { posts } }) => {
   };
 
   const onChange = e => {
-    console.log('setting formdata in post component.');
+    // console.log('[e.target.name]', [e.target.name]);
+    // console.log('e.target.value', e.target.value);
     setFormData({
       [e.target.name]: e.target.value
     });
@@ -47,6 +48,7 @@ const Posts = ({ getAllPosts, addPost, post: { posts } }) => {
             cols='30'
             rows='5'
             placeholder='Create a post'
+            name='text'
             onChange={e => onChange(e)}
           ></textarea>
           <input

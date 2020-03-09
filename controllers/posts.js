@@ -28,9 +28,6 @@ postsRouter.post(
       // retrieve the logged in user from the db
       let user = await User.findById(req.user.id).select('-password');
 
-      console.log('user: ', user);
-      console.log('req from post action: ', req);
-
       // create new post
       let newPost = new Post({
         text: req.body.text, //get the post text from the req
@@ -42,7 +39,7 @@ postsRouter.post(
       let post = await newPost.save();
       res.json(post);
     } catch (err) {
-      console.error('ERROR: ',err.message);
+      console.error('ERROR: ', err.message);
       res.status(500).json('Server error.');
     }
   }

@@ -15,6 +15,7 @@ import AddDestinations from './components/profile-forms/AddDestinations';
 import AddGears from './components/profile-forms/AddGears';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profiles/Profile';
+import Posts from './components/posts/Posts';
 
 //redux
 import { Provider } from 'react-redux';
@@ -48,6 +49,7 @@ const App = () => {
               <Route exact path='/Login' component={Login} />
               <Route exact path='/Profiles' component={Profiles} />
               <Route exact path='/Profile/:id' component={Profile} />
+              <Route exact path='/Posts' component={Posts} />
               <PrivateRoute exact path='/Dashboard' component={Dashboard} />
               <PrivateRoute
                 exact
