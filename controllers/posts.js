@@ -111,6 +111,7 @@ postsRouter.delete('/:postID', auth, async (req, res) => {
 postsRouter.put('/like/:postID', auth, async (req, res) => {
   try {
     let post = await Post.findById(req.params.postID);
+    console.log('updating like in post API route.');
 
     // check if the post has been liked already by the logged in user
     // prettier-ignore

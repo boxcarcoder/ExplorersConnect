@@ -58,7 +58,7 @@ const CreateProfile = ({ createProfile, history }) => {
   };
 
   // e.target.checked is the user clicking the check box
-  const onClick = e => {
+  const handleClick = e => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.checked
@@ -91,7 +91,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Hiking'
             checked={Hiking}
-            onClick={e => onClick(e)}
+            onClick={e => handleClick(e)}
           />{' '}
           Hiking
           <br />
@@ -99,7 +99,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Camping'
             checked={Camping}
-            onClick={e => onClick(e)}
+            onClick={e => handleClick(e)}
           />{' '}
           Camping
           <br />
@@ -107,7 +107,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Kayaking'
             checked={Kayaking}
-            onClick={e => onClick(e)}
+            onClick={e => handleClick(e)}
           />{' '}
           Kayaking
           <br />
@@ -115,7 +115,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Rafting'
             checked={Rafting}
-            onClick={e => onClick(e)}
+            onClick={e => handleClick(e)}
           />{' '}
           Rafting
           <br />
@@ -123,7 +123,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Skiing'
             checked={Skiing}
-            onClick={e => onClick(e)}
+            onClick={e => handleClick(e)}
           />{' '}
           Skiing
           <br />
@@ -131,7 +131,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Snowboarding'
             checked={Snowboarding}
-            onClick={e => onClick(e)}
+            onClick={e => handleClick(e)}
           />{' '}
           Snowboarding
           <br />
@@ -139,7 +139,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Rockclimbing'
             checked={Rockclimbing}
-            onClick={e => onClick(e)}
+            onClick={e => handleClick(e)}
           />{' '}
           Rockclimbing
           <br />

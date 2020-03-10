@@ -65,7 +65,7 @@ const Profile = ({ profile: { profile, loading }, getProfileById, match }) => {
     if (Kayaking) {
       return (
         <div className='p-1'>
-          <i class='fas fa-water'></i> Kayaking
+          <i className='fas fa-water'></i> Kayaking
         </div>
       );
     }
@@ -75,7 +75,7 @@ const Profile = ({ profile: { profile, loading }, getProfileById, match }) => {
     if (Rafting) {
       return (
         <div className='p-1'>
-          <i class='fas fa-tint'></i> Rafting
+          <i className='fas fa-tint'></i> Rafting
         </div>
       );
     }
@@ -85,7 +85,7 @@ const Profile = ({ profile: { profile, loading }, getProfileById, match }) => {
     if (Skiing) {
       return (
         <div className='p-1'>
-          <i class='fas fa-skiing'></i> Skiing
+          <i className='fas fa-skiing'></i> Skiing
         </div>
       );
     }
@@ -95,7 +95,7 @@ const Profile = ({ profile: { profile, loading }, getProfileById, match }) => {
     if (Snowboarding) {
       return (
         <div className='p-1'>
-          <i class='fas fa-snowboarding'></i> Snowboarding
+          <i className='fas fa-snowboarding'></i> Snowboarding
         </div>
       );
     }
@@ -105,7 +105,7 @@ const Profile = ({ profile: { profile, loading }, getProfileById, match }) => {
     if (Rockclimbing) {
       return (
         <div className='p-1'>
-          <i class='fas fa-mountain'></i> Rockclimbing
+          <i className='fas fa-mountain'></i> Rockclimbing
         </div>
       );
     }
