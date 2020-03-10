@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { getAllPosts, addPost } from '../../actions/post';
 
 import PropTypes from 'prop-types';
+
+import Post from './Post';
 
 const Posts = ({ getAllPosts, addPost, post: { posts } }) => {
   //on initial load, populate post redux state with all posts
@@ -14,8 +16,6 @@ const Posts = ({ getAllPosts, addPost, post: { posts } }) => {
 
   // create state to handle input
   const [formData, setFormData] = useState();
-
-  // const { postBox } = formData;
 
   const handleSubmit = e => {
     console.log('submitting post: ', formData);
@@ -31,13 +31,18 @@ const Posts = ({ getAllPosts, addPost, post: { posts } }) => {
     });
   };
 
+  const allPosts = () => {
+    console.log('all posts: ', posts);
+    return posts.map(post => <Post key={post._id} post={post} />);
+  };
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Posts</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Welcome to the community
       </p>
-
+      {/* Post Box and Submit Button */}
       <div className='post-form'>
         <div className='bg-primary post-form-header '>
           <h4>Start a Discussion</h4>
@@ -58,6 +63,8 @@ const Posts = ({ getAllPosts, addPost, post: { posts } }) => {
           />
         </form>
       </div>
+      {/*List of Posts*/}
+      <div className='posts'>{allPosts()}</div>
     </Fragment>
   );
 };

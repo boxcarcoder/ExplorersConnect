@@ -5,11 +5,22 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getProfileById } from '../../actions/profile';
 
-const Profile = ({ profile: { profile }, getProfileById, match }) => {
+import Spinner from '../layout/Spinner';
+
+const Profile = ({ profile: { profile, loading }, getProfileById, match }) => {
   //when a user's profile page is first loaded, retrieve the profile and store it in the profile redux state
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
+
+  //for async operation. need to wait for profile to be loaded into the profile redux state before proceeding
+  if (profile === null || loading) {
+    return (
+      <Fragment>
+        <Spinner />
+      </Fragment>
+    );
+  }
 
   const {
     user: { name, avatar }, //this field countains a user field, which contains name and avatar
