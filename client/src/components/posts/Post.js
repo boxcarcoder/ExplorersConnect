@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 
 /*need to get profile id for each post. need post component for each post*/
-const Post = ({ post, loading }) => {
+const Post = ({ post, loading, postState }) => {
   const { text, name, avatar, user, likes, comments } = post;
 
   const handleClick = e => {
@@ -17,7 +17,8 @@ const Post = ({ post, loading }) => {
     likePost(user);
   };
 
-  if (loading) {
+  //for async operation. Need to wait for post redux state to be populated before proceeding.
+  if (loading || !postState.posts.length) {
     return <Spinner />;
   } else {
     return (
@@ -52,7 +53,7 @@ Post.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  postState: state.post
 });
 
 export default connect(mapStateToProps)(Post);
