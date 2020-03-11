@@ -65,22 +65,20 @@ export const addPost = formData => async dispatch => {
 
 // Like a post
 export const likePost = id => async dispatch => {
-  console.log('reached backend.');
   try {
     //set the token as the header to gain access to the protected route POST /api/posts/like
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
 
-    const res = await axios.put(`/like/${id}`);
+    const res = await axios.put(`/api/posts/like/${id}`);
 
-    console.log('LIKE A POST: ', res);
-    // dispatch({
-    //   type: LIKE_A_POST,
-    //   payload: res.data
-    // });
+    dispatch({
+      type: LIKE_A_POST,
+      payload: res.data
+    });
   } catch (err) {
-    console.log('error liking.');
+    console.log('error liking a post: ', err);
 
     // dispatch error message and HTTP error status to the post redux state
     dispatch({

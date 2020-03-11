@@ -14,15 +14,16 @@ const Posts = ({ getAllPosts, addPost, post: { posts, loading } }) => {
   //on initial load, populate post redux state with all posts
   useEffect(() => {
     getAllPosts();
-  }, []);
+  }, [getAllPosts]);
 
   // create state to handle input
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState('');
 
   const handleSubmit = e => {
     console.log('submitting post: ', formData);
     e.preventDefault();
     addPost(formData);
+    setFormData('');
   };
 
   const onChange = e => {
@@ -35,11 +36,11 @@ const Posts = ({ getAllPosts, addPost, post: { posts, loading } }) => {
 
   const allPosts = () => {
     console.log('all posts: ', posts);
-    return posts.map(post => <Post key={post._id} post={post} />);
+    return posts.map(post => <Post key={post._id} post={post}/>);
   };
 
   //need to wait for posts to be loaded into the post redux state before proceeding
-  if (posts.length === 0 || loading) {
+  if (!posts.length || loading) {
     return (
       <Fragment>
         <Spinner />

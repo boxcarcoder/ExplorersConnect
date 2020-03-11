@@ -8,6 +8,7 @@ import {
 const initialState = {
   post: null,
   posts: [],
+  likes: [],
   loading: true,
   error: {}
 };
@@ -28,11 +29,12 @@ export default function(state = initialState, action) {
         post: payload, // the payload is the post data returned from the backend
         loading: false
       };
-    // case LIKE_A_POST:
-    //     {
-    //         ...state,
-    //         post:
-    //     }
+    case LIKE_A_POST:
+      return {
+          ...state,
+          likes: payload, // the payload is the likes array of the post returned from the backend
+          loading: false
+        }
     case POSTS_ERROR:
       return {
         ...state,
