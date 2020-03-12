@@ -8,7 +8,7 @@ import {
 const initialState = {
   post: null,
   posts: [],
-  likes: [],
+  //likes: [], this would only be one likes array. EACH post needs to have its own like array
   loading: true,
   error: {}
 };
@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
     case GET_ALL_POSTS:
       return {
         ...state,
-        posts: payload, //the payload is the posts data returned from the backend
+        posts: payload, //the payload is the posts array returned from the backend
         loading: false
       };
     case SUBMIT_POST_SUCCESS:
@@ -32,7 +32,10 @@ export default function(state = initialState, action) {
     case LIKE_A_POST:
       return {
           ...state,
-          likes: payload, // the payload is the likes array of the post returned from the backend
+          posts: state.posts.map(post => post._id === payload.id ? { 
+            ...post,
+            likes: payload.likes //payload.likes is the likes array returned from the backend
+          } : post),
           loading: false
         }
     case POSTS_ERROR:

@@ -7,29 +7,29 @@ import PropTypes from 'prop-types';
 
 import Spinner from '../layout/Spinner';
 
-/*need to get profile id for each post. need post component for each post*/
-const Post = ({ post, loading, postState, likePost }) => {
-  const { _id, text, name, avatar, user, likes, comments } = post;
+
+const Post = ({ post: {_id, text, name, avatar, user, likes, comments }, postState: { posts, loading }, likePost }) => {
 
   const handleClick = e => {
-    console.log('clicking like.');
-    console.log('id for action and backend: ', _id);
+    // console.log('id for action and backend: ', _id);
     likePost(_id);
   };
 
-  //for async operation. Need to wait for post redux state to be populated before proceeding.
-  if (loading || !postState.posts.length) {
+  // //for async operation. Need to wait for post redux state to be populated before proceeding.
+  if (loading || !posts.length) {
     return <Spinner />;
   } else {
     return (
       <Fragment>
         <div className='post bg-white vert-m-1 p-1'>
+          {/*Poster avatar and name */}
           <div>
             <Link to={`/profile/${user}`}>
               <img className='round-img' src={avatar} alt='avatar' />
               <h4>{name}</h4>
             </Link>
           </div>
+          {/*Thumbs up, down, and comment */}
           <div>
             <p className='vert-m-1'>{text}</p>
             <button className='btn' onClick={e => handleClick(e)}>
@@ -49,7 +49,8 @@ const Post = ({ post, loading, postState, likePost }) => {
 };
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  likePost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

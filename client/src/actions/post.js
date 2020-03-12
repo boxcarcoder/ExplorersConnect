@@ -75,7 +75,7 @@ export const likePost = id => async dispatch => {
 
     dispatch({
       type: LIKE_A_POST,
-      payload: res.data
+      payload: { id, likes: res.data }
     });
   } catch (err) {
     console.log('error liking a post: ', err);
