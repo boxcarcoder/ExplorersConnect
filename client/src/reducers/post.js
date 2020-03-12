@@ -2,7 +2,8 @@ import {
   GET_ALL_POSTS,
   POSTS_ERROR,
   SUBMIT_POST_SUCCESS,
-  LIKE_A_POST
+  LIKE_A_POST,
+  UNLIKE_A_POST
 } from '../actions/types';
 
 const initialState = {
@@ -31,11 +32,12 @@ export default function(state = initialState, action) {
         loading: false
       };
     case LIKE_A_POST:
+    case UNLIKE_A_POST: 
       return {
           ...state,
           posts: state.posts.map(post => post._id === payload.id ? { 
             ...post,
-            likes: payload.likes //payload.likes is the likes array returned from the backend
+            likes: payload.likes //payload.likes is the likes array returned from the backend, either with the new like, or removed like
           } : post),
           loading: false
         }

@@ -2,7 +2,8 @@ import {
   GET_ALL_POSTS,
   POSTS_ERROR,
   SUBMIT_POST_SUCCESS,
-  LIKE_A_POST
+  LIKE_A_POST,
+  UNLIKE_A_POST
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
@@ -79,6 +80,31 @@ export const likePost = id => async dispatch => {
     });
   } catch (err) {
     console.log('error liking a post: ', err);
+
+    // dispatch error message and HTTP error status to the post redux state
+    dispatch({
+      type: POSTS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Unlike a post
+export const unlikePost = id => async dispatch => {
+  try {
+    //set the token as the header to gain access to the protected route POST /api/posts/like
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    const res = await axios.put(`/api/posts/unlike/${id}`);
+
+    dispatch({
+      type: UNLIKE_A_POST,
+      payload: { id, likes: res.data }
+    });
+  } catch (err) {
+    console.log('error unliking a post: ', err);
 
     // dispatch error message and HTTP error status to the post redux state
     dispatch({

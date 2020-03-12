@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { likePost } from '../../actions/post';
+import { likePost, unlikePost } from '../../actions/post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -9,15 +9,26 @@ import Spinner from '../layout/Spinner';
 
 import { setAlert } from '../../actions/alert';
 
-
-
-const Post = ({ post: {_id, text, name, avatar, user, likes, comments }, postState: { posts, loading }, likePost, auth: { isAuthenticated }, setAlert }) => {
-
-  const handleClick = e => {
-    if ( isAuthenticated ) {
+const Post = ({
+  post: { _id, text, name, avatar, user, likes, comments },
+  postState: { posts, loading },
+  likePost,
+  auth: { isAuthenticated },
+  setAlert,
+  unlikePost
+}) => {
+  const handleClickLike = e => {
+    if (isAuthenticated) {
       likePost(_id);
+    } else {
+      setAlert('Please log in to like or dislike post.', 'danger');
     }
-    else {
+  };
+
+  const handleClickUnlike = e => {
+    if (isAuthenticated) {
+      unlikePost(_id);
+    } else {
       setAlert('Please log in to like or dislike post.', 'danger');
     }
   };
@@ -39,10 +50,10 @@ const Post = ({ post: {_id, text, name, avatar, user, likes, comments }, postSta
           {/*Thumbs up, down, and comment */}
           <div>
             <p className='vert-m-1'>{text}</p>
-            <button className='btn' onClick={e => handleClick(e)}>
+            <button className='btn' onClick={e => handleClickLike(e)}>
               <i className='fas fa-thumbs-up'></i> <span>{likes.length}</span>
             </button>
-            <button className='btn'>
+            <button className='btn' onClick={e => handleClickUnlike(e)}>
               <i className='fas fa-thumbs-down'></i>
             </button>
             <Link to='/post' className='btn btn-primary'>
@@ -58,7 +69,8 @@ const Post = ({ post: {_id, text, name, avatar, user, likes, comments }, postSta
 Post.propTypes = {
   post: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  unlikePost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -66,4 +78,6 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, {likePost, setAlert })(Post);
+export default connect(mapStateToProps, { likePost, setAlert, unlikePost })(
+  Post
+);
