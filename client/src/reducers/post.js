@@ -8,7 +8,7 @@ import {
 const initialState = {
   post: null,
   posts: [],
-  //likes: [], this would only be one likes array. EACH post needs to have its own like array
+  //likes: [], *** this would only be one likes array. EACH post needs to have its own like array
   loading: true,
   error: {}
 };
@@ -27,6 +27,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         post: payload, // the payload is the post data returned from the backend
+        posts: [payload, ...state.posts], // *** update the posts array in the state with the new post
         loading: false
       };
     case LIKE_A_POST:
