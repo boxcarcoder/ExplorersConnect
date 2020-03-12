@@ -7,12 +7,19 @@ import PropTypes from 'prop-types';
 
 import Spinner from '../layout/Spinner';
 
+import { setAlert } from '../../actions/alert';
 
-const Post = ({ post: {_id, text, name, avatar, user, likes, comments }, postState: { posts, loading }, likePost }) => {
+
+
+const Post = ({ post: {_id, text, name, avatar, user, likes, comments }, postState: { posts, loading }, likePost, auth: { isAuthenticated }, setAlert }) => {
 
   const handleClick = e => {
-    // console.log('id for action and backend: ', _id);
-    likePost(_id);
+    if ( isAuthenticated ) {
+      likePost(_id);
+    }
+    else {
+      setAlert('Please log in to like or dislike post.', 'danger');
+    }
   };
 
   // //for async operation. Need to wait for post redux state to be populated before proceeding.
@@ -51,10 +58,12 @@ const Post = ({ post: {_id, text, name, avatar, user, likes, comments }, postSta
 Post.propTypes = {
   post: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  postState: state.post
+  postState: state.post,
+  auth: state.auth
 });
 
-export default connect(mapStateToProps, {likePost})(Post);
+export default connect(mapStateToProps, {likePost, setAlert })(Post);
