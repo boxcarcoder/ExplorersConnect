@@ -53,6 +53,19 @@ export default function(state = initialState, action) {
         post: payload, //payload is the post returned from the backend
         loading: false
       };
+    case COMMENT_ON_POST:
+      return {
+        ...state,
+        posts: state.posts.map(post =>
+          post._id === payload.id
+            ? {
+                ...post,
+                comments: payload.comments //payload.comments is the comments array returned from the backend
+              }
+            : post
+        ),
+        loading: false
+      };
     case POSTS_ERROR:
       return {
         ...state,

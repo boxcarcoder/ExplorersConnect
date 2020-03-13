@@ -117,13 +117,46 @@ export const unlikePost = id => async dispatch => {
 };
 
 // Fetch a post
-export const getPost = _id => async dispatch => {
+export const getPost = id => async dispatch => {
   try {
-    const res = await axios.get(`/api/posts/${_id}`);
+    const res = await axios.get(`/api/posts/${id}`);
 
     dispatch({
       type: GET_POST,
       payload: res.data
+    });
+  } catch (err) {
+    console.log('error fetching a post: ', err);
+
+    // dispatch error message and HTTP error status to the post redux state
+    dispatch({
+      type: POSTS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Comment on a post
+export const commentOnPost = (id, formData) => async dispatch => {
+  try {
+    console.log('posting to db.');
+    //set the token as the header to gain access to the protected route POST /api/posts
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    // configuration of the HTTP request to the backend
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const res = await axios.post(`/api/posts/comment/${id}`, formData, config);
+
+    dispatch({
+      type: COMMENT_ON_POST,
+      payload: { id, comments: res.data }
     });
   } catch (err) {
     console.log('error commenting on a post: ', err);

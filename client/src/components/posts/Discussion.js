@@ -2,20 +2,39 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { getPost } from '../../actions/post';
+import { getPost, commentOnPost } from '../../actions/post';
 
-const Discussion = ({ post: { post }, getPost, match }) => {
+import Spinner from '../layout/Spinner';
+
+import PropTypes from 'prop-types';
+
+const Discussion = ({
+  post: { post, loading },
+  getPost,
+  match,
+  commentOnPost
+}) => {
   //when discussion component first loads, load redux state with post data
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
 
-  if (!post) {
-    return (
-      <Fragment>
-        <h1>post redux state's post prop has not been populated yet.</h1>
-      </Fragment>
-    );
+  const [formData, setFormData] = useState('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('commenting on post. ');
+    commentOnPost(match.params.id, formData);
+  };
+
+  const onChange = e => {
+    setFormData({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  if (!post || loading) {
+    return <Spinner />;
   } else {
     const { user, avatar, name, text } = post;
 
@@ -49,11 +68,14 @@ const Discussion = ({ post: { post }, getPost, match }) => {
               cols='30'
               rows='5'
               placeholder='Comment on this post'
+              name='comment'
+              onChange={e => onChange(e)}
             ></textarea>
             <input
               type='submit'
               value='Submit'
               className='btn btn-dark vert-m-1'
+              onSubmit={e => handleSubmit(e)}
             />
           </form>
         </div>
@@ -62,8 +84,14 @@ const Discussion = ({ post: { post }, getPost, match }) => {
   }
 };
 
+Discussion.propTypes = {
+  post: PropTypes.object.isRequired,
+  getPost: PropTypes.func.isRequired,
+  commentOnPost: PropTypes.func.isRequired
+};
+
 const mapStateToProps = state => ({
   post: state.post
 });
 
-export default connect(mapStateToProps, { getPost })(Discussion);
+export default connect(mapStateToProps, { getPost, commentOnPost })(Discussion);

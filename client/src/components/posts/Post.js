@@ -70,8 +70,7 @@ Post.propTypes = {
   post: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
-  unlikePost: PropTypes.func.isRequired,
-  commentOnPost: PropTypes.func.isRequired
+  unlikePost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
