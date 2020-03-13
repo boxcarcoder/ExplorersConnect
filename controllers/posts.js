@@ -64,7 +64,7 @@ postsRouter.get('/', async (req, res) => {
 // @access  Public so site visitors can see posts for more exposure
 postsRouter.get('/:postID', async (req, res) => {
   try {
-    let post = await Post.findById(req.params.postID); //sort posts by most recent
+    let post = await Post.findById(req.params.postID);
 
     if (!post) return res.status(404).json('This post could not be found.');
 
@@ -184,6 +184,8 @@ postsRouter.post(
       let user = await User.findById(req.user.id).select('-password');
       // retrieve the post by the post ID
       let post = await Post.findById(req.params.id);
+
+      console.log('commenting on post in backend.');
 
       // add new comment to the post
       let newComment = {

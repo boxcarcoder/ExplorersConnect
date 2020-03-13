@@ -3,7 +3,8 @@ import {
   POSTS_ERROR,
   SUBMIT_POST_SUCCESS,
   LIKE_A_POST,
-  UNLIKE_A_POST
+  UNLIKE_A_POST,
+  COMMENT_ON_POST
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
@@ -105,6 +106,26 @@ export const unlikePost = id => async dispatch => {
     });
   } catch (err) {
     console.log('error unliking a post: ', err);
+
+    // dispatch error message and HTTP error status to the post redux state
+    dispatch({
+      type: POSTS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Comment on a post
+export const commentOnPost = _id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/posts/${_id}`);
+
+    dispatch({
+      type: COMMENT_ON_POST,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('error commenting on a post: ', err);
 
     // dispatch error message and HTTP error status to the post redux state
     dispatch({

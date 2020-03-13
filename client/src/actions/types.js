@@ -20,4 +20,4 @@ export const POSTS_ERROR = 'POSTS_ERROR';
 export const SUBMIT_POST_SUCCESS = 'SUBMIT_POST_SUCCESS';
 export const LIKE_A_POST = 'LIKE_A_POST';
 export const UNLIKE_A_POST = 'UNLIKE_A_POST';
-
+export const COMMENT_ON_POST = 'COMMENT_ON_POST';
