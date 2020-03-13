@@ -4,6 +4,7 @@ import {
   SUBMIT_POST_SUCCESS,
   LIKE_A_POST,
   UNLIKE_A_POST,
+  GET_POST,
   COMMENT_ON_POST
 } from '../actions/types';
 
@@ -46,10 +47,10 @@ export default function(state = initialState, action) {
         ),
         loading: false
       };
-    case COMMENT_ON_POST:
+    case GET_POST:
       return {
         ...state,
-        post: payload,
+        post: payload, //payload is the post returned from the backend
         loading: false
       };
     case POSTS_ERROR:

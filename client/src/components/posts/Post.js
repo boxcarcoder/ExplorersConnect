@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { likePost, unlikePost, commentOnPost } from '../../actions/post';
+import { likePost, unlikePost } from '../../actions/post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -15,8 +15,7 @@ const Post = ({
   likePost,
   auth: { isAuthenticated },
   setAlert,
-  unlikePost,
-  commentOnPost
+  unlikePost
 }) => {
   const handleLike = e => {
     if (isAuthenticated) {
@@ -32,10 +31,6 @@ const Post = ({
     } else {
       setAlert('Please log in to like or dislike post.', 'danger');
     }
-  };
-
-  const handleDiscussion = e => {
-    commentOnPost(_id);
   };
 
   // //for async operation. Need to wait for post redux state to be populated before proceeding.
@@ -61,11 +56,7 @@ const Post = ({
             <button className='btn' onClick={e => handleUnlike(e)}>
               <i className='fas fa-thumbs-down'></i>
             </button>
-            <Link
-              to={`/posts/${_id}`}
-              className='btn btn-primary'
-              onClick={e => handleDiscussion(e)}
-            >
+            <Link to={`/posts/${_id}`} className='btn btn-primary'>
               Discussion
             </Link>
           </div>
@@ -91,6 +82,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   likePost,
   setAlert,
-  unlikePost,
-  commentOnPost
+  unlikePost
 })(Post);

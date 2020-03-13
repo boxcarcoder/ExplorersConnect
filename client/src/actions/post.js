@@ -4,6 +4,7 @@ import {
   SUBMIT_POST_SUCCESS,
   LIKE_A_POST,
   UNLIKE_A_POST,
+  GET_POST,
   COMMENT_ON_POST
 } from './types';
 import axios from 'axios';
@@ -115,13 +116,13 @@ export const unlikePost = id => async dispatch => {
   }
 };
 
-// Comment on a post
-export const commentOnPost = _id => async dispatch => {
+// Fetch a post
+export const getPost = _id => async dispatch => {
   try {
     const res = await axios.get(`/api/posts/${_id}`);
 
     dispatch({
-      type: COMMENT_ON_POST,
+      type: GET_POST,
       payload: res.data
     });
   } catch (err) {
