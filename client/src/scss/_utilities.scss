@@ -114,6 +114,10 @@
       background: lighten($danger-color, 15%);
     }
   }
+  &.btn-small {
+    font-size: 0.9rem;
+    padding: 0.2rem 0.7rem;
+  }
 
   &:hover {
     background: lighten($dark-color, 25%);

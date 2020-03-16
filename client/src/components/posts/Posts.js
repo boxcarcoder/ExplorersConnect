@@ -35,7 +35,6 @@ const Posts = ({ getAllPosts, addPost, post: { posts, loading } }) => {
   };
 
   const allPosts = () => {
-    console.log('all posts: ', posts);
     return posts.map(post => <Post key={post._id} post={post} />);
   };
 
