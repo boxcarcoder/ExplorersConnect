@@ -183,9 +183,11 @@ postsRouter.post(
       // retrieve the logged in user from the db
       let user = await User.findById(req.user.id).select('-password');
       // retrieve the post by the post ID
-      let post = await Post.findById(req.params.id);
+      let post = await Post.findById(req.params.postID);
 
-      console.log('commenting on post in backend.');
+      console.log('req.user.id: ', req.user.id )
+      console.log('req.params.postID: ', req.params.postID);
+      console.log('post: ', post);
 
       // add new comment to the post
       let newComment = {

@@ -49,7 +49,7 @@ const Discussion = ({
               <h4>{name}</h4>
             </Link>
           </div>
-          {/*Thumbs up, down, and comment */}
+          {/* Comment */}
           <div>
             <p className='vert-m-1'>{text}</p>
             <Link to='/posts' className='btn btn-primary'>
@@ -59,7 +59,7 @@ const Discussion = ({
         </div>
 
         {/*Comment input box */}
-        <div className='post-form'>
+        <div className='post-form'  onSubmit={e => handleSubmit(e)}>
           <div className='bg-primary post-form-header '>
             <h4>Leave a Comment</h4>
           </div>
@@ -68,14 +68,14 @@ const Discussion = ({
               cols='30'
               rows='5'
               placeholder='Comment on this post'
-              name='comment'
+              name='text'
               onChange={e => onChange(e)}
             ></textarea>
             <input
               type='submit'
               value='Submit'
               className='btn btn-dark vert-m-1'
-              onSubmit={e => handleSubmit(e)}
+             
             />
           </form>
         </div>
