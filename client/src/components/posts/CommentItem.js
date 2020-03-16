@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 const CommentItem = ({ comment: { user, avatar, name, text } }) => {
   return (
@@ -23,12 +23,13 @@ const CommentItem = ({ comment: { user, avatar, name, text } }) => {
   );
 };
 
-CommentItem.propType = {
-  postState: PropTypes.object.isRequired
-};
+// CommentItem.propType = {
+//   postState: PropTypes.object.isRequired
+// };
 
-const mapStateToProps = state => ({
-  postState: state.post
-});
+// const mapStateToProps = state => ({
+//   postState: state.post
+// });
 
-export default connect(mapStateToProps)(CommentItem);
+//export default connect(mapStateToProps)(CommentItem);
+export default connect(null)(CommentItem);

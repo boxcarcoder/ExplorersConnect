@@ -7,7 +7,7 @@ import { setAlert } from '../../actions/alert';
 import PostItem from './PostItem';
 import CommentItem from './CommentItem';
 
-const Discussion = ({
+const Comment = ({
   postState: { post, loading },
   getPost,
   match,
@@ -15,7 +15,7 @@ const Discussion = ({
   authState: { isAuthenticated },
   setAlert
 }) => {
-  //when discussion component first loads, load redux state with post data
+  //when comment component first loads, load redux state with post data
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
@@ -82,7 +82,7 @@ const Discussion = ({
   }
 };
 
-Discussion.propTypes = {
+Comment.propTypes = {
   postState: PropTypes.object.isRequired,
   getPost: PropTypes.func.isRequired,
   commentOnPost: PropTypes.func.isRequired,
@@ -99,4 +99,4 @@ export default connect(mapStateToProps, {
   getPost,
   commentOnPost,
   setAlert
-})(Discussion);
+})(Comment);
