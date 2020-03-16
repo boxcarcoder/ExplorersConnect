@@ -9,11 +9,11 @@ import Spinner from '../layout/Spinner';
 
 import { setAlert } from '../../actions/alert';
 
-const Post = ({
+const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments },
-  postState: { posts, loading },
+  postState: { loading },
   likePost,
-  auth: { isAuthenticated },
+  authState: { isAuthenticated },
   setAlert,
   unlikePost
 }) => {
@@ -34,7 +34,7 @@ const Post = ({
   };
 
   // //for async operation. Need to wait for post redux state to be populated before proceeding.
-  if (loading || !posts.length) {
+  if (loading) {
     return <Spinner />;
   } else {
     return (
@@ -56,9 +56,14 @@ const Post = ({
             <button className='btn' onClick={e => handleUnlike(e)}>
               <i className='fas fa-thumbs-down'></i>
             </button>
-            <Link to={`/posts/${_id}`} className='btn btn-primary'>
-              Discussion
-            </Link>
+            <div>
+              <Link
+                to={`/posts/${_id}`}
+                className='btn btn-primary btn-small vert-m-1'
+              >
+                Discussion
+              </Link>
+            </div>
           </div>
         </div>
       </Fragment>
@@ -66,20 +71,22 @@ const Post = ({
   }
 };
 
-Post.propTypes = {
+PostItem.propTypes = {
   post: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
-  unlikePost: PropTypes.func.isRequired
+  unlikePost: PropTypes.func.isRequired,
+  postState: PropTypes.object.isRequired,
+  authState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   postState: state.post,
-  auth: state.auth
+  authState: state.auth
 });
 
 export default connect(mapStateToProps, {
   likePost,
   setAlert,
   unlikePost
-})(Post);
+})(PostItem);

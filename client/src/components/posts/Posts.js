@@ -6,11 +6,11 @@ import { getAllPosts, addPost } from '../../actions/post';
 
 import PropTypes from 'prop-types';
 
-import Post from './Post';
+import PostItem from './PostItem';
 
 import Spinner from '../layout/Spinner';
 
-const Posts = ({ getAllPosts, addPost, post: { posts, loading } }) => {
+const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
   //on initial load, populate post redux state with all posts
   useEffect(() => {
     getAllPosts();
@@ -35,7 +35,7 @@ const Posts = ({ getAllPosts, addPost, post: { posts, loading } }) => {
   };
 
   const allPosts = () => {
-    return posts.map(post => <Post key={post._id} post={post} />);
+    return posts.map(post => <PostItem key={post._id} post={post} />);
   };
 
   //need to wait for posts to be loaded into the post redux state before proceeding
@@ -81,11 +81,11 @@ const Posts = ({ getAllPosts, addPost, post: { posts, loading } }) => {
 };
 
 Posts.propTypes = {
-  post: PropTypes.object.isRequired
+  postState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  postState: state.post
 });
 
 export default connect(mapStateToProps, { getAllPosts, addPost })(Posts);
