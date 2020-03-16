@@ -40,11 +40,7 @@ const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
 
   //need to wait for posts to be loaded into the post redux state before proceeding
   if (!posts.length || loading) {
-    return (
-      <Fragment>
-        <Spinner />
-      </Fragment>
-    );
+    return <Spinner />;
   } else {
     return (
       <Fragment>

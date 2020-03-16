@@ -61,7 +61,7 @@ const PostItem = ({
                 to={`/posts/${_id}`}
                 className='btn btn-primary btn-small vert-m-1'
               >
-                Discussion
+                Comment
               </Link>
             </div>
           </div>

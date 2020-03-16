@@ -5,6 +5,7 @@ import Spinner from '../layout/Spinner';
 import PropTypes from 'prop-types';
 import { setAlert } from '../../actions/alert';
 import PostItem from './PostItem';
+import CommentItem from './CommentItem';
 
 const Discussion = ({
   postState: { post, loading },
@@ -18,8 +19,6 @@ const Discussion = ({
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
-
-  console.log('match.params.id from Discussion: ', match.params.id);
 
   const [formData, setFormData] = useState('');
 
@@ -45,7 +44,7 @@ const Discussion = ({
     return (
       <Fragment>
         {/*Posts's avatar, name, and text */}
-        <PostItem key={match.params.id} post={post} />
+        <PostItem key={post._id} post={post} />
 
         {/*Comment input box */}
         <div className='post-form' onSubmit={e => handleSubmit(e)}>
@@ -66,6 +65,17 @@ const Discussion = ({
               className='btn btn-dark vert-m-1'
             />
           </form>
+
+          {/* Comments list section */}
+          <div className='comments'>
+            {post.comments.map(comment => (
+              <CommentItem
+                key={comment._id}
+                comment={comment}
+                postId={post._id}
+              />
+            ))}
+          </div>
         </div>
       </Fragment>
     );
