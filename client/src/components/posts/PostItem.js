@@ -1,55 +1,31 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-
 import { likePost, unlikePost } from '../../actions/post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Spinner from '../layout/Spinner';
-
-import { setAlert } from '../../actions/alert';
-
 const PostItem = ({
-  post: { _id, text, name, avatar, user, likes, comments },
+  post: { _id, likes },
   postState: { loading },
   likePost,
-  authState: { isAuthenticated },
-  setAlert,
   unlikePost
 }) => {
   const handleLike = e => {
-    if (isAuthenticated) {
-      likePost(_id);
-    } else {
-      setAlert('Please log in to like or dislike post.', 'danger');
-    }
+    likePost(_id);
   };
 
   const handleUnlike = e => {
-    if (isAuthenticated) {
-      unlikePost(_id);
-    } else {
-      setAlert('Please log in to like or dislike post.', 'danger');
-    }
+    unlikePost(_id);
   };
 
-  // //for async operation. Need to wait for post redux state to be populated before proceeding.
   if (loading) {
-    return <Spinner />;
+    return <h1> still loading </h1>;
   } else {
     return (
       <Fragment>
-        <div className='post bg-white vert-m-1 p-1'>
-          {/*Poster avatar and name */}
+        <div>
+          <p>post</p>
           <div>
-            <Link to={`/profile/${user}`}>
-              <img className='round-img' src={avatar} alt='avatar' />
-              <h4>{name}</h4>
-            </Link>
-          </div>
-          {/*Thumbs up, down, and comment */}
-          <div>
-            <p className='vert-m-1'>{text}</p>
             <button className='btn' onClick={e => handleLike(e)}>
               <i className='fas fa-thumbs-up'></i> <span>{likes.length}</span>
             </button>
@@ -57,12 +33,7 @@ const PostItem = ({
               <i className='fas fa-thumbs-down'></i>
             </button>
             <div>
-              <Link
-                to={`/posts/${_id}`}
-                className='btn btn-primary btn-small vert-m-1'
-              >
-                Comment
-              </Link>
+              <Link to={`/posts/${_id}`}>Comment</Link>
             </div>
           </div>
         </div>
@@ -74,19 +45,15 @@ const PostItem = ({
 PostItem.propTypes = {
   post: PropTypes.object.isRequired,
   likePost: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
-  postState: PropTypes.object.isRequired,
-  authState: PropTypes.object.isRequired
+  postState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  postState: state.post,
-  authState: state.auth
+  postState: state.post
 });
 
 export default connect(mapStateToProps, {
   likePost,
-  setAlert,
   unlikePost
 })(PostItem);
