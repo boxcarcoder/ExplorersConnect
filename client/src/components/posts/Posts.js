@@ -1,13 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import { getAllPosts, addPost } from '../../actions/post';
-
 import PropTypes from 'prop-types';
-
 import PostItem from './PostItem';
-
 import Spinner from '../layout/Spinner';
 
 const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
