@@ -63,7 +63,14 @@ export default function(state = initialState, action) {
     case COMMENT_ON_POST:
       return {
         ...state,
-        posts: state.posts.map(post =>
+        post: {
+          //update post state's comments to re-render Comment component
+          ...state.post,
+          comments: payload.comments
+        },
+        posts: state.posts.map((
+          post //update posts state's comments to re-render Posts component
+        ) =>
           post._id === payload.id
             ? {
                 ...post,
