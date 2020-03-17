@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getPost } from '../../actions/post';
 import PropTypes from 'prop-types';
@@ -10,12 +10,17 @@ const Comment = ({ postState: { post, loading }, getPost, match }) => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
 
+  const changeCommentsProp = () => {
+    post = getPost(match.params.id);
+  };
+
   if (!post || loading) {
     return <h1> still loading </h1>;
   } else {
     return (
       <Fragment>
         <PostItem key={post._id} post={post} />
+        {changeCommentsProp()}
       </Fragment>
     );
   }

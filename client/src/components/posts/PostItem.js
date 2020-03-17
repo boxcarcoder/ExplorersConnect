@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const PostItem = ({
   post: { _id, likes },
-  postState: { loading },
+  postState: { posts, loading },
   likePost,
   unlikePost
 }) => {
@@ -18,7 +18,9 @@ const PostItem = ({
     unlikePost(_id);
   };
 
-  if (loading) {
+  console.log('re-rendering');
+
+  if (loading || !posts.length) {
     return <h1> still loading </h1>;
   } else {
     return (

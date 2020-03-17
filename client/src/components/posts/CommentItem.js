@@ -23,13 +23,4 @@ const CommentItem = ({ comment: { user, avatar, name, text } }) => {
   );
 };
 
-// CommentItem.propType = {
-//   postState: PropTypes.object.isRequired
-// };
-
-// const mapStateToProps = state => ({
-//   postState: state.post
-// });
-
-//export default connect(mapStateToProps)(CommentItem);
 export default connect(null)(CommentItem);
