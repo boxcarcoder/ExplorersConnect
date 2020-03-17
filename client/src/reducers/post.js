@@ -37,7 +37,14 @@ export default function(state = initialState, action) {
     case UNLIKE_A_POST:
       return {
         ...state,
-        posts: state.posts.map(post =>
+        post: {
+          // update post state's likes to re-render Comment component
+          ...state.post,
+          likes: payload.likes
+        },
+        posts: state.posts.map((
+          post // update posts state's likes to re-render Posts component
+        ) =>
           post._id === payload.id
             ? {
                 ...post,
