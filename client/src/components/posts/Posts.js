@@ -14,6 +14,8 @@ const Posts = ({ getAllPosts, postState: { posts, loading } }) => {
     return posts.map(post => <PostItem key={post._id} post={post} />);
   };
 
+  console.log('Posts re-rendering.');
+
   //need to wait for posts to be loaded into the post redux state before proceeding
   if (!posts.length || loading) {
     return <h1> still loading </h1>;

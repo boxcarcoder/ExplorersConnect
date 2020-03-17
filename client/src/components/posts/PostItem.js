@@ -18,10 +18,10 @@ const PostItem = ({
     unlikePost(_id);
   };
 
-  console.log('re-rendering');
+  console.log('PostItem re-rendering.');
 
-  if (loading || !posts.length) {
-    return <h1> still loading </h1>;
+  if (loading) {
+    return <h1> still loading PostItem </h1>;
   } else {
     return (
       <Fragment>

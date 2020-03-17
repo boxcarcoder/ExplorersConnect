@@ -24,9 +24,32 @@ export default function(state = initialState, action) {
         loading: false
       };
     case LIKE_A_POST:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          likes: [
+            { _id: '123', user: 'like' },
+            { _id: '456', user: 'like 2' }
+          ]
+        },
+        posts: state.posts.map(post =>
+          post._id === payload.id
+            ? {
+                ...post,
+                likes: payload.likes
+              }
+            : post
+        ),
+        loading: false
+      };
     case UNLIKE_A_POST:
       return {
         ...state,
+        post: {
+          ...state.post,
+          likes: [{ _id: '789', user: 'unlike' }]
+        },
         posts: state.posts.map(post =>
           post._id === payload.id
             ? {

@@ -185,7 +185,7 @@ postsRouter.post(
       // retrieve the post by the post ID
       let post = await Post.findById(req.params.postID);
 
-      console.log('req.user.id: ', req.user.id )
+      console.log('req.user.id: ', req.user.id);
       console.log('req.params.postID: ', req.params.postID);
       console.log('post: ', post);
 

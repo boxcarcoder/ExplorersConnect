@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getPost } from '../../actions/post';
 import PropTypes from 'prop-types';
 import PostItem from './PostItem';
+//import CommentItem from './CommentItem';
 
 const Comment = ({ postState: { post, loading }, getPost, match }) => {
   //when comment component first loads, load redux state with post data
@@ -10,17 +11,14 @@ const Comment = ({ postState: { post, loading }, getPost, match }) => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
 
-  const changeCommentsProp = () => {
-    post = getPost(match.params.id);
-  };
+  console.log('Comment re-rendering.');
 
-  if (!post || loading) {
-    return <h1> still loading </h1>;
+  if (!post) {
+    return <h1> no post Comment </h1>;
   } else {
     return (
       <Fragment>
         <PostItem key={post._id} post={post} />
-        {changeCommentsProp()}
       </Fragment>
     );
   }
