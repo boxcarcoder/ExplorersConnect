@@ -5,7 +5,8 @@ import {
   LIKE_A_POST,
   UNLIKE_A_POST,
   GET_POST,
-  COMMENT_ON_POST
+  COMMENT_ON_POST,
+  DELETE_POST
 } from '../actions/types';
 
 const initialState = {
@@ -78,6 +79,12 @@ export default function(state = initialState, action) {
               }
             : post
         ),
+        loading: false
+      };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post._id !== payload.id),
         loading: false
       };
     case POSTS_ERROR:

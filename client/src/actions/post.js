@@ -5,7 +5,8 @@ import {
   LIKE_A_POST,
   UNLIKE_A_POST,
   GET_POST,
-  COMMENT_ON_POST
+  COMMENT_ON_POST,
+  DELETE_POST
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
@@ -21,8 +22,6 @@ export const getAllPosts = () => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    // dispatch error message and HTTP error status to the post redux state
-    console.log('error getting all posts: ', err);
     dispatch({
       type: POSTS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -45,7 +44,6 @@ export const addPost = formData => async dispatch => {
       }
     };
 
-    console.log('attempting to place post into db.');
     const res = await axios.post('/api/posts', formData, config);
 
     dispatch({
@@ -56,9 +54,6 @@ export const addPost = formData => async dispatch => {
     // display an alert to notify the user of what they just did
     dispatch(setAlert('Posted successfully.', 'success'));
   } catch (err) {
-    console.log('error posting.');
-
-    // dispatch error message and HTTP error status to the post redux state
     dispatch({
       type: POSTS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -81,9 +76,6 @@ export const likePost = id => async dispatch => {
       payload: { id, likes: res.data }
     });
   } catch (err) {
-    console.log('error liking a post: ', err);
-
-    // dispatch error message and HTTP error status to the post redux state
     dispatch({
       type: POSTS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -106,9 +98,6 @@ export const unlikePost = id => async dispatch => {
       payload: { id, likes: res.data }
     });
   } catch (err) {
-    console.log('error unliking a post: ', err);
-
-    // dispatch error message and HTTP error status to the post redux state
     dispatch({
       type: POSTS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -126,9 +115,6 @@ export const getPost = id => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.log('error fetching a post: ', err);
-
-    // dispatch error message and HTTP error status to the post redux state
     dispatch({
       type: POSTS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -139,7 +125,6 @@ export const getPost = id => async dispatch => {
 // Comment on a post
 export const commentOnPost = (id, formData) => async dispatch => {
   try {
-    console.log('posting to db.');
     //set the token as the header to gain access to the protected route POST /api/posts
     if (localStorage.token) {
       setAuthToken(localStorage.token);
@@ -159,9 +144,28 @@ export const commentOnPost = (id, formData) => async dispatch => {
       payload: { id, comments: res.data }
     });
   } catch (err) {
-    console.log('error commenting on a post: ', err);
+    dispatch({
+      type: POSTS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
 
-    // dispatch error message and HTTP error status to the post redux state
+// Delete a post
+export const deletePost = id => async dispatch => {
+  try {
+    //set the token as the header to gain access to the protected route POST /api/posts
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    const res = axios.delete(`/api/posts/${id}`);
+
+    dispatch({
+      type: DELETE_POST,
+      payload: { id }
+    });
+  } catch (err) {
     dispatch({
       type: POSTS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

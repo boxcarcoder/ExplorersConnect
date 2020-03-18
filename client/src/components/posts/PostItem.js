@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import { likePost, unlikePost } from '../../actions/post';
+import { likePost, unlikePost, deletePost } from '../../actions/post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -13,10 +13,11 @@ const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments },
   postState: { loading },
   likePost,
-  authState: { isAuthenticated, loggedInUser }, //*** */
+  authState: { isAuthenticated, loggedInUser },
   setAlert,
   unlikePost,
-  showCommentBtn
+  showCommentBtn,
+  deletePost
 }) => {
   const handleLike = e => {
     if (isAuthenticated) {
@@ -47,9 +48,20 @@ const PostItem = ({
     }
   };
 
+  const handleDelete = e => {
+    deletePost(_id);
+  };
+
   const displayDeleteBtn = () => {
     if (isAuthenticated && loggedInUser._id === user) {
-      return <button className='btn btn-danger btn-small'>x</button>;
+      return (
+        <button
+          className='btn btn-danger btn-small'
+          onClick={e => handleDelete(e)}
+        >
+          x
+        </button>
+      );
     }
   };
 
@@ -93,7 +105,8 @@ PostItem.propTypes = {
   setAlert: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
   postState: PropTypes.object.isRequired,
-  authState: PropTypes.object.isRequired
+  authState: PropTypes.object.isRequired,
+  deletePost: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -104,5 +117,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   likePost,
   setAlert,
-  unlikePost
+  unlikePost,
+  deletePost
 })(PostItem);

@@ -22,3 +22,4 @@ export const LIKE_A_POST = 'LIKE_A_POST';
 export const UNLIKE_A_POST = 'UNLIKE_A_POST';
 export const GET_POST = 'GET_POST';
 export const COMMENT_ON_POST = 'COMMENT_ON_POST';
+export const DELETE_POST = 'DELETE_POST';
