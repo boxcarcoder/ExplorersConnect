@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { setAlert } from '../../actions/alert';
 import PostItem from './PostItem';
 import CommentItem from './CommentItem';
+import { Link } from 'react-router-dom';
 
 const Comment = ({
   postState: { post, loading },
@@ -43,8 +44,13 @@ const Comment = ({
   } else {
     return (
       <Fragment>
+        {/* Go Back to Posts Button */}
+        <Link to={'/posts'} className='btn'>
+          Go Back
+        </Link>
+
         {/*Posts's avatar, name, and text */}
-        <PostItem key={post._id} post={post} />
+        <PostItem key={post._id} post={post} showCommentBtn={false} />
 
         {/*Comment input box */}
         <div className='post-form' onSubmit={e => handleSubmit(e)}>

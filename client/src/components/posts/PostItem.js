@@ -15,7 +15,8 @@ const PostItem = ({
   likePost,
   authState: { isAuthenticated },
   setAlert,
-  unlikePost
+  unlikePost,
+  showCommentBtn
 }) => {
   const handleLike = e => {
     if (isAuthenticated) {
@@ -30,6 +31,21 @@ const PostItem = ({
       unlikePost(_id);
     } else {
       setAlert('Please log in to like or dislike post.', 'danger');
+    }
+  };
+
+  const displayCommentBtn = () => {
+    if (showCommentBtn) {
+      return (
+        <div>
+          <Link
+            to={`/posts/${_id}`}
+            className='btn btn-primary btn-small vert-m-1'
+          >
+            Comment ({comments.length})
+          </Link>
+        </div>
+      );
     }
   };
 
@@ -56,14 +72,7 @@ const PostItem = ({
             <button className='btn' onClick={e => handleUnlike(e)}>
               <i className='fas fa-thumbs-down'></i>
             </button>
-            <div>
-              <Link
-                to={`/posts/${_id}`}
-                className='btn btn-primary btn-small vert-m-1'
-              >
-                Comment ({comments.length})
-              </Link>
-            </div>
+            {displayCommentBtn()}
           </div>
         </div>
       </Fragment>

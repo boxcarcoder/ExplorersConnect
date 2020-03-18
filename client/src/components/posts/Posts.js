@@ -30,7 +30,9 @@ const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
   };
 
   const allPosts = () => {
-    return posts.map(post => <PostItem key={post._id} post={post} />);
+    return posts.map(post => (
+      <PostItem key={post._id} post={post} showCommentBtn={true} />
+    ));
   };
 
   //need to wait for posts to be loaded into the post redux state before proceeding
