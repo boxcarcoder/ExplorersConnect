@@ -13,7 +13,7 @@ const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments },
   postState: { loading },
   likePost,
-  authState: { isAuthenticated },
+  authState: { isAuthenticated, loggedInUser }, //*** */
   setAlert,
   unlikePost,
   showCommentBtn
@@ -37,15 +37,19 @@ const PostItem = ({
   const displayCommentBtn = () => {
     if (showCommentBtn) {
       return (
-        <div>
-          <Link
-            to={`/posts/${_id}`}
-            className='btn btn-primary btn-small vert-m-1'
-          >
-            Comment ({comments.length})
-          </Link>
-        </div>
+        <Link
+          to={`/posts/${_id}`}
+          className='btn btn-primary btn-small vert-m-1'
+        >
+          Comment ({comments.length})
+        </Link>
       );
+    }
+  };
+
+  const displayDeleteBtn = () => {
+    if (isAuthenticated && loggedInUser._id === user) {
+      return <button className='btn btn-danger btn-small'>x</button>;
     }
   };
 
@@ -63,7 +67,7 @@ const PostItem = ({
               <h4>{name}</h4>
             </Link>
           </div>
-          {/*Thumbs up, down, and comment */}
+          {/*Thumbs up, down, comment, and delete button */}
           <div>
             <p className='vert-m-1'>{text}</p>
             <button className='btn' onClick={e => handleLike(e)}>
@@ -72,7 +76,10 @@ const PostItem = ({
             <button className='btn' onClick={e => handleUnlike(e)}>
               <i className='fas fa-thumbs-down'></i>
             </button>
-            {displayCommentBtn()}
+            <div>
+              {displayCommentBtn()}
+              {displayDeleteBtn()}
+            </div>
           </div>
         </div>
       </Fragment>

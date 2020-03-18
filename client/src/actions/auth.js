@@ -98,6 +98,7 @@ export const login = ({ email, password }) => async dispatch => {
       type: LOGIN_SUCCESS,
       payload: res.data
     });
+    dispatch(loadUser());
   } catch (err) {
     // display errors as alerts using alert action and reducer
     const errors = err.response.data.errors;

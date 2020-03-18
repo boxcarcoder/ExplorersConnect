@@ -13,7 +13,7 @@ const initialState = {
   token: localStorage.getItem('token'), //fetches a token from local storage and assigns it to the token state
   isAuthenticated: null,
   loading: true,
-  user: null
+  loggedInUser: null
 };
 
 export default function(state = initialState, action) {
@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload //the payload is the user data from the backend from the GET request to /api/auth
+        loggedInUser: payload //the payload is the user data from the backend from the GET request to /api/auth
       };
 
     case REGISTER_SUCCESS: // set the token into or remove from local storage
