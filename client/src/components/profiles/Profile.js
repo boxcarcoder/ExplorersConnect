@@ -38,11 +38,9 @@ const Profile = ({
     Snowboarding,
     Rockclimbing,
     destinations,
-    gears
+    gears,
+    social
   } = profile;
-
-  console.log('destinations: ', destinations); //an array with each index being a set of all locations.
-  console.log('gears: ', gears);
 
   // ======== Check for favorite activities ========
   const checkHike = () => {
@@ -310,18 +308,22 @@ const Profile = ({
           <h1 className='large'>{name}</h1>
           <p>{location}</p>
           <div className='vert-m-1 icons'>
-            <Link to='#'>
+            <a
+              href={social.instagram}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               <i className='fab fa-instagram fa-2x'></i>
-            </Link>
-            <Link to='#'>
+            </a>
+            <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
               <i className='fab fa-twitter fa-2x '></i>
-            </Link>
-            <Link to='#'>
+            </a>
+            <a href={social.facebook} target='_blank' rel='noopener noreferrer'>
               <i className='fab fa-facebook fa-2x'></i>
-            </Link>
-            <Link to='#'>
+            </a>
+            <a href={social.youtube} target='_blank' rel='noopener noreferrer'>
               <i className='fab fa-youtube fa-2x'></i>
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -372,8 +374,6 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  //state.profile is the profile state containing profile, profiles, loading, error.
-  //state.profile.profile is the profile field in the profile state.
   profileState: state.profile
 });
 
