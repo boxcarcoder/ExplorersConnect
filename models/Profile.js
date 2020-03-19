@@ -34,10 +34,6 @@ const profileSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  Other: {
-    type: Boolean,
-    default: false
-  },
   bio: {
     type: String,
     required: true

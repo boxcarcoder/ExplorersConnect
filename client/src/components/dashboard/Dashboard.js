@@ -15,8 +15,8 @@ import { getCurrentProfile } from '../../actions/profile';
 
 const Dashboard = ({
   getCurrentProfile,
-  auth: { user },
-  profile: { profile, loading }
+  authState: { user },
+  profileState: { profile, loading }
 }) => {
   //on the dashboard's first load, retrieve the logged in user's profile and save it into the profile redux state
   useEffect(() => {
@@ -56,13 +56,13 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  authState: PropTypes.object.isRequired,
+  profileState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  profile: state.profile
+  authState: state.auth,
+  profileState: state.profile
 });
 
 export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);

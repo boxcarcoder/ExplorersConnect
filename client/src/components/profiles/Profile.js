@@ -7,7 +7,11 @@ import { getProfileById } from '../../actions/profile';
 
 import Spinner from '../layout/Spinner';
 
-const Profile = ({ profile: { profile, loading }, getProfileById, match }) => {
+const Profile = ({
+  profileState: { profile, loading },
+  getProfileById,
+  match
+}) => {
   //when a user's profile page is first loaded, retrieve the profile and store it in the profile redux state
   useEffect(() => {
     getProfileById(match.params.id);
@@ -364,13 +368,13 @@ const Profile = ({ profile: { profile, loading }, getProfileById, match }) => {
 };
 
 Profile.propTypes = {
-  profile: PropTypes.object.isRequired
+  profileState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   //state.profile is the profile state containing profile, profiles, loading, error.
   //state.profile.profile is the profile field in the profile state.
-  profile: state.profile
+  profileState: state.profile
 });
 
 export default connect(mapStateToProps, { getProfileById })(Profile);

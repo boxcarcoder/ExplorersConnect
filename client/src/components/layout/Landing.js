@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Landing = ({ isAuthenticated }) => {
+const Landing = ({ authState: { isAuthenticated } }) => {
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
@@ -67,11 +67,11 @@ const Landing = ({ isAuthenticated }) => {
 };
 
 Landing.propTypes = {
-  isAuthenticated: PropTypes.bool
+  authState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  authState: state.auth
 });
 
 export default connect(mapStateToProps)(Landing);

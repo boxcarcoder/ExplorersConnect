@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getAllProfiles } from '../../actions/profile';
 import PropTypes from 'prop-types';
 
-const Profiles = ({ getAllProfiles, profile: { profiles } }) => {
+const Profiles = ({ getAllProfiles, profileState: { profiles } }) => {
   //on the Profiles page's first load, retrieve all profiles and save it into the profile redux state
   useEffect(() => {
     getAllProfiles();
@@ -30,11 +30,11 @@ const Profiles = ({ getAllProfiles, profile: { profiles } }) => {
 
 Profiles.propTypes = {
   getAllProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profileState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profileState: state.profile
 });
 
 export default connect(mapStateToProps, { getAllProfiles })(Profiles);

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 
 const EditProfile = ({
-  profile: { profile, loading },
+  profileState: { profile, loading },
   createProfile,
   history,
   getCurrentProfile
@@ -319,11 +319,11 @@ const EditProfile = ({
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profileState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profileState: state.profile
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(

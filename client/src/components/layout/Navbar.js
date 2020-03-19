@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
-const Navbar = ({ logout, isAuthenticated, loading }) => {
+const Navbar = ({ logout, authState: { isAuthenticated, loading } }) => {
   const authenticatedLinks = (
     <h5>
       <ul>
@@ -53,13 +53,12 @@ const Navbar = ({ logout, isAuthenticated, loading }) => {
 };
 
 Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  authState: PropTypes.object.isRequired,
+  logout: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  loading: state.auth.loading
+  authState: state.auth
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

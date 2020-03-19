@@ -13,12 +13,10 @@ const ProfileItem = ({
     Skiing,
     Snowboarding,
     Rockclimbing,
-    Other,
     location,
     bio
   }
 }) => {
-
   const checkHike = () => {
     if (Hiking) {
       return (
