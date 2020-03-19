@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom'; // to redirect from actions using history.push
 
 //redux
 import { addGears } from '../../actions/profile';

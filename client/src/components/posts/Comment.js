@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 import { setAlert } from '../../actions/alert';
 import PostItem from './PostItem';
 import CommentItem from './CommentItem';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 const Comment = ({
-  postState: { post, loading },
+  postState: { post, loading, posts },
   getPost,
   match,
   commentOnPost,
@@ -39,8 +39,11 @@ const Comment = ({
     });
   };
 
-  if (!post || loading) {
+  if (loading) {
     return <Spinner />;
+  } else if (!post) {
+    //once a post is deleted from PostItem, redirect to posts page since the psot is deleted.
+    return <Redirect to='/posts' />;
   } else {
     return (
       <Fragment>

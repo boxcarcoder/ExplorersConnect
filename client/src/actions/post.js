@@ -17,6 +17,8 @@ export const getAllPosts = () => async dispatch => {
   try {
     const res = await axios.get('/api/posts');
 
+    console.log('Calling getAllPosts action.');
+
     dispatch({
       type: GET_ALL_POSTS,
       payload: res.data
@@ -159,7 +161,7 @@ export const deletePost = id => async dispatch => {
       setAuthToken(localStorage.token);
     }
 
-    const res = axios.delete(`/api/posts/${id}`);
+    const res = await axios.delete(`/api/posts/${id}`);
 
     dispatch({
       type: DELETE_POST,

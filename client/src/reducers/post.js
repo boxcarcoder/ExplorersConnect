@@ -84,6 +84,7 @@ export default function(state = initialState, action) {
     case DELETE_POST:
       return {
         ...state,
+        post: null, //update post state to re-render Comment
         posts: state.posts.filter(post => post._id !== payload.id),
         loading: false
       };

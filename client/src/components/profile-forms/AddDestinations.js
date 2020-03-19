@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom'; // to redirect from actions using history.push
 
 //redux
 import { addDestinations } from '../../actions/profile';
@@ -39,7 +39,8 @@ const AddDestinations = ({ addDestinations, history }) => {
     <Fragment>
       <h1 className='large text-primary'>Add Destinations</h1>
       <p className='lead'>
-        <i className='fas fa-map-signs text-primary'></i> Add where you've explored during your favorite trips.
+        <i className='fas fa-map-signs text-primary'></i> Add where you've
+        explored during your favorite trips.
       </p>
 
       <form className='form' onSubmit={handleSubmit}>

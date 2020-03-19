@@ -11,11 +11,12 @@ const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
     getAllPosts();
   }, [getAllPosts]);
 
+  console.log('Posts state for Posts component: ', posts);
+
   // create state to handle input
   const [formData, setFormData] = useState('');
 
   const handleSubmit = e => {
-    console.log('submitting post: ', formData);
     e.preventDefault();
     addPost(formData);
     setFormData('');

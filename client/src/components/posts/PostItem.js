@@ -56,7 +56,7 @@ const PostItem = ({
     if (isAuthenticated && loggedInUser._id === user) {
       return (
         <button
-          className='btn btn-danger btn-small'
+          className='btn btn-danger btn-small vert-m-1'
           onClick={e => handleDelete(e)}
         >
           x
