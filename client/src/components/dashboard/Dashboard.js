@@ -22,19 +22,18 @@ const Dashboard = ({
     getCurrentProfile();
   }, []);
 
-  if (loading || profile === null) {
+  if (loading) {
     return <Spinner />;
   } else {
     return (
       <Fragment>
-        <h1 className='large text-primary'>Dashboard</h1>
-        <p>
-          <i className='fas fa-user'></i>Welcome {profile.user.name}
-        </p>
-
         {/*check if the logged in user has a profile*/}
         {profile !== null ? (
           <Fragment>
+            <h1 className='large text-primary'>Dashboard</h1>
+            <p>
+              <i className='fas fa-user'></i>Welcome {profile.user.name}
+            </p>
             <DashboardButtons />
             <Destinations destinations={profile.destinations} />
             <Gears gears={profile.gears} />
