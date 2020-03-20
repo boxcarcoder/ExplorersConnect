@@ -18,7 +18,6 @@ const Posts = ({
     getAllPosts();
   }, [getAllPosts]);
 
-  console.log('loading Posts component.');
   // create state to handle input
   const [formData, setFormData] = useState('');
 
@@ -47,17 +46,21 @@ const Posts = ({
     ));
   };
 
-  //need to wait for posts to be loaded into the post redux state before proceeding
-  if (!posts.length || loading) {
-    return <Spinner />;
-  } else {
+  const displayCommentBox = () => {
+    if (!isAuthenticated) {
+      return (
+        <Fragment>
+          <div className='bg-primary post-form-header '>
+            <h4>Join or log in to start a discussion!</h4>
+          </div>
+        </Fragment>
+      );
+    }
     return (
       <Fragment>
-        <h1 className='large text-primary'>Posts</h1>
         <p className='lead'>
           <i className='fas fa-user'></i> Welcome to the community
         </p>
-        {/* Post Box and Submit Button */}
         <div className='post-form'>
           <div className='bg-primary post-form-header '>
             <h4>Start a Discussion</h4>
@@ -78,6 +81,19 @@ const Posts = ({
             />
           </form>
         </div>
+      </Fragment>
+    );
+  };
+
+  //need to wait for posts to be loaded into the post redux state before proceeding
+  if (!posts.length || loading) {
+    return <Spinner />;
+  } else {
+    return (
+      <Fragment>
+        <h1 className='large text-primary'>Posts</h1>
+
+        {displayCommentBox()}
         {/*List of Posts*/}
         <div className='posts'>{allPosts()}</div>
       </Fragment>

@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { deleteComment } from '../../actions/post';
 import PropTypes from 'prop-types';
+import Moment from 'react-moment';
 
 const CommentItem = ({
-  comment: { _id, user, avatar, name, text },
+  comment: { _id, user, avatar, name, text, date },
   authState: { isAuthenticated, loggedInUser },
   deleteComment,
   postId
@@ -38,6 +39,9 @@ const CommentItem = ({
         </div>
         <div>
           <p className='vert-m-1'>{text}</p>
+          <p className='x-small'>
+            <Moment format='YYYY/MM/DD'>{date}</Moment>
+          </p>
           <div>{displayDeleteBtn()}</div>
         </div>
       </div>

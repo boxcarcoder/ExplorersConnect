@@ -15,7 +15,6 @@ import { getCurrentProfile } from '../../actions/profile';
 
 const Dashboard = ({
   getCurrentProfile,
-  authState: { user },
   profileState: { profile, loading }
 }) => {
   //on the dashboard's first load, retrieve the logged in user's profile and save it into the profile redux state
@@ -23,14 +22,14 @@ const Dashboard = ({
     getCurrentProfile();
   }, []);
 
-  if (loading && profile === null) {
+  if (loading || profile === null) {
     return <Spinner />;
   } else {
     return (
       <Fragment>
         <h1 className='large text-primary'>Dashboard</h1>
         <p>
-          <i className='fas fa-user'></i>Welcome {user && user.name}
+          <i className='fas fa-user'></i>Welcome {profile.user.name}
         </p>
 
         {/*check if the logged in user has a profile*/}
@@ -39,7 +38,6 @@ const Dashboard = ({
             <DashboardButtons />
             <Destinations destinations={profile.destinations} />
             <Gears gears={profile.gears} />
-            {/*profile from mapStateToProps */}
           </Fragment>
         ) : (
           <Fragment>
@@ -56,12 +54,10 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  authState: PropTypes.object.isRequired,
   profileState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  authState: state.auth,
   profileState: state.profile
 });
 

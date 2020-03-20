@@ -22,7 +22,6 @@ const Comment = ({
   }, [getPost, match.params.id]);
 
   const [formData, setFormData] = useState('');
-  console.log('loading Comment component 1.');
   const handleSubmit = e => {
     e.preventDefault();
     if (isAuthenticated) {
