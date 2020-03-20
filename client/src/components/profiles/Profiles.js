@@ -1,17 +1,21 @@
 import React, { Fragment, useEffect } from 'react';
 import ProfileItem from './ProfileItem';
+import Spinner from '../layout/Spinner';
 
 //redux
 import { connect } from 'react-redux';
 import { getAllProfiles } from '../../actions/profile';
 import PropTypes from 'prop-types';
 
-const Profiles = ({ getAllProfiles, profileState: { profiles } }) => {
+const Profiles = ({ getAllProfiles, profileState: { profiles, loading } }) => {
   //on the Profiles page's first load, retrieve all profiles and save it into the profile redux state
   useEffect(() => {
     getAllProfiles();
   }, []);
 
+  if (!profiles.length || loading) {
+    return <Spinner />;
+  }
   return (
     <Fragment>
       <h1 className='large text-primary'>Explorers</h1>
