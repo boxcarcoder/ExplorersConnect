@@ -1,7 +1,7 @@
 import {
   GET_ALL_POSTS,
   POSTS_ERROR,
-  SUBMIT_POST_SUCCESS,
+  CREATE_POST,
   LIKE_A_POST,
   UNLIKE_A_POST,
   GET_POST,
@@ -27,14 +27,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: payload, //the payload is the posts array returned from the backend
-        loading: false
+        loading: false,
+        deletedPost: false
       };
-    case SUBMIT_POST_SUCCESS:
+    case CREATE_POST:
       return {
         ...state,
         post: payload, // the payload is the post data returned from the backend
         posts: [payload, ...state.posts], // *** update the posts array in the state with the new post
-        loading: false
+        loading: false,
+        deletedPost: false
       };
     case LIKE_A_POST:
     case UNLIKE_A_POST:
@@ -55,13 +57,15 @@ export default function(state = initialState, action) {
               }
             : post
         ),
-        loading: false
+        loading: false,
+        deletedPost: false
       };
     case GET_POST:
       return {
         ...state,
         post: payload, //payload is the post returned from the backend
-        loading: false
+        loading: false,
+        deletedPost: false
       };
     case COMMENT_ON_POST:
       return {
@@ -81,7 +85,8 @@ export default function(state = initialState, action) {
               }
             : post
         ),
-        loading: false
+        loading: false,
+        deletedPost: false
       };
     case DELETE_POST:
       return {
@@ -99,13 +104,15 @@ export default function(state = initialState, action) {
           comments: payload.comments
           //need to update state to reflect db and update Comment component
         },
-        loading: false
+        loading: false,
+        deletedPost: false
       };
     case POSTS_ERROR:
       return {
         ...state,
         error: payload,
-        loading: false
+        loading: false,
+        deletedPost: false
       };
     default:
       return state;

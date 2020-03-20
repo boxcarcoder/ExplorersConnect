@@ -43,7 +43,7 @@ const Comment = ({
   if (loading || (!post && !deletedPost)) {
     return <Spinner />;
   }
-  // case 2: when getPost has not populated the post redux state yet, and we deleted a post
+  // case 2: when a post is deleted
   else if (!post && deletedPost) {
     return <Redirect to='/posts' />;
   }

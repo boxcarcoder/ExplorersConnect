@@ -1,7 +1,7 @@
 import {
   GET_ALL_POSTS,
   POSTS_ERROR,
-  SUBMIT_POST_SUCCESS,
+  CREATE_POST,
   LIKE_A_POST,
   UNLIKE_A_POST,
   GET_POST,
@@ -48,7 +48,7 @@ export const addPost = formData => async dispatch => {
     const res = await axios.post('/api/posts', formData, config);
 
     dispatch({
-      type: SUBMIT_POST_SUCCESS,
+      type: CREATE_POST,
       payload: res.data
     });
 
