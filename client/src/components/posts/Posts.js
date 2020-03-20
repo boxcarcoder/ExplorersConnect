@@ -4,8 +4,15 @@ import { getAllPosts, addPost } from '../../actions/post';
 import PropTypes from 'prop-types';
 import PostItem from './PostItem';
 import Spinner from '../layout/Spinner';
+import { setAlert } from '../../actions/alert';
 
-const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
+const Posts = ({
+  getAllPosts,
+  addPost,
+  postState: { posts, loading },
+  authState: { isAuthenticated },
+  setAlert
+}) => {
   //on initial load, populate post redux state with all posts
   useEffect(() => {
     getAllPosts();
@@ -17,8 +24,13 @@ const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addPost(formData);
-    setFormData('');
+    if (isAuthenticated) {
+      addPost(formData);
+      setFormData('');
+    } else {
+      console.log('please log in');
+      setAlert('Please log in or register to create a post.', 'danger');
+    }
   };
 
   const onChange = e => {
@@ -74,11 +86,15 @@ const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
 };
 
 Posts.propTypes = {
-  postState: PropTypes.object.isRequired
+  postState: PropTypes.object.isRequired,
+  authState: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  postState: state.post
+  postState: state.post,
+  authState: state.auth
 });
 
-export default connect(mapStateToProps, { getAllPosts, addPost })(Posts);
+export default connect(mapStateToProps, { getAllPosts, addPost, setAlert })(
+  Posts
+);

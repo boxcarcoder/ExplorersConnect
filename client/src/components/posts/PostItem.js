@@ -1,16 +1,14 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-
 import { likePost, unlikePost, deletePost } from '../../actions/post';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
 import Spinner from '../layout/Spinner';
-
 import { setAlert } from '../../actions/alert';
+import Moment from 'react-moment';
 
 const PostItem = ({
-  post: { _id, text, name, avatar, user, likes, comments },
+  post: { _id, text, name, avatar, user, likes, comments, date },
   postState: { loading },
   likePost,
   authState: { isAuthenticated, loggedInUser },
@@ -82,6 +80,9 @@ const PostItem = ({
           {/*Thumbs up, down, comment, and delete button */}
           <div>
             <p className='vert-m-1'>{text}</p>
+            <p className='x-small'>
+              <Moment format='YYYY/MM/DD'>{date}</Moment>
+            </p>
             <button className='btn' onClick={e => handleLike(e)}>
               <i className='fas fa-thumbs-up'></i> <span>{likes.length}</span>
             </button>

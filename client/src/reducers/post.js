@@ -118,6 +118,3 @@ export default function(state = initialState, action) {
       return state;
   }
 }
-
-// //state.post.comments.filter(
-//   comment => comment._id !== payload.id
