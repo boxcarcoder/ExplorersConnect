@@ -10,9 +10,10 @@ const { check, validationResult } = require('express-validator');
 profilesRouter.get('/me', auth, async (req, res) => {
   try {
     // find the profile of the logged in user
-    let profile = await Profile
-      .findOne({ user: req.user.id })
-      .populate('user', ['name', 'avatar']);
+    let profile = await Profile.findOne({ user: req.user.id }).populate(
+      'user',
+      ['name', 'avatar']
+    );
 
     if (!profile) {
       res.status(400).json('This profile does not exist.');
@@ -46,8 +47,6 @@ profilesRouter.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    console.log('POST REQUEST TO API/PROFILES: ', req.body);
-
     // create a profile for a user
     const {
       Hiking,
@@ -57,7 +56,6 @@ profilesRouter.post(
       Skiing,
       Snowboarding,
       Rockclimbing,
-      Other,
       faveRecreation,
       bio,
       location,
@@ -85,7 +83,6 @@ profilesRouter.post(
     profileFields.Skiing = Skiing;
     profileFields.Snowboarding = Snowboarding;
     profileFields.Rockclimbing = Rockclimbing;
-    profileFields.Other = Other;
 
     if (faveRecreation) profileFields.faveRecreation = faveRecreation;
 
@@ -145,11 +142,9 @@ profilesRouter.get('/', async (req, res) => {
 profilesRouter.get('/user/:userID', async (req, res) => {
   try {
     // find the profile of a requested user
-    let profile = await Profile
-      .findOne({
-        user: req.params.userID
-      })
-      .populate('user', ['name', 'avatar']);
+    let profile = await Profile.findOne({
+      user: req.params.userID
+    }).populate('user', ['name', 'avatar']);
 
     if (!profile) {
       res.status(400).json('There is no profile for this user.');
@@ -250,7 +245,6 @@ profilesRouter.delete(
   }
 );
 
-
 // @route   PUT api/profiles/gears
 // @desc    Update a profile's gears
 // @access  Private since only a logged in user can update their profile
@@ -295,8 +289,6 @@ profilesRouter.put('/gears', auth, async (req, res) => {
     res.status(500).json('Server error.');
   }
 });
-
-
 
 // @route   DELETE api/profiles/gears/:gearsID
 // @desc    Delete a profile's gears by ID

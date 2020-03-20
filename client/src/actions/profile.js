@@ -63,14 +63,10 @@ export const getProfileById = id => async dispatch => {
     // the backend returns the profile with that user id
     const res = await axios.get(`/api/profiles/user/${id}`);
 
-    console.log('id being sent to backend: ', id);
-    console.log('id that was retrieved from backend: ', res.data);
-
     dispatch({
       type: GET_PROFILE_BY_ID,
       payload: res.data
     });
-
   } catch (err) {
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({

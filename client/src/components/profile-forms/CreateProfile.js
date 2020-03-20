@@ -16,7 +16,6 @@ const CreateProfile = ({ createProfile, history }) => {
     Skiing: false,
     Snowboarding: false,
     Rockclimbing: false,
-    Other: false,
     faveRecreation: '',
     website: '',
     bio: '',
@@ -35,7 +34,6 @@ const CreateProfile = ({ createProfile, history }) => {
     Skiing,
     Snowboarding,
     Rockclimbing,
-    Other,
     faveRecreation,
     website,
     bio,
@@ -141,9 +139,7 @@ const CreateProfile = ({ createProfile, history }) => {
             checked={Rockclimbing}
             onClick={e => handleClick(e)}
           />{' '}
-          Rockclimbing
-          <br />
-          <input type='checkbox' name='Other' value={Other} /> Other
+          Rock Climbing
           <br />
         </div>
 
@@ -163,7 +159,6 @@ const CreateProfile = ({ createProfile, history }) => {
             <option value='SkiingFave'>Skiing</option>
             <option value='SnowboardingFave'>Snowboarding</option>
             <option value='RockClimbingFave'>Rock Climbing</option>
-            <option value='OtherFave'>Other</option>
           </select>
         </div>
 

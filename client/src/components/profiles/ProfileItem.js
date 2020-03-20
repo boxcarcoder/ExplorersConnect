@@ -14,76 +14,133 @@ const ProfileItem = ({
     Snowboarding,
     Rockclimbing,
     location,
-    bio
+    bio,
+    faveRecreation
   }
 }) => {
   const checkHike = () => {
     if (Hiking) {
-      return (
-        <li className='text-primary'>
-          <i className='fas fa-check'></i> Hiking
-        </li>
-      );
+      if (faveRecreation === 'HikingFave') {
+        return (
+          <li className='text-primary'>
+            <i class='fas fa-heart'></i> Hiking
+          </li>
+        );
+      } else {
+        return (
+          <li className='text-primary'>
+            <i className='fas fa-check'></i> Hiking
+          </li>
+        );
+      }
     }
   };
 
   const checkCamp = () => {
     if (Camping) {
-      return (
-        <li className='text-primary'>
-          <i className='fas fa-check'></i> Camping
-        </li>
-      );
+      if (faveRecreation === 'CampingFave') {
+        return (
+          <li className='text-primary'>
+            <i class='fas fa-heart'></i> Camping
+          </li>
+        );
+      } else {
+        return (
+          <li className='text-primary'>
+            <i className='fas fa-check'></i> Camping
+          </li>
+        );
+      }
     }
   };
 
   const checkKayak = () => {
     if (Kayaking) {
-      return (
-        <li className='text-primary'>
-          <i className='fas fa-check'></i> Kayaking
-        </li>
-      );
+      if (faveRecreation === 'KayakingFave') {
+        return (
+          <li className='text-primary'>
+            <i class='fas fa-heart'></i> Kayaking
+          </li>
+        );
+      } else {
+        return (
+          <li className='text-primary'>
+            <i className='fas fa-check'></i> Kayaking
+          </li>
+        );
+      }
     }
   };
 
   const checkRaft = () => {
     if (Rafting) {
-      return (
-        <li className='text-primary'>
-          <i className='fas fa-check'></i> Rafting
-        </li>
-      );
+      if (faveRecreation === 'RaftingFave') {
+        return (
+          <li className='text-primary'>
+            <i class='fas fa-heart'></i> Rafting
+          </li>
+        );
+      } else {
+        return (
+          <li className='text-primary'>
+            <i className='fas fa-check'></i> Rafting
+          </li>
+        );
+      }
     }
   };
 
   const checkSki = () => {
     if (Skiing) {
-      return (
-        <li className='text-primary'>
-          <i className='fas fa-check'></i> Skiing
-        </li>
-      );
+      if (faveRecreation === 'SkiingFave') {
+        return (
+          <li className='text-primary'>
+            <i class='fas fa-heart'></i> Skiing
+          </li>
+        );
+      } else {
+        return (
+          <li className='text-primary'>
+            <i className='fas fa-check'></i> Skiing
+          </li>
+        );
+      }
     }
   };
 
   const checkSnowboard = () => {
     if (Snowboarding) {
-      return (
-        <li className='text-primary'>
-          <i className='fas fa-check'></i> Snowboarding
-        </li>
-      );
+      if (faveRecreation === 'SnowboardingFave') {
+        return (
+          <li className='text-primary'>
+            <i class='fas fa-heart'></i> Snowboarding
+          </li>
+        );
+      } else {
+        return (
+          <li className='text-primary'>
+            <i className='fas fa-check'></i> Snowboarding
+          </li>
+        );
+      }
     }
   };
 
   const checkRockclimb = () => {
     if (Rockclimbing) {
-      return (
-        <li className='text-primary'>
-          <i className='fas fa-check'></i> Rockclimbing
-        </li>
-      );
+      if (faveRecreation === 'RockClimbingFave') {
+        return (
+          <li className='text-primary'>
+            <i class='fas fa-heart'></i> Rock Climbing
+          </li>
+        );
+      } else {
+        return (
+          <li className='text-primary'>
+            <i className='fas fa-check'></i> Rock Climbing
+          </li>
+        );
+      }
     }
   };
 

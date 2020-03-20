@@ -6,7 +6,8 @@ import {
   UNLIKE_A_POST,
   GET_POST,
   COMMENT_ON_POST,
-  DELETE_POST
+  DELETE_POST,
+  DELETE_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -88,6 +89,16 @@ export default function(state = initialState, action) {
         posts: state.posts.filter(post => post._id !== payload.id),
         loading: false
       };
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: payload.comments
+          //need to update state to reflect db and update Comment component
+        },
+        loading: false
+      };
     case POSTS_ERROR:
       return {
         ...state,
@@ -98,3 +109,6 @@ export default function(state = initialState, action) {
       return state;
   }
 }
+
+// //state.post.comments.filter(
+//   comment => comment._id !== payload.id

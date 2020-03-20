@@ -9,7 +9,7 @@ import CommentItem from './CommentItem';
 import { Link, Redirect } from 'react-router-dom';
 
 const Comment = ({
-  postState: { post, loading, posts },
+  postState: { post, loading },
   getPost,
   match,
   commentOnPost,

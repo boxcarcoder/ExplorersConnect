@@ -6,7 +6,8 @@ import {
   UNLIKE_A_POST,
   GET_POST,
   COMMENT_ON_POST,
-  DELETE_POST
+  DELETE_POST,
+  DELETE_COMMENT
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
@@ -16,8 +17,6 @@ import { setAlert } from './alert';
 export const getAllPosts = () => async dispatch => {
   try {
     const res = await axios.get('/api/posts');
-
-    console.log('Calling getAllPosts action.');
 
     dispatch({
       type: GET_ALL_POSTS,
@@ -166,6 +165,28 @@ export const deletePost = id => async dispatch => {
     dispatch({
       type: DELETE_POST,
       payload: { id }
+    });
+  } catch (err) {
+    dispatch({
+      type: POSTS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Delete a comment
+export const deleteComment = (postId, id) => async dispatch => {
+  try {
+    //set the token as the header to gain access to the protected route POST /api/posts
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    const res = await axios.delete(`/api/posts/comment/${postId}/${id}`);
+
+    dispatch({
+      type: DELETE_COMMENT,
+      payload: { id, comments: res.data }
     });
   } catch (err) {
     dispatch({

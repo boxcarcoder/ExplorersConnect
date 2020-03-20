@@ -11,8 +11,6 @@ const Posts = ({ getAllPosts, addPost, postState: { posts, loading } }) => {
     getAllPosts();
   }, [getAllPosts]);
 
-  console.log('Posts state for Posts component: ', posts);
-
   // create state to handle input
   const [formData, setFormData] = useState('');
 

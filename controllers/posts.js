@@ -207,7 +207,7 @@ postsRouter.post(
 // @access  Private since only a logged in user can delete a comment
 postsRouter.delete('/comment/:postID/:commentID', auth, async (req, res) => {
   try {
-    let post = await Post.findById(req.params.id);
+    let post = await Post.findById(req.params.postID);
 
     //retrieve the comment
     let comment = post.comments.find(
