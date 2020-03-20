@@ -110,6 +110,7 @@ export const unlikePost = id => async dispatch => {
 export const getPost = id => async dispatch => {
   try {
     const res = await axios.get(`/api/posts/${id}`);
+    console.log('Getting post from actions.');
 
     dispatch({
       type: GET_POST,

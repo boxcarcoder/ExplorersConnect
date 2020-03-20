@@ -15,7 +15,8 @@ const initialState = {
   posts: [],
   //likes: [], *** this would only be one likes array. EACH post needs to have its own like array
   loading: true,
-  error: {}
+  error: {},
+  deletedPost: false
 };
 
 export default function(state = initialState, action) {
@@ -87,7 +88,8 @@ export default function(state = initialState, action) {
         ...state,
         post: null, //update post state to re-render Comment
         posts: state.posts.filter(post => post._id !== payload.id),
-        loading: false
+        loading: false,
+        deletedPost: true
       };
     case DELETE_COMMENT:
       return {

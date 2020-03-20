@@ -9,20 +9,20 @@ import CommentItem from './CommentItem';
 import { Link, Redirect } from 'react-router-dom';
 
 const Comment = ({
-  postState: { post, loading },
+  postState: { post, loading, deletedPost },
   getPost,
   match,
   commentOnPost,
   authState: { isAuthenticated },
   setAlert
 }) => {
-  //when comment component first loads, load redux state with post data
+  //when comment component first loads, load post redux state with post data
   useEffect(() => {
     getPost(match.params.id);
   }, [getPost, match.params.id]);
 
   const [formData, setFormData] = useState('');
-
+  console.log('loading Comment component 1.');
   const handleSubmit = e => {
     e.preventDefault();
     if (isAuthenticated) {
@@ -39,12 +39,16 @@ const Comment = ({
     });
   };
 
-  if (loading) {
+  // case 1: when getPost has not populated the post redux state yet
+  if (loading || (!post && !deletedPost)) {
     return <Spinner />;
-  } else if (!post) {
-    //once a post is deleted from PostItem, redirect to posts page since the psot is deleted.
+  }
+  // case 2: when getPost has not populated the post redux state yet, and we deleted a post
+  else if (!post && deletedPost) {
     return <Redirect to='/posts' />;
-  } else {
+  }
+  // case 3: when getPost has populated the post redux state.
+  else {
     return (
       <Fragment>
         {/* Go Back to Posts Button */}

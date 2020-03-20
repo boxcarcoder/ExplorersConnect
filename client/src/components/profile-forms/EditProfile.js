@@ -54,7 +54,6 @@ const EditProfile = ({
   // run getCurrentProfile to fetch profile data for the state
   useEffect(() => {
     getCurrentProfile();
-    console.log('profile data during first load: ', profile);
 
     // prefill the form data with the current profile values (from getCurrentProfile)
     setFormData({

@@ -48,7 +48,7 @@ const PostItem = ({
     }
   };
 
-  const handleDelete = e => {
+  const handleDeletePost = e => {
     deletePost(_id);
   };
 
@@ -57,7 +57,7 @@ const PostItem = ({
       return (
         <button
           className='btn btn-danger btn-small vert-m-1'
-          onClick={e => handleDelete(e)}
+          onClick={e => handleDeletePost(e)}
         >
           x
         </button>

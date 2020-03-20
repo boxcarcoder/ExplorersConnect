@@ -10,7 +10,7 @@ const CommentItem = ({
   deleteComment,
   postId
 }) => {
-  const handleDelete = e => {
+  const handleDeleteComment = e => {
     deleteComment(postId, _id);
   };
 
@@ -19,7 +19,7 @@ const CommentItem = ({
       return (
         <button
           className='btn btn-danger btn-small vert-m-1'
-          onClick={e => handleDelete(e)}
+          onClick={e => handleDeleteComment(e)}
         >
           x
         </button>
