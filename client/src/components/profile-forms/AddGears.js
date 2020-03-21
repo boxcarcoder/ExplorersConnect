@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom'; // to redirect from actions using history.push
+import { setAlert } from '../../actions/alert';
 
 //redux
 import { addGears } from '../../actions/profile';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const AddGears = ({ addGears, history }) => {
+const AddGears = ({ addGears, history, setAlert }) => {
   //user inputs must have corresponding states
   const [formData, setFormData] = useState({
     hikeGear: '',
@@ -35,7 +36,17 @@ const AddGears = ({ addGears, history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addGears(formData, history);
+    if (
+      !hikeGear &&
+      !campGear &&
+      !waterGear &&
+      !snowGear &&
+      !rockClimbingGear
+    ) {
+      setAlert('Please fill in some gear.', 'danger');
+    } else {
+      addGears(formData, history);
+    }
   };
 
   return (
@@ -114,4 +125,4 @@ AddGears.propTypes = {
   addGears: PropTypes.func.isRequired
 };
 
-export default connect(null, { addGears })(withRouter(AddGears));
+export default connect(null, { addGears, setAlert })(withRouter(AddGears));

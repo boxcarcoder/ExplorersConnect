@@ -19,24 +19,27 @@ const Posts = ({
   }, [getAllPosts]);
 
   // create state to handle input
-  const [formData, setFormData] = useState('');
+  const [formData, setFormData] = useState({
+    text: ''
+  });
+
+  const { text } = formData;
 
   const handleSubmit = e => {
     e.preventDefault();
     if (isAuthenticated) {
       addPost(formData);
-      setFormData('');
+      setFormData({
+        text: ''
+      });
     } else {
-      console.log('please log in');
       setAlert('Please log in or register to create a post.', 'danger');
     }
   };
 
   const onChange = e => {
-    // console.log('[e.target.name]', [e.target.name]);
-    // console.log('e.target.value', e.target.value);
     setFormData({
-      [e.target.name]: e.target.value
+      text: e.target.value
     });
   };
 
@@ -72,6 +75,7 @@ const Posts = ({
               rows='5'
               placeholder='Create a post'
               name='text'
+              value={text}
               onChange={e => onChange(e)}
             ></textarea>
             <input

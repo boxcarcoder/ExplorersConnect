@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom'; // to redirect from actions using history.push
+import { setAlert } from '../../actions/alert';
 
 //redux
 import { addDestinations } from '../../actions/profile';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const AddDestinations = ({ addDestinations, history }) => {
+const AddDestinations = ({ addDestinations, history, setAlert }) => {
   //user inputs must have corresponding states
   const [formData, setFormData] = useState({
     hikingTrails: '',
@@ -32,7 +33,11 @@ const AddDestinations = ({ addDestinations, history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addDestinations(formData, history);
+    if (!hikingTrails && !campSites && !waterAreas && !slopes && !crags) {
+      setAlert('Please fill in some destinations.', 'danger');
+    } else {
+      addDestinations(formData, history);
+    }
   };
 
   return (
@@ -111,4 +116,6 @@ AddDestinations.propTypes = {
   addDestinations: PropTypes.func.isRequired
 };
 
-export default connect(null, { addDestinations })(withRouter(AddDestinations));
+export default connect(null, { addDestinations, setAlert })(
+  withRouter(AddDestinations)
+);

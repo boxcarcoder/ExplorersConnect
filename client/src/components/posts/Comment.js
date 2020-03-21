@@ -21,12 +21,19 @@ const Comment = ({
     getPost(match.params.id);
   }, [getPost, match.params.id]);
 
-  const [formData, setFormData] = useState('');
+  const [formData, setFormData] = useState({
+    text: ''
+  });
+  const { text } = formData;
+
   const handleSubmit = e => {
     e.preventDefault();
     if (isAuthenticated) {
       commentOnPost(match.params.id, formData);
       setAlert('Commented successfully.', 'success');
+      setFormData({
+        text: ''
+      });
     } else {
       setAlert('Please log in to comment on post.', 'danger');
     }
@@ -69,6 +76,7 @@ const Comment = ({
               rows='5'
               placeholder='Comment on this post'
               name='text'
+              value={text}
               onChange={e => onChange(e)}
             ></textarea>
             <input
