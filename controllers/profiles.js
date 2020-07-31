@@ -33,13 +33,9 @@ profilesRouter.post(
   [
     auth,
     [
-      check('bio', 'Please provide a bio')
-        .not()
-        .isEmpty(),
-      check('location', 'Please provide your current location')
-        .not()
-        .isEmpty()
-    ]
+      check('bio', 'Please provide a bio').not().isEmpty(),
+      check('location', 'Please provide your current location').not().isEmpty(),
+    ],
   ],
   async (req, res) => {
     let errors = validationResult(req);
@@ -63,7 +59,7 @@ profilesRouter.post(
       youtube,
       twitter,
       facebook,
-      instagram
+      instagram,
     } = req.body;
 
     //Build object for the profile's fields
@@ -143,7 +139,7 @@ profilesRouter.get('/user/:userID', async (req, res) => {
   try {
     // find the profile of a requested user
     let profile = await Profile.findOne({
-      user: req.params.userID
+      user: req.params.userID,
     }).populate('user', ['name', 'avatar']);
 
     if (!profile) {
@@ -163,9 +159,9 @@ profilesRouter.delete('/', auth, async (req, res) => {
   try {
     //todo - remove posts
 
-    await profile.findOneAndRemove({ user: req.user.id });
+    await Profile.findOneAndRemove({ user: req.user.id }); //*** */
 
-    await user.findOneAndRemove({ _id: req.user.id });
+    await User.findOneAndRemove({ _id: req.user.id }); //*** */
 
     res.json({ msg: 'User and their profile deleted.' });
   } catch (err) {
@@ -198,7 +194,7 @@ profilesRouter.put('/destinations', auth, async (req, res) => {
       campSites,
       waterAreas,
       slopes,
-      crags
+      crags,
     };
 
     let profile = await Profile.findOne({ user: req.user.id });
@@ -230,7 +226,7 @@ profilesRouter.delete(
 
       //get the remove index
       let removeIdx = profile.destinations
-        .map(obj => obj.id)
+        .map((obj) => obj.id)
         .indexOf(req.params.destinationsID);
 
       profile.destinations.splice(removeIdx, 1);
@@ -255,7 +251,7 @@ profilesRouter.put('/gears', auth, async (req, res) => {
       campGear,
       waterGear,
       snowGear,
-      rockClimbingGear
+      rockClimbingGear,
     } = req.body;
 
     // //convert comma separated string into array
@@ -272,7 +268,7 @@ profilesRouter.put('/gears', auth, async (req, res) => {
       campGear,
       waterGear,
       snowGear,
-      rockClimbingGear
+      rockClimbingGear,
     };
 
     let profile = await Profile.findOne({ user: req.user.id });
@@ -301,7 +297,7 @@ profilesRouter.delete('/gears/:gearsID', auth, async (req, res) => {
 
     //get the remove index
     let removeIdx = profile.gears
-      .map(obj => obj.id)
+      .map((obj) => obj.id)
       .indexOf(req.params.gearsID);
 
     profile.gears.splice(removeIdx, 1);

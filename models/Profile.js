@@ -4,106 +4,107 @@ const profileSchema = new mongoose.Schema({
   user: {
     //every profile should be associated with a user
     type: mongoose.Schema.Types.ObjectId, //{_id:ObjectId:("..."), ...}
-    ref: 'user' //reference the model we're referring to
+    ref: 'user', //reference the model we're referring to
   },
   Hiking: {
     type: Boolean,
-    default: false
+    default: false,
   },
   Camping: {
     type: Boolean,
-    default: false
+    default: false,
   },
   Kayaking: {
     type: Boolean,
-    default: false
+    default: false,
   },
   Rafting: {
     type: Boolean,
-    default: false
+    default: false,
   },
   Skiing: {
     type: Boolean,
-    default: false
+    default: false,
   },
   Snowboarding: {
     type: Boolean,
-    default: false
+    default: false,
   },
   Rockclimbing: {
     type: Boolean,
-    default: false
+    default: false,
   },
   bio: {
     type: String,
-    required: true
+    required: true,
   },
   location: {
     type: String,
-    required: true
+    required: true,
   },
   website: {
-    type: String
+    type: String,
   },
   faveRecreation: {
-    type: String
+    type: String,
   },
   destinations: [
     {
       hikingTrails: {
-        type: String
+        type: String,
       },
       campSites: {
-        type: String
+        type: String,
       },
       waterAreas: {
-        type: String
+        type: String,
       },
       slopes: {
-        type: String
+        type: String,
       },
       crags: {
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   ],
   gears: [
     {
       hikeGear: {
-        type: String
+        type: String,
       },
       campGear: {
-        type: String
+        type: String,
       },
       waterGear: {
-        type: String
+        type: String,
       },
       snowGear: {
-        type: String
+        type: String,
       },
       rockClimbingGear: {
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   ],
   social: {
     youtube: {
-      type: String
+      type: String,
     },
     twitter: {
-      type: String
+      type: String,
     },
     facebook: {
-      type: String
+      type: String,
     },
     instagram: {
-      type: String
-    }
+      type: String,
+    },
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-module.exports = Profile = mongoose.model('profile', profileSchema);
+// module.exports = Profile = mongoose.model('profile', profileSchema);
+module.exports = mongoose.model('profile', profileSchema);

@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getAllPosts, addPost } from '../../actions/post';
 import PropTypes from 'prop-types';
+
 import PostItem from './PostItem';
 import Spinner from '../layout/Spinner';
+import { getAllPosts, addPost } from '../../actions/post';
 import { setAlert } from '../../actions/alert';
 
 const Posts = ({
@@ -11,7 +12,7 @@ const Posts = ({
   addPost,
   postState: { posts, loading },
   authState: { isAuthenticated },
-  setAlert
+  setAlert,
 }) => {
   //on initial load, populate post redux state with all posts
   useEffect(() => {
@@ -20,31 +21,31 @@ const Posts = ({
 
   // create state to handle input
   const [formData, setFormData] = useState({
-    text: ''
+    text: '',
   });
 
   const { text } = formData;
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (isAuthenticated) {
       addPost(formData);
       setFormData({
-        text: ''
+        text: '',
       });
     } else {
       setAlert('Please log in or register to create a post.', 'danger');
     }
   };
 
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({
-      text: e.target.value
+      text: e.target.value,
     });
   };
 
   const allPosts = () => {
-    return posts.map(post => (
+    return posts.map((post) => (
       <PostItem key={post._id} post={post} showCommentBtn={true} />
     ));
   };
@@ -76,7 +77,7 @@ const Posts = ({
               placeholder='Create a post'
               name='text'
               value={text}
-              onChange={e => onChange(e)}
+              onChange={(e) => onChange(e)}
             ></textarea>
             <input
               type='submit'
@@ -107,12 +108,12 @@ const Posts = ({
 
 Posts.propTypes = {
   postState: PropTypes.object.isRequired,
-  authState: PropTypes.object.isRequired
+  authState: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   postState: state.post,
-  authState: state.auth
+  authState: state.auth,
 });
 
 export default connect(mapStateToProps, { getAllPosts, addPost, setAlert })(

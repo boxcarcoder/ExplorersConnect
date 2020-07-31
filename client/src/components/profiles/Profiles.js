@@ -11,7 +11,7 @@ const Profiles = ({ getAllProfiles, profileState: { profiles, loading } }) => {
   //on the Profiles page's first load, retrieve all profiles and save it into the profile redux state
   useEffect(() => {
     getAllProfiles();
-  }, []);
+  }, [getAllProfiles]); //*** */
 
   if (!profiles.length || loading) {
     return <Spinner />;
@@ -24,7 +24,7 @@ const Profiles = ({ getAllProfiles, profileState: { profiles, loading } }) => {
         explorers
       </p>
       <div className='profiles'>
-        {profiles.map(profile => (
+        {profiles.map((profile) => (
           <ProfileItem key={profile._id} profile={profile} />
         ))}
       </div>
@@ -34,11 +34,11 @@ const Profiles = ({ getAllProfiles, profileState: { profiles, loading } }) => {
 
 Profiles.propTypes = {
   getAllProfiles: PropTypes.func.isRequired,
-  profileState: PropTypes.object.isRequired
+  profileState: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profileState: state.profile
+const mapStateToProps = (state) => ({
+  profileState: state.profile,
 });
 
 export default connect(mapStateToProps, { getAllProfiles })(Profiles);

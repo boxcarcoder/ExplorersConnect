@@ -7,31 +7,31 @@ import {
   GET_POST,
   COMMENT_ON_POST,
   DELETE_POST,
-  DELETE_COMMENT
+  DELETE_COMMENT,
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
 
 // Get all posts.
-export const getAllPosts = () => async dispatch => {
+export const getAllPosts = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/posts');
 
     dispatch({
       type: GET_ALL_POSTS,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Add a post.
-export const addPost = formData => async dispatch => {
+export const addPost = (formData) => async (dispatch) => {
   try {
     //set the token as the header to gain access to the protected route POST /api/posts
     if (localStorage.token) {
@@ -41,15 +41,15 @@ export const addPost = formData => async dispatch => {
     // configuration of the HTTP request to the backend
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
 
     const res = await axios.post('/api/posts', formData, config);
 
     dispatch({
       type: CREATE_POST,
-      payload: res.data
+      payload: res.data,
     });
 
     // display an alert to notify the user of what they just did
@@ -57,13 +57,13 @@ export const addPost = formData => async dispatch => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Like a post
-export const likePost = id => async dispatch => {
+export const likePost = (id) => async (dispatch) => {
   try {
     //set the token as the header to gain access to the protected route POST /api/posts/like
     if (localStorage.token) {
@@ -74,18 +74,18 @@ export const likePost = id => async dispatch => {
 
     dispatch({
       type: LIKE_A_POST,
-      payload: { id, likes: res.data }
+      payload: { id, likes: res.data },
     });
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Unlike a post
-export const unlikePost = id => async dispatch => {
+export const unlikePost = (id) => async (dispatch) => {
   try {
     //set the token as the header to gain access to the protected route POST /api/posts/like
     if (localStorage.token) {
@@ -96,36 +96,36 @@ export const unlikePost = id => async dispatch => {
 
     dispatch({
       type: UNLIKE_A_POST,
-      payload: { id, likes: res.data }
+      payload: { id, likes: res.data },
     });
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Fetch a post
-export const getPost = id => async dispatch => {
+export const getPost = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/posts/${id}`);
     console.log('Getting post from actions.');
 
     dispatch({
       type: GET_POST,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Comment on a post
-export const commentOnPost = (id, formData) => async dispatch => {
+export const commentOnPost = (id, formData) => async (dispatch) => {
   try {
     //set the token as the header to gain access to the protected route POST /api/posts
     if (localStorage.token) {
@@ -135,26 +135,26 @@ export const commentOnPost = (id, formData) => async dispatch => {
     // configuration of the HTTP request to the backend
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
 
     const res = await axios.post(`/api/posts/comment/${id}`, formData, config);
 
     dispatch({
       type: COMMENT_ON_POST,
-      payload: { id, comments: res.data }
+      payload: { id, comments: res.data },
     });
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Delete a post
-export const deletePost = id => async dispatch => {
+export const deletePost = (id) => async (dispatch) => {
   try {
     //set the token as the header to gain access to the protected route POST /api/posts
     if (localStorage.token) {
@@ -165,18 +165,20 @@ export const deletePost = id => async dispatch => {
 
     dispatch({
       type: DELETE_POST,
-      payload: { id }
+      payload: { id },
     });
+
+    return res; //*** */
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Delete a comment
-export const deleteComment = (postId, id) => async dispatch => {
+export const deleteComment = (postId, id) => async (dispatch) => {
   try {
     //set the token as the header to gain access to the protected route POST /api/posts
     if (localStorage.token) {
@@ -187,12 +189,12 @@ export const deleteComment = (postId, id) => async dispatch => {
 
     dispatch({
       type: DELETE_COMMENT,
-      payload: { id, comments: res.data }
+      payload: { id, comments: res.data },
     });
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };

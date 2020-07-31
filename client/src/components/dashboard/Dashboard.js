@@ -15,12 +15,12 @@ import { getCurrentProfile } from '../../actions/profile';
 
 const Dashboard = ({
   getCurrentProfile,
-  profileState: { profile, loading }
+  profileState: { profile, loading },
 }) => {
   //on the dashboard's first load, retrieve the logged in user's profile and save it into the profile redux state
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]); //*** */
 
   if (loading) {
     return <Spinner />;
@@ -53,11 +53,11 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  profileState: PropTypes.object.isRequired
+  profileState: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profileState: state.profile
+const mapStateToProps = (state) => ({
+  profileState: state.profile,
 });
 
 export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);

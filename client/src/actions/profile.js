@@ -6,14 +6,14 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
   GET_ALL_PROFILES,
-  GET_PROFILE_BY_ID
+  GET_PROFILE_BY_ID,
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
 
 // Get the current user's profile.
-export const getCurrentProfile = () => async dispatch => {
+export const getCurrentProfile = () => async (dispatch) => {
   try {
     //set the token as the header to gain access to the protected route /api/profiles/me
     if (localStorage.token) {
@@ -26,19 +26,19 @@ export const getCurrentProfile = () => async dispatch => {
     // dispatch profile data to reducer to save the profile data into the profile redux state
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Get all users' profiles.
-export const getAllProfiles = () => async dispatch => {
+export const getAllProfiles = () => async (dispatch) => {
   try {
     // the backend returns all profiles
     const res = await axios.get('/api/profiles/');
@@ -46,32 +46,32 @@ export const getAllProfiles = () => async dispatch => {
     // dispatch profile data to reducer to save the profile data into the profile redux state
     dispatch({
       type: GET_ALL_PROFILES,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Get profile by ID
-export const getProfileById = id => async dispatch => {
+export const getProfileById = (id) => async (dispatch) => {
   try {
     // the backend returns the profile with that user id
     const res = await axios.get(`/api/profiles/user/${id}`);
 
     dispatch({
       type: GET_PROFILE_BY_ID,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
@@ -81,7 +81,7 @@ export const createProfile = (
   formData,
   history, // The history object has the push method to redirect. Actions use push to redirect as opposed to using <Redirect />
   edit = false
-) => async dispatch => {
+) => async (dispatch) => {
   // set the token as the header to gain access to the protected route /api/profiles/me
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -90,8 +90,8 @@ export const createProfile = (
   // configuration of the HTTP request to the backend
   const config = {
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   };
 
   try {
@@ -101,7 +101,7 @@ export const createProfile = (
     // dispatch the profile data to the reducer to save it into the profile redux state
     dispatch({
       type: CREATE_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
 
     // display an alert to notify the user of what they just did
@@ -116,18 +116,18 @@ export const createProfile = (
     // display errors such as missing bio or location
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Add Favorite Destinations to Profile
-export const addDestinations = (formData, history) => async dispatch => {
+export const addDestinations = (formData, history) => async (dispatch) => {
   // set the token as the header to gain access to the protected route /api/profiles/destinatons
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -136,8 +136,8 @@ export const addDestinations = (formData, history) => async dispatch => {
   // configuration of the HTTP request to the backend
   const config = {
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   };
 
   try {
@@ -147,7 +147,7 @@ export const addDestinations = (formData, history) => async dispatch => {
     // dispatch the profile data to the reducer to save it into the profile redux state
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
 
     // display an alert to notify the user of what they just did
@@ -159,18 +159,18 @@ export const addDestinations = (formData, history) => async dispatch => {
     // display errors such as missing bio or location
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 // Add Favorite Gears to Profile
-export const addGears = (formData, history) => async dispatch => {
+export const addGears = (formData, history) => async (dispatch) => {
   // set the token as the header to gain access to the protected route /api/profiles/gears
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -179,8 +179,8 @@ export const addGears = (formData, history) => async dispatch => {
   // configuration of the HTTP request to the backend
   const config = {
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   };
 
   try {
@@ -190,7 +190,7 @@ export const addGears = (formData, history) => async dispatch => {
     // dispatch the profile data to the reducer to save it into the profile redux state
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
 
     // display an alert to notify the user of what they just did
@@ -202,75 +202,77 @@ export const addGears = (formData, history) => async dispatch => {
     // display errors such as missing bio or location
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 //Delete Destinations
-export const deleteDestinations = id => async dispatch => {
+export const deleteDestinations = (id) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/profiles/destinations/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert('Destinations removed.', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 //Delete Gears
-export const deleteGears = id => async dispatch => {
+export const deleteGears = (id) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/profiles/gears/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(setAlert('Gears removed.', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
 //Delete Account and Profile
-export const deleteAccount = () => async dispatch => {
+export const deleteAccount = () => async (dispatch) => {
   if (window.confirm('Are you sure? This can NOT be undone.')) {
     try {
       const res = await axios.delete('/api/profiles/');
 
       //goes to profile reducer
       dispatch({
-        type: CLEAR_PROFILE
+        type: CLEAR_PROFILE,
       });
 
       //goes to auth reducer
       dispatch({
-        type: ACCOUNT_DELETED
+        type: ACCOUNT_DELETED,
       });
 
       dispatch(setAlert('Your account and profile removed.'));
+
+      return res; //*** */
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        payload: { msg: err.response.statusText, status: err.response.status },
       });
     }
   }

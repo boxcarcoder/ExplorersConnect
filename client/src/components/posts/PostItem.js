@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { likePost, unlikePost, deletePost } from '../../actions/post';
 import { connect } from 'react-redux';
+import Moment from 'react-moment';
 import PropTypes from 'prop-types';
+
 import Spinner from '../layout/Spinner';
 import { setAlert } from '../../actions/alert';
-import Moment from 'react-moment';
+import { likePost, unlikePost, deletePost } from '../../actions/post';
 
 const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date },
@@ -15,9 +16,9 @@ const PostItem = ({
   setAlert,
   unlikePost,
   showCommentBtn,
-  deletePost
+  deletePost,
 }) => {
-  const handleLike = e => {
+  const handleLike = (e) => {
     if (isAuthenticated) {
       likePost(_id);
     } else {
@@ -25,7 +26,7 @@ const PostItem = ({
     }
   };
 
-  const handleUnlike = e => {
+  const handleUnlike = (e) => {
     if (isAuthenticated) {
       unlikePost(_id);
     } else {
@@ -46,7 +47,7 @@ const PostItem = ({
     }
   };
 
-  const handleDeletePost = e => {
+  const handleDeletePost = (e) => {
     deletePost(_id);
   };
 
@@ -55,7 +56,7 @@ const PostItem = ({
       return (
         <button
           className='btn btn-danger btn-small vert-m-1'
-          onClick={e => handleDeletePost(e)}
+          onClick={(e) => handleDeletePost(e)}
         >
           x
         </button>
@@ -83,10 +84,10 @@ const PostItem = ({
             <p className='x-small'>
               <Moment format='YYYY/MM/DD'>{date}</Moment>
             </p>
-            <button className='btn' onClick={e => handleLike(e)}>
+            <button className='btn' onClick={(e) => handleLike(e)}>
               <i className='fas fa-thumbs-up'></i> <span>{likes.length}</span>
             </button>
-            <button className='btn' onClick={e => handleUnlike(e)}>
+            <button className='btn' onClick={(e) => handleUnlike(e)}>
               <i className='fas fa-thumbs-down'></i>
             </button>
             <div>
@@ -107,17 +108,17 @@ PostItem.propTypes = {
   unlikePost: PropTypes.func.isRequired,
   postState: PropTypes.object.isRequired,
   authState: PropTypes.object.isRequired,
-  deletePost: PropTypes.func.isRequired
+  deletePost: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   postState: state.post,
-  authState: state.auth
+  authState: state.auth,
 });
 
 export default connect(mapStateToProps, {
   likePost,
   setAlert,
   unlikePost,
-  deletePost
+  deletePost,
 })(PostItem);

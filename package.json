@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon index.js",
-    "test": "TESTING",
+    "test": "jest --verbose",
+    "lint": "eslint .",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run watch\" \"npm run client\" ",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
@@ -25,10 +26,14 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "bufferutil": "^4.0.1",
+    "canvas": "^2.6.1",
     "concurrently": "^5.0.2",
+    "eslint": "^7.5.0",
     "node-sass": "^4.13.0",
     "nodemon": "^2.0.2",
     "sass": "^1.24.2",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "utf-8-validate": "^5.0.2"
   }
 }

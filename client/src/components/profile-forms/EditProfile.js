@@ -10,7 +10,7 @@ const EditProfile = ({
   profileState: { profile, loading },
   createProfile,
   history,
-  getCurrentProfile
+  getCurrentProfile,
 }) => {
   //create state for form data that requires user input
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ const EditProfile = ({
     twitter: '',
     facebook: '',
     youtube: '',
-    instagram: ''
+    instagram: '',
   });
 
   const {
@@ -46,7 +46,7 @@ const EditProfile = ({
     twitter,
     facebook,
     youtube,
-    instagram
+    instagram,
   } = formData;
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -75,29 +75,29 @@ const EditProfile = ({
       facebook: loading || !profile.social ? '' : profile.social.facebook,
       linkedin: loading || !profile.social ? '' : profile.social.linkedin,
       youtube: loading || !profile.social ? '' : profile.social.youtube,
-      instagram: loading || !profile.social ? '' : profile.social.instagram
+      instagram: loading || !profile.social ? '' : profile.social.instagram,
     });
-  }, [loading]);
+  }, [loading, getCurrentProfile, profile]); //*** */
 
   // e.target.name is the name of the input
   // e.target.value is the user input
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   // e.target.checked is the user clicking the check box
-  const handleClick = e => {
+  const handleClick = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.checked
+      [e.target.name]: e.target.checked,
     });
   };
 
   // when the form is submitted, fire the createProfile action
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     createProfile(formData, history, true);
   };
@@ -122,7 +122,7 @@ const EditProfile = ({
             type='checkbox'
             name='Hiking'
             checked={Hiking}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />{' '}
           Hiking
           <br />
@@ -130,7 +130,7 @@ const EditProfile = ({
             type='checkbox'
             name='Camping'
             checked={Camping}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />{' '}
           Camping
           <br />
@@ -138,7 +138,7 @@ const EditProfile = ({
             type='checkbox'
             name='Kayaking'
             checked={Kayaking}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />{' '}
           Kayaking
           <br />
@@ -146,7 +146,7 @@ const EditProfile = ({
             type='checkbox'
             name='Rafting'
             checked={Rafting}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />{' '}
           Rafting
           <br />
@@ -154,7 +154,7 @@ const EditProfile = ({
             type='checkbox'
             name='Skiing'
             checked={Skiing}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />{' '}
           Skiing
           <br />
@@ -162,7 +162,7 @@ const EditProfile = ({
             type='checkbox'
             name='Snowboarding'
             checked={Snowboarding}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />{' '}
           Snowboarding
           <br />
@@ -170,7 +170,7 @@ const EditProfile = ({
             type='checkbox'
             name='Rockclimbing'
             checked={Rockclimbing}
-            onClick={e => handleClick(e)}
+            onClick={(e) => handleClick(e)}
           />{' '}
           Rockclimbing
           <br />
@@ -182,7 +182,7 @@ const EditProfile = ({
           <select
             name='faveRecreation'
             value={faveRecreation}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           >
             <option value='0'>* Favorite Outdoor Recreation</option>
             <option value='HikingFave'>Hiking</option>
@@ -205,7 +205,7 @@ const EditProfile = ({
             placeholder='Personal Website'
             name='website'
             value={website}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
             Have a blog for adventures or gear reviews?
@@ -218,7 +218,7 @@ const EditProfile = ({
             placeholder='A short bio of yourself'
             name='bio'
             value={bio}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           ></textarea>
           <small className='form-text'>Tell us a little about yourself</small>
         </div>
@@ -230,7 +230,7 @@ const EditProfile = ({
             placeholder='* Location'
             name='location'
             value={location}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
             City & state (eg. Los Angeles, CA)
@@ -258,7 +258,7 @@ const EditProfile = ({
                 placeholder='Twitter URL'
                 name='twitter'
                 value={twitter}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className='form-group social-input'>
@@ -269,7 +269,7 @@ const EditProfile = ({
                 placeholder='Facebook URL'
                 name='facebook'
                 value={facebook}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className='form-group social-input'>
@@ -280,7 +280,7 @@ const EditProfile = ({
                 placeholder='YouTube URL'
                 name='youtube'
                 value={youtube}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className='form-group social-input'>
@@ -291,7 +291,7 @@ const EditProfile = ({
                 placeholder='Instagram URL'
                 name='instagram'
                 value={instagram}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
           </Fragment>
@@ -312,11 +312,11 @@ const EditProfile = ({
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
-  profileState: PropTypes.object.isRequired
+  profileState: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profileState: state.profile
+const mapStateToProps = (state) => ({
+  profileState: state.profile,
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
