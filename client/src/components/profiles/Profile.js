@@ -295,6 +295,7 @@ const Profile = ({
     }
   };
 
+  // ======== Check for provided social media links ========
   const checkInstagram = () => {
     if (social.instagram) {
       return (
@@ -307,9 +308,7 @@ const Profile = ({
     } else if (!social.instagram) {
       return (
         <div className='invalid-icon'>
-          <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
-            <i className='fab fa-instagram fa-2x'></i>
-          </a>
+          <i className='fab fa-instagram fa-2x'></i>
         </div>
       );
     }
@@ -327,9 +326,7 @@ const Profile = ({
     } else if (!social.twitter) {
       return (
         <div className='invalid-icon'>
-          <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
-            <i className='fab fa-twitter fa-2x'></i>
-          </a>
+          <i className='fab fa-twitter fa-2x'></i>
         </div>
       );
     }
@@ -347,9 +344,7 @@ const Profile = ({
     } else if (!social.facebook) {
       return (
         <div className='invalid-icon'>
-          <a href={social.facebook} target='_blank' rel='noopener noreferrer'>
-            <i className='fab fa-facebook fa-2x'></i>
-          </a>
+          <i className='fab fa-facebook fa-2x'></i>
         </div>
       );
     }
@@ -367,9 +362,7 @@ const Profile = ({
     } else if (!social.youtube) {
       return (
         <div className='invalid-icon'>
-          <a href={social.youtube} target='_blank' rel='noopener noreferrer'>
-            <i className='fab fa-youtube fa-2x'></i>
-          </a>
+          <i className='fab fa-youtube fa-2x'></i>
         </div>
       );
     }
@@ -386,26 +379,6 @@ const Profile = ({
         </div>
       </Fragment>
     );
-
-    // const checkSocialMedia = () => {
-    //   if (social) {
-    //     return (
-    //       <div className='vert-m-1 icons'>
-    //         <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
-    //           <i className='fab fa-instagram fa-2x'></i>
-    //         </a>
-    //         <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
-    //           <i className='fab fa-twitter fa-2x '></i>
-    //         </a>
-    //         <a href={social.facebook} target='_blank' rel='noopener noreferrer'>
-    //           <i className='fab fa-facebook fa-2x'></i>
-    //         </a>
-    //         <a href={social.youtube} target='_blank' rel='noopener noreferrer'>
-    //           <i className='fab fa-youtube fa-2x'></i>
-    //         </a>
-    //       </div>
-    //     );
-    //   }
   };
 
   return (
@@ -421,10 +394,6 @@ const Profile = ({
           <h1 className='large'>{name}</h1>
           <p>{location}</p>
           {checkSocialMedia()}
-          {/* {checkInstagram()}
-          {checkTwitter()}
-          {checkFacebook()}
-          {checkYoutube()} */}
         </div>
 
         {/* Bio and Passions */}
