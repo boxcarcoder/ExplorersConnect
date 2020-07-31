@@ -123,15 +123,26 @@ img {
       width: 250px;
     }
 
-    .icons a {
-      color: $light-color;
-      margin: 0 0.2rem;
+    .icons-list {
+      display: flex;
+      flex-direction: row;
 
-      &:hover {
-        color: $dark-color;
+      .valid-icon a {
+        color: $light-color;
+        margin: 0 0.2rem;
+
+        &:hover {
+          color: $dark-color;
+        }
+      }
+
+      .invalid-icon a {
+        color: $invalid-color;
+        margin: 0 0.2rem;
       }
     }
   }
+
   .profile-about {
     grid-area: about;
     text-align: center;
@@ -144,6 +155,9 @@ img {
     grid-area: gear;
     text-align: center;
   }
+}
+
+.social-icons {
 }
 
 // Posts page style

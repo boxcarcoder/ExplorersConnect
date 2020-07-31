@@ -10,7 +10,7 @@ import Spinner from '../layout/Spinner';
 const Profile = ({
   profileState: { profile, loading },
   getProfileById,
-  match
+  match,
 }) => {
   //when a user's profile page is first loaded, retrieve the profile and store it in the profile redux state
   useEffect(() => {
@@ -39,7 +39,7 @@ const Profile = ({
     Rockclimbing,
     destinations,
     gears,
-    social
+    social,
   } = profile;
 
   // ======== Check for favorite activities ========
@@ -121,7 +121,7 @@ const Profile = ({
           <p>
             <strong>Hike Trails</strong>
             <ul>
-              {destinations.map(destination => (
+              {destinations.map((destination) => (
                 <li>{destination.hikingTrails}</li>
               ))}
             </ul>
@@ -139,7 +139,7 @@ const Profile = ({
           <p>
             <strong>Campsites</strong>
             <ul>
-              {destinations.map(destination => (
+              {destinations.map((destination) => (
                 <li>{destination.campSites}</li>
               ))}
             </ul>
@@ -157,7 +157,7 @@ const Profile = ({
           <p>
             <strong>Lakes, Rivers, or Oceans</strong>
             <ul>
-              {destinations.map(destination => (
+              {destinations.map((destination) => (
                 <li>{destination.waterAreas}</li>
               ))}
             </ul>
@@ -175,7 +175,7 @@ const Profile = ({
           <p>
             <strong>Slopes</strong>
             <ul>
-              {destinations.map(destination => (
+              {destinations.map((destination) => (
                 <li>{destination.slopes}</li>
               ))}
             </ul>
@@ -193,7 +193,7 @@ const Profile = ({
           <p>
             <strong>Crags</strong>
             <ul>
-              {destinations.map(destination => (
+              {destinations.map((destination) => (
                 <li>{destination.crags}</li>
               ))}
             </ul>
@@ -212,7 +212,7 @@ const Profile = ({
           <p>
             <strong>Hiking</strong>
             <ul>
-              {gears.map(gear => (
+              {gears.map((gear) => (
                 <li>{gear.hikeGear}</li>
               ))}
             </ul>
@@ -230,7 +230,7 @@ const Profile = ({
           <p>
             <strong>Camping</strong>
             <ul>
-              {gears.map(gear => (
+              {gears.map((gear) => (
                 <li>{gear.campGear}</li>
               ))}
             </ul>
@@ -248,7 +248,7 @@ const Profile = ({
           <p>
             <strong>Lakes, Rivers, or Oceans</strong>
             <ul>
-              {gears.map(gear => (
+              {gears.map((gear) => (
                 <li>{gear.waterGear}</li>
               ))}
             </ul>
@@ -266,7 +266,7 @@ const Profile = ({
           <p>
             <strong>Slopes</strong>
             <ul>
-              {gears.map(gear => (
+              {gears.map((gear) => (
                 <li>{gear.snowGear}</li>
               ))}
             </ul>
@@ -284,7 +284,7 @@ const Profile = ({
           <p>
             <strong>Rock Climbing</strong>
             <ul>
-              {gears.map(gear => (
+              {gears.map((gear) => (
                 <li>{gear.rockClimbingGear}</li>
               ))}
             </ul>
@@ -295,25 +295,117 @@ const Profile = ({
     }
   };
 
-  const checkSocialMedia = () => {
-    if (social) {
+  const checkInstagram = () => {
+    if (social.instagram) {
       return (
-        <div className='vert-m-1 icons'>
+        <div className='valid-icon'>
           <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
             <i className='fab fa-instagram fa-2x'></i>
           </a>
-          <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
-            <i className='fab fa-twitter fa-2x '></i>
+        </div>
+      );
+    } else if (!social.instagram) {
+      return (
+        <div className='invalid-icon'>
+          <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
+            <i className='fab fa-instagram fa-2x'></i>
           </a>
+        </div>
+      );
+    }
+  };
+
+  const checkTwitter = () => {
+    if (social.twitter) {
+      return (
+        <div className='valid-icon'>
+          <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
+            <i className='fab fa-twitter fa-2x'></i>
+          </a>
+        </div>
+      );
+    } else if (!social.twitter) {
+      return (
+        <div className='invalid-icon'>
+          <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
+            <i className='fab fa-twitter fa-2x'></i>
+          </a>
+        </div>
+      );
+    }
+  };
+
+  const checkFacebook = () => {
+    if (social.facebook) {
+      return (
+        <div className='valid-icon'>
           <a href={social.facebook} target='_blank' rel='noopener noreferrer'>
             <i className='fab fa-facebook fa-2x'></i>
           </a>
+        </div>
+      );
+    } else if (!social.facebook) {
+      return (
+        <div className='invalid-icon'>
+          <a href={social.facebook} target='_blank' rel='noopener noreferrer'>
+            <i className='fab fa-facebook fa-2x'></i>
+          </a>
+        </div>
+      );
+    }
+  };
+
+  const checkYoutube = () => {
+    if (social.youtube) {
+      return (
+        <div className='valid-icon'>
+          <a href={social.youtube} target='_blank' rel='noopener noreferrer'>
+            <i className='fab fa-youtube fa-2x'></i>
+          </a>
+        </div>
+      );
+    } else if (!social.youtube) {
+      return (
+        <div className='invalid-icon'>
           <a href={social.youtube} target='_blank' rel='noopener noreferrer'>
             <i className='fab fa-youtube fa-2x'></i>
           </a>
         </div>
       );
     }
+  };
+
+  const checkSocialMedia = () => {
+    return (
+      <Fragment>
+        <div className='vert-m-1 icons-list'>
+          {checkInstagram()}
+          {checkTwitter()}
+          {checkFacebook()}
+          {checkYoutube()}
+        </div>
+      </Fragment>
+    );
+
+    // const checkSocialMedia = () => {
+    //   if (social) {
+    //     return (
+    //       <div className='vert-m-1 icons'>
+    //         <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
+    //           <i className='fab fa-instagram fa-2x'></i>
+    //         </a>
+    //         <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
+    //           <i className='fab fa-twitter fa-2x '></i>
+    //         </a>
+    //         <a href={social.facebook} target='_blank' rel='noopener noreferrer'>
+    //           <i className='fab fa-facebook fa-2x'></i>
+    //         </a>
+    //         <a href={social.youtube} target='_blank' rel='noopener noreferrer'>
+    //           <i className='fab fa-youtube fa-2x'></i>
+    //         </a>
+    //       </div>
+    //     );
+    //   }
   };
 
   return (
@@ -329,6 +421,10 @@ const Profile = ({
           <h1 className='large'>{name}</h1>
           <p>{location}</p>
           {checkSocialMedia()}
+          {/* {checkInstagram()}
+          {checkTwitter()}
+          {checkFacebook()}
+          {checkYoutube()} */}
         </div>
 
         {/* Bio and Passions */}
@@ -374,11 +470,11 @@ const Profile = ({
 };
 
 Profile.propTypes = {
-  profileState: PropTypes.object.isRequired
+  profileState: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profileState: state.profile
+const mapStateToProps = (state) => ({
+  profileState: state.profile,
 });
 
 export default connect(mapStateToProps, { getProfileById })(Profile);

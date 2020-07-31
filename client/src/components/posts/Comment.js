@@ -14,7 +14,7 @@ const Comment = ({
   match,
   commentOnPost,
   authState: { isAuthenticated },
-  setAlert
+  setAlert,
 }) => {
   //when comment component first loads, load post redux state with post data
   useEffect(() => {
@@ -22,26 +22,26 @@ const Comment = ({
   }, [getPost, match.params.id]);
 
   const [formData, setFormData] = useState({
-    text: ''
+    text: '',
   });
   const { text } = formData;
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (isAuthenticated) {
       commentOnPost(match.params.id, formData);
       setAlert('Commented successfully.', 'success');
       setFormData({
-        text: ''
+        text: '',
       });
     } else {
       setAlert('Please log in to comment on post.', 'danger');
     }
   };
 
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -54,6 +54,7 @@ const Comment = ({
     return <Redirect to='/posts' />;
   }
   // case 3: when getPost has populated the post redux state.
+  // else if (post !== null) {
   else {
     return (
       <Fragment>
@@ -66,7 +67,7 @@ const Comment = ({
         <PostItem key={post._id} post={post} showCommentBtn={false} />
 
         {/*Comment input box */}
-        <div className='post-form' onSubmit={e => handleSubmit(e)}>
+        <div className='post-form' onSubmit={(e) => handleSubmit(e)}>
           <div className='bg-primary post-form-header '>
             <h4>Leave a Comment</h4>
           </div>
@@ -77,7 +78,7 @@ const Comment = ({
               placeholder='Comment on this post'
               name='text'
               value={text}
-              onChange={e => onChange(e)}
+              onChange={(e) => onChange(e)}
             ></textarea>
             <input
               type='submit'
@@ -88,7 +89,7 @@ const Comment = ({
 
           {/* Comments list section */}
           <div className='comments'>
-            {post.comments.map(comment => (
+            {post.comments.map((comment) => (
               <CommentItem
                 key={comment._id}
                 comment={comment}
@@ -99,7 +100,13 @@ const Comment = ({
         </div>
       </Fragment>
     );
-  }
+  } //else {
+  //   return (
+  //     <Fragment>
+  //       <h1>wtf</h1>
+  //     </Fragment>
+  //   );
+  // }
 };
 
 Comment.propTypes = {
@@ -107,16 +114,16 @@ Comment.propTypes = {
   getPost: PropTypes.func.isRequired,
   commentOnPost: PropTypes.func.isRequired,
   authState: PropTypes.object.isRequired,
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   postState: state.post,
-  authState: state.auth
+  authState: state.auth,
 });
 
 export default connect(mapStateToProps, {
   getPost,
   commentOnPost,
-  setAlert
+  setAlert,
 })(Comment);
