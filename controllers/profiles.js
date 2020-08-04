@@ -177,17 +177,6 @@ profilesRouter.put('/destinations', auth, async (req, res) => {
   try {
     let { hikingTrails, campSites, waterAreas, slopes, crags } = req.body;
 
-    // //convert comma separated string into array
-    // if (hikingTrails) {
-    //   hikingTrails = hikingTrails.split(',').map(place => place.trim());
-    //   console.log('hikingTrails: ', hikingTrails);
-    // }
-    // if (campSites) campSites = campSites.split(',').map(place => place.trim());
-    // if (waterAreas)
-    //   waterAreas = waterAreas.split(',').map(place => place.trim());
-    // if (slopes) slopes = slopes.split(',').map(place => place.trim());
-    // if (crags) crags = crags.split(',').map(place => place.trim());
-
     //update the logged in user's Destinations
     let updatedDestinations = {
       hikingTrails,
@@ -253,14 +242,6 @@ profilesRouter.put('/gears', auth, async (req, res) => {
       snowGear,
       rockClimbingGear,
     } = req.body;
-
-    // //convert comma separated string into array
-    // if (hikeGear) hikeGear = hikeGear.split(',').map(gear => gear.trim());
-    // if (campGear) campGear = campGear.split(',').map(gear => gear.trim());
-    // if (waterGear) waterGear = waterGear.split(',').map(gear => gear.trim());
-    // if (snowGear) snowGear = snowGear.split(',').map(gear => gear.trim());
-    // if (rockClimbingGear)
-    //   rockClimbingGear = rockClimbingGear.split(',').map(gear => gear.trim());
 
     //update the logged in user's gears
     let updatedGears = {

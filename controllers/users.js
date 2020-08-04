@@ -12,14 +12,12 @@ const config = require('../utils/config');
 usersRouter.post(
   '/',
   [
-    check('name', 'Please enter a name.')
-      .not()
-      .isEmpty(),
+    check('name', 'Please enter a name.').not().isEmpty(),
     check('email', 'Please enter a valid email.').isEmail(),
     check(
       'password',
       'Please enter a password of 6 characters or more.'
-    ).isLength({ min: 6 })
+    ).isLength({ min: 6 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -42,14 +40,14 @@ usersRouter.post(
       let avatar = gravatar.url(email, {
         s: '200',
         r: 'pg',
-        d: 'mp'
+        d: 'mp',
       });
 
       let newUser = new User({
         name,
         email,
         avatar,
-        password
+        password,
       });
 
       //encrypt the password and register user into the db
@@ -61,8 +59,8 @@ usersRouter.post(
       //after the user is registered, return a token for authentication
       let payload = {
         user: {
-          id: newUser.id
-        }
+          id: newUser.id,
+        },
       };
       jwt.sign(
         payload,

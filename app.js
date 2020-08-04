@@ -18,7 +18,7 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: false
+      useFindAndModify: false,
     });
     console.log('database connected successfully.');
   } catch (err) {
@@ -37,8 +37,6 @@ app.use('/api/profiles', profilesRouter);
 app.use('/api/posts', postsRouter);
 
 // Server static assets in production.
-// process.env.NODE_ENV dictates whether an environment is a production or development production.
-// Setting NODE_ENV is done through CLI; not recommended to be set within a node application.
 if (process.env.NODE_ENV === 'production') {
   // Set static folder using express
   app.use(express.static('client/build'));
