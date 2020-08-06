@@ -1,41 +1,65 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const app = require('../app');
-
 const testApi = supertest(app);
+const User = require('../models/User');
 
-// Check if a POST request to /api/users returns success code 200,
-// and returns a token for authentication
-test('a token is returned for authentication to indicate user is saved into db', async () => {
-  let result = await testApi.post('/api/users');
+// Create test data.
+const initialUsers = [
+  {
+    name: 'testUser',
+    email: 'testUser@gmail.com',
+    password: 'testpw',
+  },
+  {
+    name: 'testUser2',
+    email: 'testUser2@gmail.com',
+    password: 'testpw2',
+  },
+  {
+    name: 'testUser3',
+    email: 'testUser3@gmail.com',
+    password: 'testpw3',
+  },
+];
 
-  expect(result.status).toBe(200);
-  expect(result.headers).toHaveProperty('token');
+// Initialize the test db with test data before every test to make tests more robust.
+beforeEach(async () => {
+  await User.deleteMany({});
 
-  // Close the db connection after all tests have been run.
-  afterAll(() => {
-    mongoose.connection.close();
-  });
+  let userObject = new User(initialUsers[0]);
+  await userObject.save();
+
+  userObject = new User(initialUsers[1]);
+  await userObject.save();
+
+  userObject = new User(initialUsers[2]);
+  await userObject.save();
 });
 
-/**
- *  Attempt #1
- *  await testApi
-    .post('/api/users')
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-    .expect.objectContaining({
-      token: expect.any(String),
-    });
- * 
- * 
- *  Attempt #2
- *  let result = await testApi.post('/api/users');
+// Test #1: Check if a POST request to /api/users returns success code 200,
+// and returns a token for authentication to indicate the new user is saved into db.
+test('a token is returned', async () => {
+  // Create a new test user for the HTTP request.
+  const newTestUser = {
+    name: 'TestUser',
+    email: 'testuser@testuser.com',
+    password: 'testuserpw',
+  };
+  const { name, email, password } = newTestUser;
+  const body = JSON.stringify({ name, email, password });
 
-    expect(result.status).toBe(200);
-    expect(result.headers).objectContaining({
-    Content-Type: expect.toBe('application/json');
- * 
- * 
- * 
- */
+  // Execute the test.
+  let result = await testApi
+    .post('/api/users')
+    .set('Content-Type', 'application/json')
+    .send(body);
+
+  expect(result.status).toBe(200);
+  expect(result.body).toHaveProperty('token');
+});
+
+// Close the db connection after all tests have been run.
+afterAll(async () => {
+  await mongoose.connection.close();
+});

@@ -26,7 +26,7 @@ authRouter.post(
   '/',
   [
     check('email', 'Please enter a valid email.').isEmail(),
-    check('password', 'Password is required.').exists()
+    check('password', 'Password is required.').exists(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -57,8 +57,8 @@ authRouter.post(
       //after the user is logged in, return a token for authentication
       let payload = {
         user: {
-          id: user.id
-        }
+          id: user.id,
+        },
       };
       jwt.sign(
         payload,
@@ -70,8 +70,7 @@ authRouter.post(
         }
       );
     } catch (err) {
-      //res.status(500).json('Server error');
-      console.error(err.message);
+      res.status(500).json('Server error');
     }
   }
 );
