@@ -41,7 +41,7 @@ authRouter.post(
       let user = await User.findOne({ email });
       if (!user) {
         return res
-          .status(400)
+          .status(404)
           .json({ errors: [{ msg: 'Invalid credentials.' }] });
       }
 
@@ -50,7 +50,7 @@ authRouter.post(
 
       if (!isMatch) {
         return res
-          .status(400)
+          .status(401)
           .json({ errors: [{ msg: 'Invalid credentials.' }] });
       }
 

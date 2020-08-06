@@ -38,7 +38,7 @@ beforeEach(async () => {
 });
 
 describe('User registration.', () => {
-  test('User registered successfully. A token is returned for authentication.', async () => {
+  test('200. User registered successfully. A token is returned for authentication.', async () => {
     // Create a new test user for the HTTP request.
     const newTestUser = {
       name: 'TestUser',
@@ -58,7 +58,7 @@ describe('User registration.', () => {
     expect(result.body).toHaveProperty('token');
   });
 
-  test('Email is registered already. User is not registered.', async () => {
+  test('409. Email is registered already. User registration failed.', async () => {
     // Create a new test user for the HTTP request.
     const existingUser = {
       name: 'TestUser',
@@ -74,13 +74,12 @@ describe('User registration.', () => {
       .set('Content-Type', 'application/json')
       .send(body);
 
-    expect(result.status).toBe(400);
+    expect(result.status).toBe(409);
   });
 
-  test('User enters invalid name. User is not registered.', async () => {
+  test('400. User does not input a name. User registration failed.', async () => {
     // Create a new test user for the HTTP request.
     const newTestUser = {
-      name: '',
       email: 'testuser@testuser.com',
       password: 'testuserpw',
     };
@@ -96,7 +95,7 @@ describe('User registration.', () => {
     expect(result.status).toBe(400);
   });
 
-  test('User enters invalid email. User is not registered.', async () => {
+  test('400. User inputs an invalid email. User registration failed.', async () => {
     // Create a new test user for the HTTP request.
     const newTestUser = {
       name: 'TestUser',

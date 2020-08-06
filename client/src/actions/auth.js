@@ -62,7 +62,6 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       payload: res.data,
     });
 
-    console.log('res from registering user: ', res);
     dispatch(loadUser());
   } catch (err) {
     // display errors as alerts using alert action and reducer
