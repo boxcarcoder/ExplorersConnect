@@ -37,26 +37,83 @@ beforeEach(async () => {
   await userObject.save();
 });
 
-// Test #1: Check if a POST request to /api/users returns success code 200,
-// and returns a token for authentication to indicate the new user is saved into db.
-test('a token is returned', async () => {
-  // Create a new test user for the HTTP request.
-  const newTestUser = {
-    name: 'TestUser',
-    email: 'testuser@testuser.com',
-    password: 'testuserpw',
-  };
-  const { name, email, password } = newTestUser;
-  const body = JSON.stringify({ name, email, password });
+describe('User registration.', () => {
+  test('User registered successfully. A token is returned for authentication.', async () => {
+    // Create a new test user for the HTTP request.
+    const newTestUser = {
+      name: 'TestUser',
+      email: 'testuser@testuser.com',
+      password: 'testuserpw',
+    };
+    const { name, email, password } = newTestUser;
+    const body = JSON.stringify({ name, email, password });
 
-  // Execute the test.
-  let result = await testApi
-    .post('/api/users')
-    .set('Content-Type', 'application/json')
-    .send(body);
+    // Execute the test.
+    let result = await testApi
+      .post('/api/users')
+      .set('Content-Type', 'application/json')
+      .send(body);
 
-  expect(result.status).toBe(200);
-  expect(result.body).toHaveProperty('token');
+    expect(result.status).toBe(200);
+    expect(result.body).toHaveProperty('token');
+  });
+
+  test('Email is registered already. User is not registered.', async () => {
+    // Create a new test user for the HTTP request.
+    const existingUser = {
+      name: 'TestUser',
+      email: 'testUser@gmail.com',
+      password: 'testuserpw',
+    };
+    const { name, email, password } = existingUser;
+    const body = JSON.stringify({ name, email, password });
+
+    // Execute the test.
+    let result = await testApi
+      .post('/api/users')
+      .set('Content-Type', 'application/json')
+      .send(body);
+
+    expect(result.status).toBe(400);
+  });
+
+  test('User enters invalid name. User is not registered.', async () => {
+    // Create a new test user for the HTTP request.
+    const newTestUser = {
+      name: '',
+      email: 'testuser@testuser.com',
+      password: 'testuserpw',
+    };
+    const { name, email, password } = newTestUser;
+    const body = JSON.stringify({ name, email, password });
+
+    // Execute the test.
+    let result = await testApi
+      .post('/api/users')
+      .set('Content-Type', 'application/json')
+      .send(body);
+
+    expect(result.status).toBe(400);
+  });
+
+  test('User enters invalid email. User is not registered.', async () => {
+    // Create a new test user for the HTTP request.
+    const newTestUser = {
+      name: 'TestUser',
+      email: '',
+      password: 'testuserpw',
+    };
+    const { name, email, password } = newTestUser;
+    const body = JSON.stringify({ name, email, password });
+
+    // Execute the test.
+    let result = await testApi
+      .post('/api/users')
+      .set('Content-Type', 'application/json')
+      .send(body);
+
+    expect(result.status).toBe(400);
+  });
 });
 
 // Close the db connection after all tests have been run.
