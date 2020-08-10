@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../utils/config');
 
 // @route   GET api/auth
-// @desc    Protected route to access a user's profile.
+// @desc    Protected route to access a logged in user's user information to check if a user is logged in.
 // @access  Private
 authRouter.get('/', auth, async (req, res) => {
   //an HTTP request to this protected route must be decoded by the auth middleware.

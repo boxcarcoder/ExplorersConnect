@@ -24,6 +24,8 @@ const initialUsers = [
   },
 ];
 
+var token = null;
+
 // Initialize the test db with test data before every test to make tests more robust.
 beforeEach(async () => {
   await User.deleteMany({});
@@ -65,6 +67,14 @@ describe('User login.', () => {
 
     expect(result.status).toBe(200);
     expect(result.body).toHaveProperty('token');
+
+    // Set the token for tests that require the token.
+    token = result.body.token;
+  });
+
+  test('200. User profile is fetched after login.', async () => {
+    let result = await testApi.get('/api/auth').set('x-auth-token', token);
+    expect(result.status).toBe(200);
   });
 
   test('400. User inputs an invalid email. User log in failed.', async () => {
