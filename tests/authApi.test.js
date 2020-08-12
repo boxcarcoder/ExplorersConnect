@@ -121,7 +121,7 @@ describe('User login.', () => {
     expect(result.status).toBe(200);
     expect(result.body).toHaveProperty('token');
 
-    // Set the token for tests that require the token.
+    // Set the logged in user's token for tests that require the token.
     token = result.body.token;
   });
 
