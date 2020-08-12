@@ -16,7 +16,7 @@ profilesRouter.get('/me', auth, async (req, res) => {
     );
 
     if (!profile) {
-      res.status(400).json('This profile does not exist.');
+      res.status(404).json('This profile does not exist.');
     }
 
     res.json(profile);

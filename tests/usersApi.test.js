@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const supertest = require('supertest');
 const app = require('../app');
 const testApi = supertest(app);
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
 // Create test data.
@@ -23,17 +24,26 @@ const initialUsers = [
   },
 ];
 
-// Initialize the test db with test data before every test to make tests more robust.
 beforeEach(async () => {
+  // Initialize the test db with test data before every test to make tests more robust.
   await User.deleteMany({});
 
+  // Create salt for bcrypt to encrypt passwords
+  let salt = await bcrypt.genSalt(10);
+
+  // Create test user #1
   let userObject = new User(initialUsers[0]);
+  userObject.password = await bcrypt.hash(userObject.password, salt);
   await userObject.save();
 
+  // Create test user #2
   userObject = new User(initialUsers[1]);
+  userObject.password = await bcrypt.hash(userObject.password, salt);
   await userObject.save();
 
+  // Create test user #3
   userObject = new User(initialUsers[2]);
+  userObject.password = await bcrypt.hash(userObject.password, salt);
   await userObject.save();
 });
 
