@@ -121,11 +121,11 @@ profilesRouter.get('/', async (req, res) => {
     // find the profile of all users
     let profiles = await Profile.find().populate('user', ['name', 'avatar']);
 
-    if (!profiles) {
-      res.status(400).json('There are no profiles.');
+    if (profiles.length === 0) {
+      res.status(404).json('There are no profiles.');
+    } else {
+      res.json(profiles);
     }
-
-    res.json(profiles);
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server error.');

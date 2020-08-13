@@ -25,7 +25,9 @@ const initialUsers = [
   },
 ];
 
-var token = null;
+// Tokens for logged in users for profile creation.
+var tokenUser1 = null;
+var tokenUser2 = null;
 
 beforeEach(async () => {
   // Initialize the test db with test data before every test to make tests more robust.
@@ -63,15 +65,12 @@ beforeEach(async () => {
     .set('Content-Type', 'application/json')
     .send(body);
 
-  expect(result.status).toBe(200);
-  expect(result.body).toHaveProperty('token');
-
   // Set the logged in user's token for tests that require the token.
-  token = result.body.token;
+  tokenUser1 = result.body.token;
 });
 
-describe('Create a user profile.', () => {
-  test('400. User does not input a bio for their profile.', async () => {
+describe('Create a user profile for logged in user.', () => {
+  test('400. User does not input a bio for their profile. Profile creation failed.', async () => {
     // Set profile settings for the logged in user.
     const testProfile = {
       Hiking: false,
@@ -94,14 +93,14 @@ describe('Create a user profile.', () => {
     // Execute the test.
     let result = await testApi
       .post('/api/profiles/')
-      .set('x-auth-token', token)
+      .set('x-auth-token', tokenUser1)
       .set('Content-Type', 'application/json')
       .send(testProfile);
 
     expect(result.status).toBe(400);
   });
 
-  test('400. User does not input a location for their profile.', async () => {
+  test('400. User does not input a location for their profile. Profile creation failed.', async () => {
     // Set profile settings for the logged in user.
     const testProfile = {
       Hiking: false,
@@ -124,14 +123,14 @@ describe('Create a user profile.', () => {
     // Execute the test.
     let result = await testApi
       .post('/api/profiles/')
-      .set('x-auth-token', token)
+      .set('x-auth-token', tokenUser1)
       .set('Content-Type', 'application/json')
       .send(testProfile);
 
     expect(result.status).toBe(400);
   });
 
-  test('200. A profile is created for the logged in user successfully.', async () => {
+  test('200. Profile creation successful.', async () => {
     // Set profile settings for the logged in user.
     const testProfile = {
       Hiking: false,
@@ -154,7 +153,7 @@ describe('Create a user profile.', () => {
     // Execute the test.
     let result = await testApi
       .post('/api/profiles/')
-      .set('x-auth-token', token)
+      .set('x-auth-token', tokenUser1)
       .set('Content-Type', 'application/json')
       .send(testProfile);
 
@@ -162,15 +161,15 @@ describe('Create a user profile.', () => {
   });
 });
 
-describe('Fetch a user profile.', () => {
-  test('404. Profile for logged in user not found. Fetch profile failed.', async () => {
+describe('Fetch logged in user profile.', () => {
+  test('404. Profile for the logged in user not found. Fetch profile failed.', async () => {
     let result = await testApi
       .get('/api/profiles/me')
-      .set('x-auth-token', token);
+      .set('x-auth-token', tokenUser1);
     expect(result.status).toBe(404);
   });
 
-  test('200. Fetch a logged in user profile succesfully.', async () => {
+  test('200. Fetch the logged in user profile succesfully.', async () => {
     // Create a user profile to be fetched.
     const testProfile = {
       Hiking: false,
@@ -192,14 +191,92 @@ describe('Fetch a user profile.', () => {
 
     await testApi
       .post('/api/profiles/')
-      .set('x-auth-token', token)
+      .set('x-auth-token', tokenUser1)
       .set('Content-Type', 'application/json')
       .send(testProfile);
 
+    //Execute the test
     let result = await testApi
       .get('/api/profiles/me')
-      .set('x-auth-token', token);
+      .set('x-auth-token', tokenUser1);
 
+    expect(result.status).toBe(200);
+  });
+});
+
+describe('Fetch all profiles.', async () => {
+  test('404. Fetch all profiles failed.', async () => {
+    let result = await testApi.get('/api/profiles');
+    expect(result.status).toBe(404);
+  });
+
+  test('200. Fetch all profiles successfully.', async () => {
+    // Create user profile #1 to be fetched.
+    const testProfile1 = {
+      Hiking: false,
+      Camping: false,
+      Kayaking: false,
+      Rafting: false,
+      Skiing: false,
+      Snowboarding: false,
+      Rockclimbing: false,
+      faveRecreation: '',
+      website: '',
+      bio: 'test bio',
+      location: 'test location, CA',
+      twitter: '',
+      facebook: '',
+      youtube: '',
+      instagram: '',
+    };
+
+    await testApi
+      .post('/api/profiles/')
+      .set('x-auth-token', tokenUser1)
+      .set('Content-Type', 'application/json')
+      .send(testProfile1);
+
+    // Create user profile #2 to be fetched.
+    const testUser2 = {
+      email: 'testUser2@gmail.com',
+      password: 'testpw2',
+    };
+    const { email, password } = testUser2;
+    const body = JSON.stringify({ email, password });
+
+    let res = await testApi
+      .post('/api/auth')
+      .set('Content-Type', 'application/json')
+      .send(body);
+
+    tokenUser2 = res.body.token;
+
+    const testProfile2 = {
+      Hiking: false,
+      Camping: false,
+      Kayaking: false,
+      Rafting: false,
+      Skiing: false,
+      Snowboarding: false,
+      Rockclimbing: false,
+      faveRecreation: '',
+      website: '',
+      bio: 'test bio 2',
+      location: 'test location 2, CA',
+      twitter: '',
+      facebook: '',
+      youtube: '',
+      instagram: '',
+    };
+
+    await testApi
+      .post('/api/profiles/')
+      .set('x-auth-token', tokenUser2)
+      .set('Content-Type', 'application/json')
+      .send(testProfile2);
+
+    // Execute the test.
+    let result = await testApi.get('/api/profiles');
     expect(result.status).toBe(200);
   });
 });
