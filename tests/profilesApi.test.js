@@ -29,6 +29,9 @@ const initialUsers = [
 var tokenUser1 = null;
 var tokenUser2 = null;
 
+// Ids for users in the database.
+var user1ID = null;
+
 beforeEach(async () => {
   // Initialize the test db with test data before every test to make tests more robust.
   await User.deleteMany({});
@@ -40,7 +43,12 @@ beforeEach(async () => {
   // Save test user #1
   let userObject = new User(initialUsers[0]);
   userObject.password = await bcrypt.hash(userObject.password, salt);
-  await userObject.save();
+  await userObject.save(async function (err, user) {
+    // Mongo sends the complete document as a callback object
+    // that can be used to retrieve the object's id.
+    // Necessary for API routes which require a user's ID.
+    user1ID = user._id;
+  });
 
   // Save test user #2
   userObject = new User(initialUsers[1]);
@@ -204,8 +212,8 @@ describe('Fetch logged in user profile.', () => {
   });
 });
 
-describe('Fetch all profiles.', async () => {
-  test('404. Fetch all profiles failed.', async () => {
+describe('Fetch all profiles.', () => {
+  test('404. No profiles found. Fetch all profiles failed.', async () => {
     let result = await testApi.get('/api/profiles');
     expect(result.status).toBe(404);
   });
@@ -277,6 +285,43 @@ describe('Fetch all profiles.', async () => {
 
     // Execute the test.
     let result = await testApi.get('/api/profiles');
+    expect(result.status).toBe(200);
+  });
+});
+
+describe('Fetch any user profile by user ID', () => {
+  test('404. Profile for the requested user not found. Fetch profile failed.', async () => {
+    let result = await testApi.get(`/api/profiles/user/${user1ID}`);
+    expect(result.status).toBe(404);
+  });
+  test('200. Profile for the requested user found. Fetch profile successful.', async () => {
+    // Create a user profile to be fetched.
+    const testProfile = {
+      Hiking: false,
+      Camping: false,
+      Kayaking: false,
+      Rafting: false,
+      Skiing: false,
+      Snowboarding: false,
+      Rockclimbing: false,
+      faveRecreation: '',
+      website: '',
+      bio: 'test bio',
+      location: 'test location, CA',
+      twitter: '',
+      facebook: '',
+      youtube: '',
+      instagram: '',
+    };
+
+    await testApi
+      .post('/api/profiles/')
+      .set('x-auth-token', tokenUser1)
+      .set('Content-Type', 'application/json')
+      .send(testProfile);
+
+    // Execute the test.
+    let result = await testApi.get(`/api/profiles/user/${user1ID}`);
     expect(result.status).toBe(200);
   });
 });

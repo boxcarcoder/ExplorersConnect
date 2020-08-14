@@ -143,10 +143,10 @@ profilesRouter.get('/user/:userID', async (req, res) => {
     }).populate('user', ['name', 'avatar']);
 
     if (!profile) {
-      res.status(400).json('There is no profile for this user.');
+      res.status(404).json('There is no profile for this user.');
+    } else {
+      res.json(profile);
     }
-
-    res.json(profile);
   } catch (err) {
     res.status(500).json('Server error.');
   }
