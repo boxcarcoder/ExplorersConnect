@@ -32,7 +32,7 @@ export const getCurrentProfile = () => async (dispatch) => {
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -52,7 +52,7 @@ export const getAllProfiles = () => async (dispatch) => {
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -71,7 +71,7 @@ export const getProfileById = (id) => async (dispatch) => {
     // dispatch error message and HTTP error status to the profile redux state
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -114,14 +114,15 @@ export const createProfile = (
     }
   } catch (err) {
     // display errors such as missing bio or location
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
+    console.log('err: ', err);
+    //const errors = err.response.data.errors;
+    // if (errors) {
+    //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    // }
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -157,6 +158,7 @@ export const addDestinations = (formData, history) => async (dispatch) => {
     history.push('/dashboard');
   } catch (err) {
     // display errors such as missing bio or location
+    console.log('err: ', err);
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -164,7 +166,7 @@ export const addDestinations = (formData, history) => async (dispatch) => {
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -200,6 +202,7 @@ export const addGears = (formData, history) => async (dispatch) => {
     history.push('/dashboard');
   } catch (err) {
     // display errors such as missing bio or location
+    console.log('err: ', err);
     const errors = err.response.data.errors;
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -207,7 +210,7 @@ export const addGears = (formData, history) => async (dispatch) => {
 
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -224,9 +227,11 @@ export const deleteDestinations = (id) => async (dispatch) => {
 
     dispatch(setAlert('Destinations removed.', 'success'));
   } catch (err) {
+    console.log('err: ', err);
+
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -243,36 +248,38 @@ export const deleteGears = (id) => async (dispatch) => {
 
     dispatch(setAlert('Gears removed.', 'success'));
   } catch (err) {
+    console.log('err: ', err);
+
     dispatch({
       type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
 
 //Delete Account and Profile
-export const deleteAccount = () => async (dispatch) => {
+export const deleteAccount = (history) => async (dispatch) => {
   if (window.confirm('Are you sure? This can NOT be undone.')) {
     try {
-      const res = await axios.delete('/api/profiles/');
-
-      //goes to profile reducer
-      dispatch({
-        type: CLEAR_PROFILE,
-      });
+      await axios.delete('/api/profiles/');
 
       //goes to auth reducer
       dispatch({
         type: ACCOUNT_DELETED,
       });
 
-      dispatch(setAlert('Your account and profile removed.'));
+      //goes to profile reducer
+      dispatch({
+        type: CLEAR_PROFILE,
+      });
 
-      return res; //*** */
+      dispatch(setAlert('Your account and profile removed.'));
     } catch (err) {
+      console.log('err: ', err);
+
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status },
+        payload: { msg: err },
       });
     }
   }

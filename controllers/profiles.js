@@ -153,12 +153,10 @@ profilesRouter.get('/user/:userID', async (req, res) => {
 });
 
 // @route   DELETE api/profiles/
-// @desc    Delete a user, profile, and posts
+// @desc    Delete a user and profile
 // @access  Private since only a logged in user can delete their profile
 profilesRouter.delete('/', auth, async (req, res) => {
   try {
-    //todo - remove posts
-
     await Profile.findOneAndRemove({ user: req.user.id }); //*** */
 
     await User.findOneAndRemove({ _id: req.user.id }); //*** */

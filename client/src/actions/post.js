@@ -25,7 +25,7 @@ export const getAllPosts = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -57,7 +57,7 @@ export const addPost = (formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -79,7 +79,7 @@ export const likePost = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -101,7 +101,7 @@ export const unlikePost = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -118,7 +118,7 @@ export const getPost = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -147,7 +147,7 @@ export const commentOnPost = (id, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -171,7 +171,7 @@ export const deletePost = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };
@@ -193,7 +193,7 @@ export const deleteComment = (postId, id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POSTS_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err },
     });
   }
 };

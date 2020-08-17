@@ -4,13 +4,18 @@ import { withRouter, Link } from 'react-router-dom'; // to redirect from actions
 //redux
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile, getCurrentProfile } from '../../actions/profile';
+import {
+  createProfile,
+  getCurrentProfile,
+  deleteAccount,
+} from '../../actions/profile';
 
 const EditProfile = ({
   profileState: { profile, loading },
   createProfile,
   history,
   getCurrentProfile,
+  deleteAccount,
 }) => {
   //create state for form data that requires user input
   const [formData, setFormData] = useState({
@@ -303,6 +308,12 @@ const EditProfile = ({
           <Link className='btn btn-light my-1' to='/dashboard'>
             Go Back
           </Link>
+          <button
+            className='btn btn-danger my-1'
+            onClick={() => deleteAccount(history)}
+          >
+            Delete
+          </button>
         </div>
       </form>
     </Fragment>
@@ -313,12 +324,15 @@ EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profileState: PropTypes.object.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profileState: state.profile,
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  withRouter(EditProfile)
-);
+export default connect(mapStateToProps, {
+  createProfile,
+  getCurrentProfile,
+  deleteAccount,
+})(withRouter(EditProfile));

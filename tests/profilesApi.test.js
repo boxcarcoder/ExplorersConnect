@@ -289,7 +289,7 @@ describe('Fetch all profiles.', () => {
   });
 });
 
-describe('Fetch any user profile by user ID', () => {
+describe('Fetch any user profile by user ID.', () => {
   test('404. Profile for the requested user not found. Fetch profile failed.', async () => {
     let result = await testApi.get(`/api/profiles/user/${user1ID}`);
     expect(result.status).toBe(404);
