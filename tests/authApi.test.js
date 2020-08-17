@@ -125,7 +125,12 @@ describe('User login.', () => {
     token = result.body.token;
   });
 
-  test('200. User profile is fetched after login.', async () => {
+  test('401. User is unauthenticated. User profile failed to fetch after login.', async () => {
+    let result = await testApi.get('/api/auth');
+    expect(result.status).toBe(401);
+  });
+
+  test('200. User profile successfully fetched after login.', async () => {
     let result = await testApi.get('/api/auth').set('x-auth-token', token);
     expect(result.status).toBe(200);
   });

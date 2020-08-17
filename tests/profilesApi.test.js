@@ -78,6 +78,34 @@ beforeEach(async () => {
 });
 
 describe('Create a user profile for logged in user.', () => {
+  test('401. User is unauthenticated. Profile creation failed.', async () => {
+    // Set profile settings for the logged in user.
+    const testProfile = {
+      Hiking: false,
+      Camping: false,
+      Kayaking: false,
+      Rafting: false,
+      Skiing: false,
+      Snowboarding: false,
+      Rockclimbing: false,
+      faveRecreation: '',
+      website: '',
+      bio: '',
+      location: 'test location, CA',
+      twitter: '',
+      facebook: '',
+      youtube: '',
+      instagram: '',
+    };
+
+    // Execute the test.
+    let result = await testApi
+      .post('/api/profiles/')
+      .set('Content-Type', 'application/json')
+      .send(testProfile);
+
+    expect(result.status).toBe(401);
+  });
   test('400. User does not input a bio for their profile. Profile creation failed.', async () => {
     // Set profile settings for the logged in user.
     const testProfile = {
@@ -170,6 +198,36 @@ describe('Create a user profile for logged in user.', () => {
 });
 
 describe('Fetch logged in user profile.', () => {
+  test('401. User is unauthenticated. Profile creation failed.', async () => {
+    // Create a user profile to be fetched.
+    const testProfile = {
+      Hiking: false,
+      Camping: false,
+      Kayaking: false,
+      Rafting: false,
+      Skiing: false,
+      Snowboarding: false,
+      Rockclimbing: false,
+      faveRecreation: '',
+      website: '',
+      bio: 'test bio',
+      location: 'test location, CA',
+      twitter: '',
+      facebook: '',
+      youtube: '',
+      instagram: '',
+    };
+
+    await testApi
+      .post('/api/profiles/')
+      .set('x-auth-token', tokenUser1)
+      .set('Content-Type', 'application/json')
+      .send(testProfile);
+
+    //Execute the test
+    let result = await testApi.get('/api/profiles/me');
+    expect(result.status).toBe(401);
+  });
   test('404. Profile for the logged in user not found. Fetch profile failed.', async () => {
     let result = await testApi
       .get('/api/profiles/me')
