@@ -78,7 +78,7 @@ beforeEach(async () => {
 });
 
 describe('Create a user profile for logged in user.', () => {
-  test('401. User is unauthenticated. Profile creation failed.', async () => {
+  test('401. Failed to create profile. User is unauthenticated.', async () => {
     // Set profile settings for the logged in user.
     const testProfile = {
       Hiking: false,
@@ -106,7 +106,7 @@ describe('Create a user profile for logged in user.', () => {
 
     expect(result.status).toBe(401);
   });
-  test('400. User does not input a bio for their profile. Profile creation failed.', async () => {
+  test('400. Failed to create profile. User did not input a bio for their profile.', async () => {
     // Set profile settings for the logged in user.
     const testProfile = {
       Hiking: false,
@@ -136,7 +136,7 @@ describe('Create a user profile for logged in user.', () => {
     expect(result.status).toBe(400);
   });
 
-  test('400. User does not input a location for their profile. Profile creation failed.', async () => {
+  test('400. Failed to create profile. User did not input a location for their profile.', async () => {
     // Set profile settings for the logged in user.
     const testProfile = {
       Hiking: false,
@@ -166,7 +166,7 @@ describe('Create a user profile for logged in user.', () => {
     expect(result.status).toBe(400);
   });
 
-  test('200. Profile creation successful.', async () => {
+  test('200. Successfully created profile for logged in user.', async () => {
     // Set profile settings for the logged in user.
     const testProfile = {
       Hiking: false,
@@ -198,7 +198,7 @@ describe('Create a user profile for logged in user.', () => {
 });
 
 describe('Fetch logged in user profile.', () => {
-  test('401. User is unauthenticated. Profile creation failed.', async () => {
+  test('401. Failed to create profile. User is unauthenticated.', async () => {
     // Create a user profile to be fetched.
     const testProfile = {
       Hiking: false,
@@ -228,14 +228,14 @@ describe('Fetch logged in user profile.', () => {
     let result = await testApi.get('/api/profiles/me');
     expect(result.status).toBe(401);
   });
-  test('404. Profile for the logged in user not found. Fetch profile failed.', async () => {
+  test('404. Failed to fetch the logged in user profile. Profile for the logged in user not found.', async () => {
     let result = await testApi
       .get('/api/profiles/me')
       .set('x-auth-token', tokenUser1);
     expect(result.status).toBe(404);
   });
 
-  test('200. Fetch the logged in user profile succesfully.', async () => {
+  test('200. Sucessfully fetch the logged in user profile.', async () => {
     // Create a user profile to be fetched.
     const testProfile = {
       Hiking: false,
@@ -271,12 +271,12 @@ describe('Fetch logged in user profile.', () => {
 });
 
 describe('Fetch all profiles.', () => {
-  test('404. No profiles found. Fetch all profiles failed.', async () => {
+  test('404. Failed to fetch all profiles. No profiles found.', async () => {
     let result = await testApi.get('/api/profiles');
     expect(result.status).toBe(404);
   });
 
-  test('200. Fetch all profiles successfully.', async () => {
+  test('200. Successfully fetched all profiles.', async () => {
     // Create user profile #1 to be fetched.
     const testProfile1 = {
       Hiking: false,
@@ -348,11 +348,11 @@ describe('Fetch all profiles.', () => {
 });
 
 describe('Fetch any user profile by user ID.', () => {
-  test('404. Profile for the requested user not found. Fetch profile failed.', async () => {
+  test('404. Failed to fetch profile by ID. Profile for the requested user not found.', async () => {
     let result = await testApi.get(`/api/profiles/user/${user1ID}`);
     expect(result.status).toBe(404);
   });
-  test('200. Profile for the requested user found. Fetch profile successful.', async () => {
+  test('200. Successfully fetched profile by ID. Profile for the requested user found.', async () => {
     // Create a user profile to be fetched.
     const testProfile = {
       Hiking: false,
@@ -380,6 +380,74 @@ describe('Fetch any user profile by user ID.', () => {
 
     // Execute the test.
     let result = await testApi.get(`/api/profiles/user/${user1ID}`);
+    expect(result.status).toBe(200);
+  });
+});
+
+describe('Delete the logged in user profile.', () => {
+  test('401. Failed to delete the logged in user profile. User is unauthenticated.', async () => {
+    // Create a user profile to be deleted.
+    const testProfile = {
+      Hiking: false,
+      Camping: false,
+      Kayaking: false,
+      Rafting: false,
+      Skiing: false,
+      Snowboarding: false,
+      Rockclimbing: false,
+      faveRecreation: '',
+      website: '',
+      bio: 'test bio',
+      location: 'test location, CA',
+      twitter: '',
+      facebook: '',
+      youtube: '',
+      instagram: '',
+    };
+
+    await testApi
+      .post('/api/profiles/')
+      .set('x-auth-token', tokenUser1)
+      .set('Content-Type', 'application/json')
+      .send(testProfile);
+
+    // Execute the test.
+    let result = await testApi
+      .delete('/api/profiles')
+      .set('x-auth-token', tokenUser1);
+    expect(result.status).toBe(200);
+  });
+
+  test('200. Sucessfully deleted the logged in user profile.', async () => {
+    // Create a user profile to be deleted.
+    const testProfile = {
+      Hiking: false,
+      Camping: false,
+      Kayaking: false,
+      Rafting: false,
+      Skiing: false,
+      Snowboarding: false,
+      Rockclimbing: false,
+      faveRecreation: '',
+      website: '',
+      bio: 'test bio',
+      location: 'test location, CA',
+      twitter: '',
+      facebook: '',
+      youtube: '',
+      instagram: '',
+    };
+
+    await testApi
+      .post('/api/profiles/')
+      .set('x-auth-token', tokenUser1)
+      .set('Content-Type', 'application/json')
+      .send(testProfile);
+
+    // Execute the test.
+    let result = await testApi
+      .delete('/api/profiles')
+      .set('x-auth-token', tokenUser1);
     expect(result.status).toBe(200);
   });
 });

@@ -50,7 +50,7 @@ beforeEach(async () => {
 });
 
 describe('User login.', () => {
-  test('400. User inputs an invalid email. User log in failed.', async () => {
+  test('400. Failed to log user in. User inputs an invalid email.', async () => {
     // Use an existing user for the HTTP request.
     const testUser = {
       email: '',
@@ -68,7 +68,7 @@ describe('User login.', () => {
     expect(result.status).toBe(400);
   });
 
-  test('400. User does not input a password. User log in failed.', async () => {
+  test('400. Failed to log user in. User does not input a password.', async () => {
     // Use an existing user for the HTTP request.
     const testUser = {
       email: 'testUser@gmail.com',
@@ -85,7 +85,7 @@ describe('User login.', () => {
     expect(result.status).toBe(400);
   });
 
-  test('401. User inputs an incorrect password. User log in denied.', async () => {
+  test('401. Failed to log user in. User inputs an incorrect password.', async () => {
     // Use an existing user for the HTTP request.
     const testUser = {
       email: 'testUser@gmail.com',
@@ -103,7 +103,25 @@ describe('User login.', () => {
     expect(result.status).toBe(401);
   });
 
-  test('200. User logged in successfully. A token is returned for authentication.', async () => {
+  test('404. Failed to log user in. User account does not exist in database.', async () => {
+    // Use a non-registered user for the HTTP request.
+    const testUser = {
+      email: 'nonUser@gmail.com',
+      password: 'testpw',
+    };
+    const { email, password } = testUser;
+    const body = JSON.stringify({ email, password });
+
+    // Execute the test.
+    let result = await testApi
+      .post('/api/auth')
+      .set('Content-Type', 'application/json')
+      .send(body);
+
+    expect(result.status).toBe(404);
+  });
+
+  test('200. Successfully logged user in. A token is returned for authentication.', async () => {
     // Use an existing user for the HTTP request.
     const testUser = {
       email: 'testUser@gmail.com',
@@ -125,32 +143,14 @@ describe('User login.', () => {
     token = result.body.token;
   });
 
-  test('401. User is unauthenticated. User profile failed to fetch after login.', async () => {
+  test('401. Failed to fetch user profile after log in. User is unauthenticated.', async () => {
     let result = await testApi.get('/api/auth');
     expect(result.status).toBe(401);
   });
 
-  test('200. User profile successfully fetched after login.', async () => {
+  test('200. Successfully fetched user profile after login.', async () => {
     let result = await testApi.get('/api/auth').set('x-auth-token', token);
     expect(result.status).toBe(200);
-  });
-
-  test('404. User account does not exist in database. User log in failed.', async () => {
-    // Use a non-registered user for the HTTP request.
-    const testUser = {
-      email: 'nonUser@gmail.com',
-      password: 'testpw',
-    };
-    const { email, password } = testUser;
-    const body = JSON.stringify({ email, password });
-
-    // Execute the test.
-    let result = await testApi
-      .post('/api/auth')
-      .set('Content-Type', 'application/json')
-      .send(body);
-
-    expect(result.status).toBe(404);
   });
 });
 

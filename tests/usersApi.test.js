@@ -48,7 +48,7 @@ beforeEach(async () => {
 });
 
 describe('User registration.', () => {
-  test('400. User does not input a name. User registration failed.', async () => {
+  test('400. Failed to register user. User did not enter a name.', async () => {
     // Create a new test user for the HTTP request.
     const newTestUser = {
       email: 'testuser@testuser.com',
@@ -66,7 +66,7 @@ describe('User registration.', () => {
     expect(result.status).toBe(400);
   });
 
-  test('400. User inputs an invalid email. User registration failed.', async () => {
+  test('400. Failed to register user. User entered an invalid email.', async () => {
     // Create a new test user for the HTTP request.
     const newTestUser = {
       name: 'TestUser',
@@ -85,7 +85,7 @@ describe('User registration.', () => {
     expect(result.status).toBe(400);
   });
 
-  test('409. Email is registered already. User registration failed.', async () => {
+  test('409. Failed to register user. Email is registered already.', async () => {
     // Create a new test user for the HTTP request.
     const existingUser = {
       name: 'TestUser',
@@ -104,7 +104,7 @@ describe('User registration.', () => {
     expect(result.status).toBe(409);
   });
 
-  test('200. User registered successfully. A token is returned for authentication.', async () => {
+  test('200. Successfully registered user. A token is returned for authentication.', async () => {
     // Create a new test user for the HTTP request.
     const newTestUser = {
       name: 'TestUser',
