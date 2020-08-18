@@ -6,6 +6,21 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
 
+// Globals for testing various API routes.
+
+// Tokens for logged in users for profile creation.
+var tokenUser1 = null;
+var tokenUser2 = null;
+
+// Ids for users and their profile settings in the database.
+var user1ID = null;
+var user1DestinationID = null;
+var user1GearID = null;
+
+// Objects for user1's favorite destinations and gears for testing.
+var user1TestDestinations;
+var user1TestGears;
+
 // Create test data.
 const initialUsers = [
   {
@@ -24,20 +39,6 @@ const initialUsers = [
     password: 'testpw3',
   },
 ];
-
-// Tokens for logged in users for profile creation.
-var tokenUser1 = null;
-var tokenUser2 = null;
-
-// Ids for users in the database.
-var user1ID = null;
-
-// Ids for users' favorite destinations in the database.
-var user1DestinationID = null;
-
-// Objects for user1's favorite destinations and gears for testing.
-var user1TestDestinations;
-var user1TestGears;
 
 beforeEach(async () => {
   // Initialize the test db with test data before every test to make tests more robust.
@@ -612,6 +613,77 @@ describe('Update gears for a profile.', () => {
       .send(user1TestGears);
 
     expect(result.status).toBe(200);
+  });
+});
+
+describe('Delete gears for a profile.', () => {
+  beforeEach(async () => {
+    // Create a user profile to have gears.
+    const testProfile = {
+      Hiking: false,
+      Camping: false,
+      Kayaking: false,
+      Rafting: false,
+      Skiing: false,
+      Snowboarding: false,
+      Rockclimbing: false,
+      faveRecreation: '',
+      website: '',
+      bio: 'test bio',
+      location: 'test location, CA',
+      twitter: '',
+      facebook: '',
+      youtube: '',
+      instagram: '',
+    };
+
+    await testApi
+      .post('/api/profiles/')
+      .set('x-auth-token', tokenUser1)
+      .set('Content-Type', 'application/json')
+      .send(testProfile);
+
+    // Update the profile's favorite gears to be deleted.
+    const testGears = {
+      hikeGear: 'Black Diamond Trek Poles',
+      campGear: '',
+      waterGear: '',
+      snowGear: '',
+      rockClimbingGear: '',
+    };
+
+    let res = await testApi
+      .put('/api/profiles/gears')
+      .set('x-auth-token', tokenUser1)
+      .send(testGears);
+
+    // Save the first set of favorite destinations to be deleted.
+    user1GearID = res.body.gears[0];
+  });
+
+  test('200. Successfully deleted set of favorite gears for a profile.', async () => {
+    let result = await testApi
+      .delete(`/api/profiles/gears/${user1GearID._id}`)
+      .set('x-auth-token', tokenUser1);
+
+    expect(result.status).toBe(200);
+  });
+
+  test('401. Failed to delete favorite gears for the profile. User is unauthenticated.', async () => {
+    let result = await testApi.delete(
+      `/api/profiles/destinations/${user1GearID._id}`
+    );
+
+    expect(result.status).toBe(401);
+  });
+
+  test('404. Failed to delete favorite gears for the profile. Profile not found.', async () => {
+    await Profile.deleteMany({});
+
+    let result = await testApi
+      .delete(`/api/profiles/destinations/${user1GearID._id}`)
+      .set('x-auth-token', tokenUser1);
+    expect(result.status).toBe(404);
   });
 });
 
