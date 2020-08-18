@@ -186,13 +186,13 @@ profilesRouter.put('/destinations', auth, async (req, res) => {
 
     let profile = await Profile.findOne({ user: req.user.id });
 
-    if (!profile) res.status(400).json('This profile does not exist.');
-
-    profile.destinations.unshift(updatedDestinations);
-
-    await profile.save();
-
-    res.json(profile);
+    if (!profile) {
+      res.status(404).json('This profile does not exist.');
+    } else {
+      profile.destinations.unshift(updatedDestinations);
+      await profile.save();
+      res.json(profile);
+    }
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server error.');
@@ -209,18 +209,20 @@ profilesRouter.delete(
     try {
       let profile = await Profile.findOne({ user: req.user.id });
 
-      if (!profile) res.status(400).json('This profile does not exist.');
+      if (!profile) {
+        res.status(404).json('This profile does not exist.');
+      } else {
+        //get the remove index
+        let removeIdx = profile.destinations
+          .map((obj) => obj.id)
+          .indexOf(req.params.destinationsID);
 
-      //get the remove index
-      let removeIdx = profile.destinations
-        .map((obj) => obj.id)
-        .indexOf(req.params.destinationsID);
+        profile.destinations.splice(removeIdx, 1);
 
-      profile.destinations.splice(removeIdx, 1);
+        await profile.save();
 
-      await profile.save();
-
-      res.json(profile);
+        res.json(profile);
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).json('Server error.');
@@ -252,13 +254,13 @@ profilesRouter.put('/gears', auth, async (req, res) => {
 
     let profile = await Profile.findOne({ user: req.user.id });
 
-    if (!profile) res.status(400).json('This profile does not exist.');
-
-    profile.gears.unshift(updatedGears);
-
-    await profile.save();
-
-    res.json(profile);
+    if (!profile) {
+      res.status(404).json('This profile does not exist.');
+    } else {
+      profile.gears.unshift(updatedGears);
+      await profile.save();
+      res.json(profile);
+    }
   } catch (err) {
     console.error(err.messsage);
     res.status(500).json('Server error.');
