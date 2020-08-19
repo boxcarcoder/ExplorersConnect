@@ -10,18 +10,11 @@ const User = require('../models/User');
 // @access  Private since only a logged in user can make a post
 postsRouter.post(
   '/',
-  [
-    auth,
-    [
-      check('text', 'Please enter text for the post.')
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [auth, [check('text', 'Please enter text for the post.').not().isEmpty()]],
   async (req, res) => {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
 
     try {
@@ -33,13 +26,13 @@ postsRouter.post(
         text: req.body.text, //get the post text from the req
         name: user.name, //get the name and avatar of the logged in user from the db
         avatar: user.avatar,
-        user: req.user.id // get the user ID from the token of the logged in user
+        user: req.user.id, // get the user ID from the token of the logged in user
       });
 
       let post = await newPost.save();
+
       res.json(post);
     } catch (err) {
-      console.error('ERROR: ', err.message);
       res.status(500).json('Server error.');
     }
   }
@@ -54,7 +47,6 @@ postsRouter.get('/', async (req, res) => {
 
     res.json(posts);
   } catch (err) {
-    console.error(err.message);
     res.status(500).json('Server Error.');
   }
 });
@@ -66,11 +58,12 @@ postsRouter.get('/:postID', async (req, res) => {
   try {
     let post = await Post.findById(req.params.postID);
 
-    if (!post) return res.status(404).json('This post could not be found.');
-
-    res.json(post);
+    if (!post) {
+      return res.status(404).json('This post could not be found.');
+    } else {
+      res.json(post);
+    }
   } catch (err) {
-    console.error(err.message);
     if (err.kind === 'ObjectId') {
       //a properly formatted ID was not found in the request
       return res.status(400).status('This post could not be found.');
@@ -86,18 +79,19 @@ postsRouter.delete('/:postID', auth, async (req, res) => {
   try {
     let post = await Post.findById(req.params.postID);
 
-    if (!post) return res.status(404).json('This post could not be found.');
+    if (!post) {
+      return res.status(404).json('This post could not be found.');
+    } else {
+      // check if user is the logged in user
+      if (req.user.id !== post.user.toString()) {
+        return res.status(401).json('User is not authorized.');
+      }
 
-    // check if user is the logged in user
-    if (req.user.id !== post.user.toString()) {
-      return res.status(401).json('User is not authorized.');
+      await post.remove();
+
+      res.json('Post removed.');
     }
-
-    await post.remove();
-
-    res.json('Post removed.');
   } catch (err) {
-    console.error(err.message);
     if (err.kind === 'ObjectId') {
       return res.status(400).status('This post could not be found.');
     }
@@ -115,17 +109,17 @@ postsRouter.put('/like/:postID', auth, async (req, res) => {
     // check if the post has been liked already by the logged in user
     // prettier-ignore
     if (post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-      return res.status(400).json('Cannot like more than once');
+      return res.status(405).json('Cannot like more than once');
     }
-
+    else {
     // add the user to the post's likes array
-    post.likes.unshift({ user: req.user.id });
+      post.likes.unshift({ user: req.user.id });
 
-    await post.save();
+      await post.save();
 
-    res.json(post.likes);
+      res.json(post.likes);
+    }
   } catch (err) {
-    console.error(err.message);
     res.status(500).json('Server Error.');
   }
 });
@@ -140,21 +134,21 @@ postsRouter.put('/unlike/:postID', auth, async (req, res) => {
     // check if the post has been liked already by the logged in user
     // prettier-ignore
     if (post.likes.filter(like => like.user.toString() === req.user.id).length === 0 ) {
-      return res.status(400).json('Post has not been liked yet.');
+      return res.status(405).json('Post has not been liked yet.');
     }
+    else {
+      //get the remove index
+      let removeIdx = post.likes
+        .map((like) => like.user.toString())
+        .indexOf(req.user.id);
 
-    //get the remove index
-    let removeIdx = post.likes
-      .map(like => like.user.toString())
-      .indexOf(req.user.id);
+      post.likes.splice(removeIdx, 1);
 
-    post.likes.splice(removeIdx, 1);
+      await post.save();
 
-    await post.save();
-
-    res.json(post.likes);
+      res.json(post.likes);
+    }
   } catch (err) {
-    console.error(err.message);
     res.status(500).json('Server Error.');
   }
 });
@@ -164,40 +158,33 @@ postsRouter.put('/unlike/:postID', auth, async (req, res) => {
 // @access  Private since only a logged in user can comment on a post
 postsRouter.post(
   '/comment/:postID',
-  [
-    auth,
-    [
-      check('text', 'Please enter text for the post.')
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [auth, [check('text', 'Please enter text for the post.').not().isEmpty()]],
   async (req, res) => {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(400).json({ errors: errors.array() });
-    }
+    } else {
+      try {
+        // retrieve the logged in user from the db
+        let user = await User.findById(req.user.id).select('-password');
+        // retrieve the post by the post ID
+        let post = await Post.findById(req.params.postID);
 
-    try {
-      // retrieve the logged in user from the db
-      let user = await User.findById(req.user.id).select('-password');
-      // retrieve the post by the post ID
-      let post = await Post.findById(req.params.postID);
+        // add new comment to the post
+        let newComment = {
+          text: req.body.text, //get the post text from the req
+          name: user.name, //get the name and avatar of the logged in user from the db
+          avatar: user.avatar,
+          user: req.user.id, // get the user ID from the token of the logged in user
+        };
+        post.comments.unshift(newComment);
 
-      // add new comment to the post
-      let newComment = {
-        text: req.body.text, //get the post text from the req
-        name: user.name, //get the name and avatar of the logged in user from the db
-        avatar: user.avatar,
-        user: req.user.id // get the user ID from the token of the logged in user
-      };
-      post.comments.unshift(newComment);
-
-      await post.save();
-      res.json(post.comments);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).json('Server error.');
+        await post.save();
+        res.json(post.comments);
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).json('Server error.');
+      }
     }
   }
 );
@@ -211,26 +198,28 @@ postsRouter.delete('/comment/:postID/:commentID', auth, async (req, res) => {
 
     //retrieve the comment
     let comment = post.comments.find(
-      comment => comment.id === req.params.commentID
+      (comment) => comment.id === req.params.commentID
     );
 
-    if (!comment) return res.status(404).json('Comment does not exist.');
+    if (!comment) {
+      return res.status(404).json('Comment does not exist.');
+    } else {
+      // check if user is the logged in user
+      if (req.user.id !== comment.user.toString()) {
+        return res.status(401).json('User is not authorized.');
+      }
 
-    // check if user is the logged in user
-    if (req.user.id !== comment.user.toString()) {
-      return res.status(401).json('User is not authorized.');
+      //get the remove index
+      let removeIdx = post.comments
+        .map((comment) => comment.user.toString())
+        .indexOf(req.user.id);
+
+      post.comments.splice(removeIdx, 1);
+
+      await post.save();
+
+      res.json(post.comments);
     }
-
-    //get the remove index
-    let removeIdx = post.comments
-      .map(comment => comment.user.toString())
-      .indexOf(req.user.id);
-
-    post.comments.splice(removeIdx, 1);
-
-    await post.save();
-
-    res.json(post.comments);
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server error.');

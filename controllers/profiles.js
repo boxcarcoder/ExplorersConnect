@@ -274,18 +274,18 @@ profilesRouter.delete('/gears/:gearsID', auth, async (req, res) => {
   try {
     let profile = await Profile.findOne({ user: req.user.id });
 
-    if (!profile) res.status(400).json('This profile does not exist.');
+    if (!profile) {
+      res.status(404).json('This profile does not exist.');
+    } else {
+      //get the remove index
+      let removeIdx = profile.gears
+        .map((obj) => obj.id)
+        .indexOf(req.params.gearsID);
 
-    //get the remove index
-    let removeIdx = profile.gears
-      .map((obj) => obj.id)
-      .indexOf(req.params.gearsID);
-
-    profile.gears.splice(removeIdx, 1);
-
-    await profile.save();
-
-    res.json(profile);
+      profile.gears.splice(removeIdx, 1);
+      await profile.save();
+      res.json(profile);
+    }
   } catch (err) {
     console.error(err.message);
     res.status(500).json('Server error.');
