@@ -1,6 +1,3 @@
-// Fetch all relevant data using actions, bring them in from the redux state,
-// and pass them down to components, such as Destinations and Gears
-
 import React, { useEffect, Fragment } from 'react';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
