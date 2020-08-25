@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case USER_LOADED1:
+    case USER_LOADED:
       return {
         ...state,
         isAuthenticated: true,

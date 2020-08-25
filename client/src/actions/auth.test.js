@@ -15,7 +15,7 @@ describe('Auth Actions', () => {
     store.clearActions();
   });
 
-  describe('loadUser() action', () => {
+  describe('loadUser() action.', () => {
     test('dispatches USER_LOADED.', async () => {
       // Mock the response of the action's Axios HTTP request.
       mockAxios.get.mockImplementationOnce(() =>
@@ -37,10 +37,7 @@ describe('Auth Actions', () => {
       await store.dispatch(authActions.loadUser());
 
       // Execute the test.
-
-      // Check that the correct action type and payload has been dispatched.
       const actions = store.getActions();
-
       const expectedActions = [
         {
           type: 'USER_LOADED',
@@ -54,30 +51,83 @@ describe('Auth Actions', () => {
       ];
       expect(actions).toEqual(expectedActions);
     });
+
+    test('dispatches AUTH_ERROR.', async () => {
+      // Mock the response of the action's Axios HTTP request.
+      mockAxios.get.mockImplementationOnce(() =>
+        Promise.reject({ err: 'Failed to load user.' })
+      );
+
+      // Dispatch the action into the mock store.
+      // This action uses the mock Axios library.
+      // The response received by our mock Axios HTTP request is defined by mockImplementationOnce().
+      // In this case, we defined the response to be a promise rejection.
+      await store.dispatch(authActions.loadUser());
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'AUTH_ERROR',
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
   });
 
-  test('dispatches AUTH_ERROR.', async () => {
-    // Mock the response of the action's Axios HTTP request.
-    mockAxios.get.mockImplementationOnce(() =>
-      Promise.reject({ err: 'something went wrong' })
-    );
+  describe('register() action.', () => {
+    test('dispatches REGISTER_SUCCESS.', async () => {
+      // Mock the response of the action's HTTP request.
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.resolve({
+          token: 'test token',
+        })
+      );
 
-    // Dispatch the action into the mock store.
-    // This action uses the mock Axios library.
-    // The response received by our mock Axios HTTP request is defined by mockImplementationOnce().
-    // In this case, we defined the response to be a promise rejection.
-    await store.dispatch(authActions.loadUser());
+      // Dispatch the action.b
+      let testUser = {
+        name: 'test name',
+        email: 'test@test.com',
+        password: 'testpw',
+      };
+      const { name, email, password } = testUser;
+      await store.dispatch(authActions.register({ name, email, password }));
 
-    // Execute the test.
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'REGISTER_SUCCESS',
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
 
-    // Check that the correct action type and payload has been dispatched.
-    const actions = store.getActions();
+    test('dispatches REGISTER_FAIL.', async () => {
+      // Mock the response of the action's HTTP request.
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Failed to register user.',
+        })
+      );
 
-    const expectedActions = [
-      {
-        type: 'AUTH_ERROR',
-      },
-    ];
-    expect(actions).toEqual(expectedActions);
+      // Dispatch the action.
+      let testUser = {
+        name: 'test name',
+        email: 'test@test.com',
+        password: 'testpw',
+      };
+      const { name, email, password } = testUser;
+      await store.dispatch(authActions.register({ name, email, password }));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'REGISTER_FAIL',
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
   });
 });

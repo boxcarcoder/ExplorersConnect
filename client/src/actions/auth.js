@@ -55,6 +55,8 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     // our backend returns a token as the res when POSTing to api/users
     const res = await axios.post('/api/users', body, config);
 
+    console.log('res from register action:', res);
+
     // dispatch the token to reducer to save the token into a redux state
     dispatch({
       type: REGISTER_SUCCESS,
@@ -63,12 +65,6 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (err) {
-    // display errors as alerts using alert action and reducer
-    // const errors = err.response.data.errors;
-    // if (errors) {
-    //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    // }
-    console.log('err in auth action: ', err);
     // dispatch action to reducer to remove incorrect token from the redux state
     dispatch({
       type: REGISTER_FAIL,
