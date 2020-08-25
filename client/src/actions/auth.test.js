@@ -17,7 +17,7 @@ describe('Auth Actions', () => {
 
   describe('loadUser() action', () => {
     test('dispatches USER_LOADED.', async () => {
-      // Mock the response to the action's Axios HTTP request.
+      // Mock the response of the action's Axios HTTP request.
       mockAxios.get.mockImplementationOnce(() =>
         Promise.resolve({
           data: {
@@ -57,7 +57,7 @@ describe('Auth Actions', () => {
   });
 
   test('dispatches AUTH_ERROR.', async () => {
-    // Mock what is expected to be dispatched by the action.
+    // Mock the response of the action's Axios HTTP request.
     mockAxios.get.mockImplementationOnce(() =>
       Promise.reject({ err: 'something went wrong' })
     );
@@ -65,7 +65,7 @@ describe('Auth Actions', () => {
     // Dispatch the action into the mock store.
     // This action uses the mock Axios library.
     // The response received by our mock Axios HTTP request is defined by mockImplementationOnce().
-    // In this case, we defined the response to be a rejection.
+    // In this case, we defined the response to be a promise rejection.
     await store.dispatch(authActions.loadUser());
 
     // Execute the test.

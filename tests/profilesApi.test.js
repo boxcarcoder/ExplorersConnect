@@ -40,648 +40,652 @@ const initialUsers = [
   },
 ];
 
-beforeEach(async () => {
-  // Initialize the test db with test data before every test to make tests more robust.
-  await User.deleteMany({});
-  await Profile.deleteMany({});
-
-  // Create salt for bcrypt to encrypt passwords
-  let salt = await bcrypt.genSalt(10);
-
-  // Save test user #1
-  let userObject = new User(initialUsers[0]);
-  userObject.password = await bcrypt.hash(userObject.password, salt);
-  await userObject.save(async function (err, user) {
-    // Mongo sends the complete document as a callback object
-    // that can be used to retrieve the object's id.
-    // Necessary for API routes which require a user's ID.
-    user1ID = user._id;
-  });
-
-  // Save test user #2
-  userObject = new User(initialUsers[1]);
-  userObject.password = await bcrypt.hash(userObject.password, salt);
-  await userObject.save();
-
-  // Save test user #3
-  userObject = new User(initialUsers[2]);
-  userObject.password = await bcrypt.hash(userObject.password, salt);
-  await userObject.save();
-
-  // Log an existing user in for authentication token.
-  const testUser = {
-    email: 'testUser@gmail.com',
-    password: 'testpw',
-  };
-  const { email, password } = testUser;
-  const body = JSON.stringify({ email, password });
-
-  let result = await testApi
-    .post('/api/auth')
-    .set('Content-Type', 'application/json')
-    .send(body);
-
-  // Set the logged in user's token for tests that require the token.
-  tokenUser1 = result.body.token;
-});
-
-describe('Create a user profile for logged in user.', () => {
-  test('401. Failed to create profile. User is unauthenticated.', async () => {
-    // Set profile settings for the logged in user.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: '',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
-
-    // Execute the test.
-    let result = await testApi
-      .post('/api/profiles/')
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
-
-    expect(result.status).toBe(401);
-  });
-  test('400. Failed to create profile. User did not input a bio for their profile.', async () => {
-    // Set profile settings for the logged in user.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: '',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
-
-    // Execute the test.
-    let result = await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
-
-    expect(result.status).toBe(400);
-  });
-
-  test('400. Failed to create profile. User did not input a location for their profile.', async () => {
-    // Set profile settings for the logged in user.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: '',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
-
-    // Execute the test.
-    let result = await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
-
-    expect(result.status).toBe(400);
-  });
-
-  test('200. Successfully created profile for logged in user.', async () => {
-    // Set profile settings for the logged in user.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
-
-    // Execute the test.
-    let result = await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
-
-    expect(result.status).toBe(200);
-  });
-});
-
-describe('Fetch logged in user profile.', () => {
+describe('Profiles API Routes.', () => {
   beforeEach(async () => {
-    // Create a user profile to be fetched.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
-
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
-  });
-
-  test('401. Failed to fetch profile. User is unauthenticated.', async () => {
-    let result = await testApi.get('/api/profiles/me');
-    expect(result.status).toBe(401);
-  });
-  test('404. Failed to fetch the logged in user profile. Profile for the logged in user not found.', async () => {
+    // Initialize the test db with test data before every test to make tests more robust.
+    await User.deleteMany({});
     await Profile.deleteMany({});
 
-    let result = await testApi
-      .get('/api/profiles/me')
-      .set('x-auth-token', tokenUser1);
-    expect(result.status).toBe(404);
-  });
+    // Create salt for bcrypt to encrypt passwords
+    let salt = await bcrypt.genSalt(10);
 
-  test('200. Sucessfully fetch the logged in user profile.', async () => {
-    let result = await testApi
-      .get('/api/profiles/me')
-      .set('x-auth-token', tokenUser1);
+    // Save test user #1
+    let userObject = new User(initialUsers[0]);
+    userObject.password = await bcrypt.hash(userObject.password, salt);
+    await userObject.save(async function (err, user) {
+      // Mongo sends the complete document as a callback object
+      // that can be used to retrieve the object's id.
+      // Necessary for API routes which require a user's ID.
+      user1ID = user._id;
+    });
 
-    expect(result.status).toBe(200);
-  });
-});
+    // Save test user #2
+    userObject = new User(initialUsers[1]);
+    userObject.password = await bcrypt.hash(userObject.password, salt);
+    await userObject.save();
 
-describe('Fetch all profiles.', () => {
-  beforeEach(async () => {
-    // Create user profile #1 to be fetched.
-    const testProfile1 = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
+    // Save test user #3
+    userObject = new User(initialUsers[2]);
+    userObject.password = await bcrypt.hash(userObject.password, salt);
+    await userObject.save();
+
+    // Log an existing user in for authentication token.
+    const testUser = {
+      email: 'testUser@gmail.com',
+      password: 'testpw',
     };
-
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile1);
-
-    // Create user profile #2 to be fetched.
-    const testUser2 = {
-      email: 'testUser2@gmail.com',
-      password: 'testpw2',
-    };
-    const { email, password } = testUser2;
+    const { email, password } = testUser;
     const body = JSON.stringify({ email, password });
 
-    let res = await testApi
+    let result = await testApi
       .post('/api/auth')
       .set('Content-Type', 'application/json')
       .send(body);
 
-    tokenUser2 = res.body.token;
-
-    const testProfile2 = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio 2',
-      location: 'test location 2, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
-
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser2)
-      .set('Content-Type', 'application/json')
-      .send(testProfile2);
+    // Set the logged in user's token for tests that require the token.
+    tokenUser1 = result.body.token;
   });
 
-  test('404. Failed to fetch all profiles. No profiles found.', async () => {
-    await Profile.deleteMany({});
+  describe('Create a user profile for logged in user.', () => {
+    test('401. Failed to create profile. User is unauthenticated.', async () => {
+      // Set profile settings for the logged in user.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: '',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
 
-    let result = await testApi.get('/api/profiles');
-    expect(result.status).toBe(404);
+      // Execute the test.
+      let result = await testApi
+        .post('/api/profiles/')
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
+
+      expect(result.status).toBe(401);
+    });
+    test('400. Failed to create profile. User did not input a bio for their profile.', async () => {
+      // Set profile settings for the logged in user.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: '',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
+
+      // Execute the test.
+      let result = await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
+
+      expect(result.status).toBe(400);
+    });
+
+    test('400. Failed to create profile. User did not input a location for their profile.', async () => {
+      // Set profile settings for the logged in user.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: '',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
+
+      // Execute the test.
+      let result = await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
+
+      expect(result.status).toBe(400);
+    });
+
+    test('200. Successfully created profile for logged in user.', async () => {
+      // Set profile settings for the logged in user.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
+
+      // Execute the test.
+      let result = await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
+
+      expect(result.status).toBe(200);
+    });
   });
 
-  test('200. Successfully fetched all profiles.', async () => {
-    let result = await testApi.get('/api/profiles');
-    expect(result.status).toBe(200);
-  });
-});
+  describe('Fetch logged in user profile.', () => {
+    beforeEach(async () => {
+      // Create a user profile to be fetched.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
 
-describe('Fetch any user profile by user ID.', () => {
-  beforeEach(async () => {
-    // Create a user profile to be fetched.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
+    });
 
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
-  });
+    test('401. Failed to fetch profile. User is unauthenticated.', async () => {
+      let result = await testApi.get('/api/profiles/me');
+      expect(result.status).toBe(401);
+    });
+    test('404. Failed to fetch the logged in user profile. Profile for the logged in user not found.', async () => {
+      await Profile.deleteMany({});
 
-  test('404. Failed to fetch profile by ID. Profile for the requested user not found.', async () => {
-    await Profile.deleteMany({});
+      let result = await testApi
+        .get('/api/profiles/me')
+        .set('x-auth-token', tokenUser1);
+      expect(result.status).toBe(404);
+    });
 
-    let result = await testApi.get(`/api/profiles/user/${user1ID}`);
-    expect(result.status).toBe(404);
-  });
-  test('200. Successfully fetched profile by ID. Profile for the requested user found.', async () => {
-    let result = await testApi.get(`/api/profiles/user/${user1ID}`);
-    expect(result.status).toBe(200);
-  });
-});
+    test('200. Sucessfully fetch the logged in user profile.', async () => {
+      let result = await testApi
+        .get('/api/profiles/me')
+        .set('x-auth-token', tokenUser1);
 
-describe('Delete the logged in user profile.', () => {
-  beforeEach(async () => {
-    // Create a user profile to be deleted.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
-
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
+      expect(result.status).toBe(200);
+    });
   });
 
-  test('401. Failed to delete the logged in user profile. User is unauthenticated.', async () => {
-    let result = await testApi.delete('/api/profiles');
-    expect(result.status).toBe(401);
+  describe('Fetch all profiles.', () => {
+    beforeEach(async () => {
+      // Create user profile #1 to be fetched.
+      const testProfile1 = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
+
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile1);
+
+      // Create user profile #2 to be fetched.
+      const testUser2 = {
+        email: 'testUser2@gmail.com',
+        password: 'testpw2',
+      };
+      const { email, password } = testUser2;
+      const body = JSON.stringify({ email, password });
+
+      let res = await testApi
+        .post('/api/auth')
+        .set('Content-Type', 'application/json')
+        .send(body);
+
+      tokenUser2 = res.body.token;
+
+      const testProfile2 = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio 2',
+        location: 'test location 2, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
+
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser2)
+        .set('Content-Type', 'application/json')
+        .send(testProfile2);
+    });
+
+    test('404. Failed to fetch all profiles. No profiles found.', async () => {
+      await Profile.deleteMany({});
+
+      let result = await testApi.get('/api/profiles');
+      expect(result.status).toBe(404);
+    });
+
+    test('200. Successfully fetched all profiles.', async () => {
+      let result = await testApi.get('/api/profiles');
+      expect(result.status).toBe(200);
+    });
   });
 
-  test('200. Sucessfully deleted the logged in user profile.', async () => {
-    let result = await testApi
-      .delete('/api/profiles')
-      .set('x-auth-token', tokenUser1);
-    expect(result.status).toBe(200);
-  });
-});
+  describe('Fetch any user profile by user ID.', () => {
+    beforeEach(async () => {
+      // Create a user profile to be fetched.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
 
-describe('Update destinations for a profile.', () => {
-  beforeEach(async () => {
-    // Create a user profile to have favorite destinations.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
+    });
 
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
+    test('404. Failed to fetch profile by ID. Profile for the requested user not found.', async () => {
+      await Profile.deleteMany({});
 
-    // Update the profile's favorite destinations.
-    user1TestDestinations = {
-      hikingTrails: 'test trail',
-      campSites: '',
-      waterAreas: '',
-      slopes: 'test slope',
-      crags: '',
-    };
+      let result = await testApi.get(`/api/profiles/user/${user1ID}`);
+      expect(result.status).toBe(404);
+    });
+    test('200. Successfully fetched profile by ID. Profile for the requested user found.', async () => {
+      let result = await testApi.get(`/api/profiles/user/${user1ID}`);
+      expect(result.status).toBe(200);
+    });
   });
 
-  test('401. Failed to update favorite destinations for the profile. User is unauthenticated.', async () => {
-    let result = await testApi
-      .put('/api/profiles/destinations')
-      .send(user1TestDestinations);
+  describe('Delete the logged in user profile.', () => {
+    beforeEach(async () => {
+      // Create a user profile to be deleted.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
 
-    expect(result.status).toBe(401);
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
+    });
+
+    test('401. Failed to delete the logged in user profile. User is unauthenticated.', async () => {
+      let result = await testApi.delete('/api/profiles');
+      expect(result.status).toBe(401);
+    });
+
+    test('200. Sucessfully deleted the logged in user profile.', async () => {
+      let result = await testApi
+        .delete('/api/profiles')
+        .set('x-auth-token', tokenUser1);
+      expect(result.status).toBe(200);
+    });
   });
 
-  test('404. Failed to update favorite destinations for the profile. Profile not found.', async () => {
-    await Profile.deleteMany({});
+  describe('Update destinations for a profile.', () => {
+    beforeEach(async () => {
+      // Create a user profile to have favorite destinations.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
 
-    let result = await testApi
-      .put('/api/profiles/destinations')
-      .set('x-auth-token', tokenUser1)
-      .send(user1TestDestinations);
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
 
-    expect(result.status).toBe(404);
+      // Update the profile's favorite destinations.
+      user1TestDestinations = {
+        hikingTrails: 'test trail',
+        campSites: '',
+        waterAreas: '',
+        slopes: 'test slope',
+        crags: '',
+      };
+    });
+
+    test('401. Failed to update favorite destinations for the profile. User is unauthenticated.', async () => {
+      let result = await testApi
+        .put('/api/profiles/destinations')
+        .send(user1TestDestinations);
+
+      expect(result.status).toBe(401);
+    });
+
+    test('404. Failed to update favorite destinations for the profile. Profile not found.', async () => {
+      await Profile.deleteMany({});
+
+      let result = await testApi
+        .put('/api/profiles/destinations')
+        .set('x-auth-token', tokenUser1)
+        .send(user1TestDestinations);
+
+      expect(result.status).toBe(404);
+    });
+
+    test('200. Successfully updated favorite destinations for the profile.', async () => {
+      let result = await testApi
+        .put('/api/profiles/destinations')
+        .set('x-auth-token', tokenUser1)
+        .send(user1TestDestinations);
+
+      expect(result.status).toBe(200);
+    });
   });
 
-  test('200. Successfully updated favorite destinations for the profile.', async () => {
-    let result = await testApi
-      .put('/api/profiles/destinations')
-      .set('x-auth-token', tokenUser1)
-      .send(user1TestDestinations);
+  describe('Delete destinations for a profile.', () => {
+    beforeEach(async () => {
+      // Create a user profile to have destinations.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
 
-    expect(result.status).toBe(200);
-  });
-});
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
 
-describe('Delete destinations for a profile.', () => {
-  beforeEach(async () => {
-    // Create a user profile to have destinations.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
+      // Update the profile's favorite destinations to be deleted.
+      const testDestinations = {
+        hikingTrails: 'test trail',
+        campSites: '',
+        waterAreas: '',
+        slopes: 'test slope',
+        crags: '',
+      };
 
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
+      let res = await testApi
+        .put('/api/profiles/destinations')
+        .set('x-auth-token', tokenUser1)
+        .send(testDestinations);
 
-    // Update the profile's favorite destinations to be deleted.
-    const testDestinations = {
-      hikingTrails: 'test trail',
-      campSites: '',
-      waterAreas: '',
-      slopes: 'test slope',
-      crags: '',
-    };
+      // Save the first set of favorite destinations to be deleted.
+      user1DestinationID = res.body.destinations[0]._id;
+    });
 
-    let res = await testApi
-      .put('/api/profiles/destinations')
-      .set('x-auth-token', tokenUser1)
-      .send(testDestinations);
+    test('200. Successfully deleted set of favorite destinations for a profile.', async () => {
+      let result = await testApi
+        .delete(`/api/profiles/destinations/${user1DestinationID}`)
+        .set('x-auth-token', tokenUser1);
 
-    // Save the first set of favorite destinations to be deleted.
-    user1DestinationID = res.body.destinations[0]._id;
-  });
+      expect(result.status).toBe(200);
+    });
 
-  test('200. Successfully deleted set of favorite destinations for a profile.', async () => {
-    let result = await testApi
-      .delete(`/api/profiles/destinations/${user1DestinationID}`)
-      .set('x-auth-token', tokenUser1);
+    test('401. Failed to delete favorite destinations for the profile. User is unauthenticated.', async () => {
+      let result = await testApi.delete(
+        `/api/profiles/destinations/${user1DestinationID}`
+      );
 
-    expect(result.status).toBe(200);
-  });
+      expect(result.status).toBe(401);
+    });
 
-  test('401. Failed to delete favorite destinations for the profile. User is unauthenticated.', async () => {
-    let result = await testApi.delete(
-      `/api/profiles/destinations/${user1DestinationID}`
-    );
+    test('404. Failed to delete favorite destinations for the profile. Profile not found.', async () => {
+      await Profile.deleteMany({});
 
-    expect(result.status).toBe(401);
-  });
-
-  test('404. Failed to delete favorite destinations for the profile. Profile not found.', async () => {
-    await Profile.deleteMany({});
-
-    let result = await testApi
-      .delete(`/api/profiles/destinations/${user1DestinationID._id}`)
-      .set('x-auth-token', tokenUser1);
-    expect(result.status).toBe(404);
-  });
-});
-
-describe('Update gears for a profile.', () => {
-  beforeEach(async () => {
-    // Create a user profile to be updated with favorite gears.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
-
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
-
-    user1TestGears = {
-      hikeGear: 'Black Diamond Trek Poles',
-      campGear: '',
-      waterGear: '',
-      snowGear: '',
-      rockClimbingGear: '',
-    };
+      let result = await testApi
+        .delete(`/api/profiles/destinations/${user1DestinationID}`)
+        .set('x-auth-token', tokenUser1);
+      expect(result.status).toBe(404);
+    });
   });
 
-  test('401. Failed to update favorite gears for the profile. User is unauthenticated.', async () => {
-    let result = await testApi.put('/api/profiles/gears').send(user1TestGears);
+  describe('Update gears for a profile.', () => {
+    beforeEach(async () => {
+      // Create a user profile to be updated with favorite gears.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
 
-    expect(result.status).toBe(401);
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
+
+      user1TestGears = {
+        hikeGear: 'Black Diamond Trek Poles',
+        campGear: '',
+        waterGear: '',
+        snowGear: '',
+        rockClimbingGear: '',
+      };
+    });
+
+    test('401. Failed to update favorite gears for the profile. User is unauthenticated.', async () => {
+      let result = await testApi
+        .put('/api/profiles/gears')
+        .send(user1TestGears);
+
+      expect(result.status).toBe(401);
+    });
+
+    test('404. Failed to update favorite gears for the profile. Profile not found.', async () => {
+      await Profile.deleteMany({});
+
+      let result = await testApi
+        .put('/api/profiles/gears')
+        .set('x-auth-token', tokenUser1)
+        .send(user1TestGears);
+
+      expect(result.status).toBe(404);
+    });
+
+    test('200. Successfully updated favorite gears for the profile.', async () => {
+      let result = await testApi
+        .put('/api/profiles/gears')
+        .set('x-auth-token', tokenUser1)
+        .send(user1TestGears);
+
+      expect(result.status).toBe(200);
+    });
   });
 
-  test('404. Failed to update favorite gears for the profile. Profile not found.', async () => {
-    await Profile.deleteMany({});
+  describe('Delete gears for a profile.', () => {
+    beforeEach(async () => {
+      // Create a user profile to have gears.
+      const testProfile = {
+        Hiking: false,
+        Camping: false,
+        Kayaking: false,
+        Rafting: false,
+        Skiing: false,
+        Snowboarding: false,
+        Rockclimbing: false,
+        faveRecreation: '',
+        website: '',
+        bio: 'test bio',
+        location: 'test location, CA',
+        twitter: '',
+        facebook: '',
+        youtube: '',
+        instagram: '',
+      };
 
-    let result = await testApi
-      .put('/api/profiles/gears')
-      .set('x-auth-token', tokenUser1)
-      .send(user1TestGears);
+      await testApi
+        .post('/api/profiles/')
+        .set('x-auth-token', tokenUser1)
+        .set('Content-Type', 'application/json')
+        .send(testProfile);
 
-    expect(result.status).toBe(404);
-  });
+      // Update the profile's favorite gears to be deleted.
+      const testGears = {
+        hikeGear: 'Black Diamond Trek Poles',
+        campGear: '',
+        waterGear: '',
+        snowGear: '',
+        rockClimbingGear: '',
+      };
 
-  test('200. Successfully updated favorite gears for the profile.', async () => {
-    let result = await testApi
-      .put('/api/profiles/gears')
-      .set('x-auth-token', tokenUser1)
-      .send(user1TestGears);
+      let res = await testApi
+        .put('/api/profiles/gears')
+        .set('x-auth-token', tokenUser1)
+        .send(testGears);
 
-    expect(result.status).toBe(200);
-  });
-});
+      // Save the first set of favorite destinations to be deleted.
+      user1GearID = res.body.gears[0]._id;
+    });
 
-describe('Delete gears for a profile.', () => {
-  beforeEach(async () => {
-    // Create a user profile to have gears.
-    const testProfile = {
-      Hiking: false,
-      Camping: false,
-      Kayaking: false,
-      Rafting: false,
-      Skiing: false,
-      Snowboarding: false,
-      Rockclimbing: false,
-      faveRecreation: '',
-      website: '',
-      bio: 'test bio',
-      location: 'test location, CA',
-      twitter: '',
-      facebook: '',
-      youtube: '',
-      instagram: '',
-    };
+    test('200. Successfully deleted set of favorite gears for a profile.', async () => {
+      let result = await testApi
+        .delete(`/api/profiles/gears/${user1GearID}`)
+        .set('x-auth-token', tokenUser1);
 
-    await testApi
-      .post('/api/profiles/')
-      .set('x-auth-token', tokenUser1)
-      .set('Content-Type', 'application/json')
-      .send(testProfile);
+      expect(result.status).toBe(200);
+    });
 
-    // Update the profile's favorite gears to be deleted.
-    const testGears = {
-      hikeGear: 'Black Diamond Trek Poles',
-      campGear: '',
-      waterGear: '',
-      snowGear: '',
-      rockClimbingGear: '',
-    };
+    test('401. Failed to delete favorite gears for the profile. User is unauthenticated.', async () => {
+      let result = await testApi.delete(`/api/profiles/gears/${user1GearID}`);
 
-    let res = await testApi
-      .put('/api/profiles/gears')
-      .set('x-auth-token', tokenUser1)
-      .send(testGears);
+      expect(result.status).toBe(401);
+    });
 
-    // Save the first set of favorite destinations to be deleted.
-    user1GearID = res.body.gears[0];
-  });
+    test('404. Failed to delete favorite gears for the profile. Profile not found.', async () => {
+      await Profile.deleteMany({});
 
-  test('200. Successfully deleted set of favorite gears for a profile.', async () => {
-    let result = await testApi
-      .delete(`/api/profiles/gears/${user1GearID._id}`)
-      .set('x-auth-token', tokenUser1);
-
-    expect(result.status).toBe(200);
-  });
-
-  test('401. Failed to delete favorite gears for the profile. User is unauthenticated.', async () => {
-    let result = await testApi.delete(`/api/profiles/gears/${user1GearID._id}`);
-
-    expect(result.status).toBe(401);
-  });
-
-  test('404. Failed to delete favorite gears for the profile. Profile not found.', async () => {
-    await Profile.deleteMany({});
-
-    let result = await testApi
-      .delete(`/api/profiles/gears/${user1GearID._id}`)
-      .set('x-auth-token', tokenUser1);
-    expect(result.status).toBe(404);
+      let result = await testApi
+        .delete(`/api/profiles/gears/${user1GearID}`)
+        .set('x-auth-token', tokenUser1);
+      expect(result.status).toBe(404);
+    });
   });
 });
 
