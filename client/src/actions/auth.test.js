@@ -130,4 +130,77 @@ describe('Auth Actions', () => {
       expect(actions).toEqual(expectedActions);
     });
   });
+
+  describe('login() action.', () => {
+    test('dispatches LOGIN_SUCCESS.', async () => {
+      // Mock the response of the action's HTTP request.
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.resolve({
+          token: 'test token',
+        })
+      );
+
+      // Dispatch the action
+      let testUser = {
+        email: 'test@test.com',
+        password: 'testpw',
+      };
+      const { email, password } = testUser;
+      await store.dispatch(authActions.login({ email, password }));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'LOGIN_SUCCESS',
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches LOGIN_FAIL.', async () => {
+      // Mock the response of the action's HTTP request.
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Failed to login.',
+        })
+      );
+
+      // Dispatch the action
+      let testUser = {
+        email: 'test@test.com',
+        password: 'testpw',
+      };
+      const { email, password } = testUser;
+      await store.dispatch(authActions.login({ email, password }));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'LOGIN_FAIL',
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  describe('logout() action.', () => {
+    test('dispatches CLEAR_PROFILE', async () => {
+      // Dispatch the action
+      await store.dispatch(authActions.logout());
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'CLEAR_PROFILE',
+        },
+        {
+          type: 'LOGOUT',
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
 });

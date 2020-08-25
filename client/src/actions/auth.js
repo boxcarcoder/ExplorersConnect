@@ -97,12 +97,6 @@ export const login = ({ email, password }) => async (dispatch) => {
     });
     dispatch(loadUser());
   } catch (err) {
-    // display errors as alerts using alert action and reducer
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
     // dispatch action to reducer to remove incorrect token from the redux state
     dispatch({
       type: LOGIN_FAIL,
