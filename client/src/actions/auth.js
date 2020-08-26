@@ -55,8 +55,6 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     // our backend returns a token as the res when POSTing to api/users
     const res = await axios.post('/api/users', body, config);
 
-    console.log('res from register action:', res);
-
     // dispatch the token to reducer to save the token into a redux state
     dispatch({
       type: REGISTER_SUCCESS,

@@ -80,7 +80,9 @@ describe('Auth Actions', () => {
       // Mock the response of the action's HTTP request.
       mockAxios.post.mockImplementationOnce(() =>
         Promise.resolve({
-          token: 'test token',
+          data: {
+            token: 'test token',
+          },
         })
       );
 
@@ -98,6 +100,9 @@ describe('Auth Actions', () => {
       const expectedActions = [
         {
           type: 'REGISTER_SUCCESS',
+          payload: {
+            token: 'test token',
+          },
         },
       ];
       expect(actions).toEqual(expectedActions);
@@ -136,11 +141,13 @@ describe('Auth Actions', () => {
       // Mock the response of the action's HTTP request.
       mockAxios.post.mockImplementationOnce(() =>
         Promise.resolve({
-          token: 'test token',
+          data: {
+            token: 'test token',
+          },
         })
       );
 
-      // Dispatch the action
+      // Dispatch the action.
       let testUser = {
         email: 'test@test.com',
         password: 'testpw',
@@ -153,6 +160,9 @@ describe('Auth Actions', () => {
       const expectedActions = [
         {
           type: 'LOGIN_SUCCESS',
+          payload: {
+            token: 'test token',
+          },
         },
       ];
       expect(actions).toEqual(expectedActions);
@@ -186,7 +196,7 @@ describe('Auth Actions', () => {
   });
 
   describe('logout() action.', () => {
-    test('dispatches CLEAR_PROFILE', async () => {
+    test('dispatches CLEAR_PROFILE and LOGOUT.', async () => {
       // Dispatch the action
       await store.dispatch(authActions.logout());
 
