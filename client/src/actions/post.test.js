@@ -2,7 +2,6 @@ import mockAxios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as postActions from './post';
-import { convertToObject } from 'typescript';
 
 // Create mock store that returns payloads as promises made possible by thunk
 const middlewares = [thunk];
@@ -47,7 +46,7 @@ describe('Post Actions', () => {
 
       // Execute the test.
       const actions = store.getActions();
-      let expectedActions = [
+      const expectedActions = [
         {
           type: 'GET_ALL_POSTS',
           payload: {
@@ -67,6 +66,32 @@ describe('Post Actions', () => {
                 name: 'test name2',
               },
             ],
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches POST_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.get.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error getting all posts.',
+        })
+      );
+
+      // Dispatch the action.
+      await store.dispatch(postActions.getAllPosts());
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'POSTS_ERROR',
+          payload: {
+            msg: {
+              err: 'Error getting all posts.',
+            },
           },
         },
       ];
