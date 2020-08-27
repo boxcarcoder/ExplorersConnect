@@ -144,7 +144,7 @@ describe('Post Actions', () => {
       // Mock the response of the HTTP request
       mockAxios.post.mockImplementationOnce(() =>
         Promise.reject({
-          err: 'Error getting all posts.',
+          err: 'Error adding a post.',
         })
       );
 
@@ -164,7 +164,151 @@ describe('Post Actions', () => {
           type: 'POSTS_ERROR',
           payload: {
             msg: {
-              err: 'Error getting all posts.',
+              err: 'Error adding a post.',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  describe('likePost() action.', () => {
+    test('dispatches LIKE_A_POST.', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.put.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: [
+            {
+              user: {
+                id: 'test id',
+              },
+            },
+            {
+              user: {
+                id: 'test id2',
+              },
+            },
+          ],
+        })
+      );
+
+      // Dispatch the action.
+      let testId = 'testId';
+      await store.dispatch(postActions.likePost(testId));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'LIKE_A_POST',
+          payload: {
+            id: testId,
+            likes: [
+              {
+                user: {
+                  id: 'test id',
+                },
+              },
+              {
+                user: {
+                  id: 'test id2',
+                },
+              },
+            ],
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches POST_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.put.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error liking a post.',
+        })
+      );
+
+      // Dispatch the action.
+      let testId = 'testId';
+      await store.dispatch(postActions.likePost(testId));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'POSTS_ERROR',
+          payload: {
+            msg: {
+              err: 'Error liking a post.',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  describe('unlikePost() action.', () => {
+    test('dispatches UNLIKE_A_POST.', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.put.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: [
+            {
+              user: {
+                id: 'test id',
+              },
+            },
+          ],
+        })
+      );
+
+      // Dispatch the action.
+      let testId = 'testId';
+      await store.dispatch(postActions.unlikePost(testId));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'UNLIKE_A_POST',
+          payload: {
+            id: testId,
+            likes: [
+              {
+                user: {
+                  id: 'test id',
+                },
+              },
+            ],
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches POST_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.put.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error liking a post.',
+        })
+      );
+
+      // Dispatch the action.
+      let testId = 'testId';
+      await store.dispatch(postActions.unlikePost(testId));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'POSTS_ERROR',
+          payload: {
+            msg: {
+              err: 'Error liking a post.',
             },
           },
         },
