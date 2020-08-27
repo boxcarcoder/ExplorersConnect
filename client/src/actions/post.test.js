@@ -98,4 +98,78 @@ describe('Post Actions', () => {
       expect(actions).toEqual(expectedActions);
     });
   });
+
+  describe('addPost() action.', () => {
+    test('dipatches CREATE_POST', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: {
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+          },
+        })
+      );
+
+      // Dispatch the action.
+      let testPost = {
+        _id: 'test id',
+        text: 'test post.',
+        name: 'test name',
+      };
+      let { _id, text, name } = testPost;
+      await store.dispatch(postActions.addPost({ _id, text, name }));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'CREATE_POST',
+          payload: {
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+
+    test('dispatches POST_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error getting all posts.',
+        })
+      );
+
+      // Dispatch the action.
+      let testPost = {
+        _id: 'test id',
+        text: 'test post.',
+        name: 'test name',
+      };
+      let { _id, text, name } = testPost;
+      await store.dispatch(postActions.addPost({ _id, text, name }));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'POSTS_ERROR',
+          payload: {
+            msg: {
+              err: 'Error getting all posts.',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
 });

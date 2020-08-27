@@ -21,10 +21,12 @@ describe('Auth Actions', () => {
       mockAxios.get.mockImplementationOnce(() =>
         Promise.resolve({
           data: {
-            name: 'test name',
-            email: 'test@test.com',
-            avatar: '',
-            date: '',
+            user: {
+              name: 'test name',
+              email: 'test@test.com',
+              avatar: '',
+              date: '',
+            },
           },
         })
       );
@@ -42,10 +44,12 @@ describe('Auth Actions', () => {
         {
           type: 'USER_LOADED',
           payload: {
-            name: 'test name',
-            email: 'test@test.com',
-            avatar: '',
-            date: '',
+            user: {
+              name: 'test name',
+              email: 'test@test.com',
+              avatar: '',
+              date: '',
+            },
           },
         },
       ];
