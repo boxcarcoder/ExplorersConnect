@@ -2,6 +2,7 @@ import mockAxios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as postActions from './post';
+import { GET_POST } from './types';
 
 // Create mock store that returns payloads as promises made possible by thunk
 const middlewares = [thunk];
@@ -72,7 +73,7 @@ describe('Post Actions', () => {
       expect(actions).toEqual(expectedActions);
     });
 
-    test('dispatches POST_ERROR', async () => {
+    test('dispatches POSTS_ERROR', async () => {
       // Mock the response of the HTTP request
       mockAxios.get.mockImplementationOnce(() =>
         Promise.reject({
@@ -116,12 +117,10 @@ describe('Post Actions', () => {
 
       // Dispatch the action.
       let testPost = {
-        _id: 'test id',
         text: 'test post.',
-        name: 'test name',
       };
-      let { _id, text, name } = testPost;
-      await store.dispatch(postActions.addPost({ _id, text, name }));
+      let { text } = testPost;
+      await store.dispatch(postActions.addPost({ text }));
 
       // Execute the test.
       const actions = store.getActions();
@@ -140,7 +139,7 @@ describe('Post Actions', () => {
       expect(actions[0]).toEqual(expectedActions[0]);
     });
 
-    test('dispatches POST_ERROR', async () => {
+    test('dispatches POSTS_ERROR', async () => {
       // Mock the response of the HTTP request
       mockAxios.post.mockImplementationOnce(() =>
         Promise.reject({
@@ -150,12 +149,10 @@ describe('Post Actions', () => {
 
       // Dispatch the action.
       let testPost = {
-        _id: 'test id',
         text: 'test post.',
-        name: 'test name',
       };
-      let { _id, text, name } = testPost;
-      await store.dispatch(postActions.addPost({ _id, text, name }));
+      let { text } = testPost;
+      await store.dispatch(postActions.addPost({ text }));
 
       // Execute the test.
       const actions = store.getActions();
@@ -222,7 +219,7 @@ describe('Post Actions', () => {
       expect(actions).toEqual(expectedActions);
     });
 
-    test('dispatches POST_ERROR', async () => {
+    test('dispatches POSTS_ERROR', async () => {
       // Mock the response of the HTTP request
       mockAxios.put.mockImplementationOnce(() =>
         Promise.reject({
@@ -289,7 +286,7 @@ describe('Post Actions', () => {
       expect(actions).toEqual(expectedActions);
     });
 
-    test('dispatches POST_ERROR', async () => {
+    test('dispatches POSTS_ERROR', async () => {
       // Mock the response of the HTTP request
       mockAxios.put.mockImplementationOnce(() =>
         Promise.reject({
@@ -309,6 +306,163 @@ describe('Post Actions', () => {
           payload: {
             msg: {
               err: 'Error liking a post.',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  describe('getPost() action.', () => {
+    test('dispatches GET_POST.', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.get.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: {
+            post: {
+              user: {
+                _id: 'test id',
+              },
+              text: 'test post.',
+              name: 'test name',
+            },
+          },
+        })
+      );
+
+      // Dispatch the action.
+      let testId = 'testId';
+      await store.dispatch(postActions.getPost(testId));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'GET_POST',
+          payload: {
+            post: {
+              user: {
+                _id: 'test id',
+              },
+              text: 'test post.',
+              name: 'test name',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches POSTS_ERROR', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.get.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error getting post.',
+        })
+      );
+
+      // Dispatch the action.
+      let testId = 'testId';
+      await store.dispatch(postActions.getPost(testId));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'POSTS_ERROR',
+          payload: {
+            msg: {
+              err: 'Error getting post.',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  describe('commentOnPost() action.', () => {
+    test('dispatches COMMENT_ON_POST.', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: [
+            {
+              user: {
+                _id: 'test user',
+              },
+              text: 'test comment.',
+            },
+            {
+              user: {
+                _id: 'test user2',
+              },
+              text: 'test comment2.',
+            },
+          ],
+        })
+      );
+
+      // Dispatch the action.
+      let testComment = {
+        text: 'test comment2.',
+      };
+      const { text } = testComment;
+      let testId = 'testId';
+      await store.dispatch(postActions.commentOnPost(testId, { text }));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'COMMENT_ON_POST',
+          payload: {
+            id: testId,
+            comments: [
+              {
+                user: {
+                  _id: 'test user',
+                },
+                text: 'test comment.',
+              },
+              {
+                user: {
+                  _id: 'test user2',
+                },
+                text: 'test comment2.',
+              },
+            ],
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches POSTS_ERROR', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error getting post.',
+        })
+      );
+
+      // Dispatch the action.
+      let testComment = {
+        text: 'test comment2.',
+      };
+      const { text } = testComment;
+      let testId = 'testId';
+      await store.dispatch(postActions.commentOnPost(testId, { text }));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'POSTS_ERROR',
+          payload: {
+            msg: {
+              err: 'Error getting post.',
             },
           },
         },

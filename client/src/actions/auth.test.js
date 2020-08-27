@@ -90,7 +90,7 @@ describe('Auth Actions', () => {
         })
       );
 
-      // Dispatch the action.b
+      // Dispatch the action.
       let testUser = {
         name: 'test name',
         email: 'test@test.com',
