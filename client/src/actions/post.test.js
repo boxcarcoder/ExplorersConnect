@@ -470,4 +470,146 @@ describe('Post Actions', () => {
       expect(actions).toEqual(expectedActions);
     });
   });
+
+  // ============
+  describe('deletePost() action.', () => {
+    test('dispatches DELETE_POST.', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.delete.mockImplementation(() =>
+        Promise.resolve({
+          data: 'Post removed.',
+        })
+      );
+
+      // Dispatch the action.
+      let testId = 'testId';
+      await store.dispatch(postActions.deletePost(testId));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'DELETE_POST',
+          payload: {
+            id: testId,
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches POSTS_ERROR', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.delete.mockImplementation(() =>
+        Promise.reject({
+          err: 'Failed to remove post.',
+        })
+      );
+
+      // Dispatch the action.
+      let testId = 'testId';
+      await store.dispatch(postActions.deletePost(testId));
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'POSTS_ERROR',
+          payload: {
+            msg: {
+              err: 'Failed to remove post.',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  describe('deleteComment() action.', () => {
+    test('dispatches DELETE_COMMENT.', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.delete.mockImplementation(() =>
+        Promise.resolve({
+          data: [
+            {
+              user: {
+                _id: 'test user',
+              },
+              text: 'test comment.',
+            },
+            {
+              user: {
+                _id: 'test user2',
+              },
+              text: 'test comment2.',
+            },
+          ],
+        })
+      );
+
+      // Dispatch the action.
+      let testCommentId = 'testCommentId';
+      let testPostId = 'testpostId';
+      await store.dispatch(
+        postActions.deleteComment(testPostId, testCommentId)
+      );
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'DELETE_COMMENT',
+          payload: {
+            id: testCommentId,
+            comments: [
+              {
+                user: {
+                  _id: 'test user',
+                },
+                text: 'test comment.',
+              },
+              {
+                user: {
+                  _id: 'test user2',
+                },
+                text: 'test comment2.',
+              },
+            ],
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches POSTS_ERROR', async () => {
+      // Mock the response of the HTTP request.
+      mockAxios.delete.mockImplementation(() =>
+        Promise.reject({
+          err: 'Failed to delete comment.',
+        })
+      );
+
+      // Dispatch the action.
+      let testCommentId = 'testCommentId';
+      let testPostId = 'testpostId';
+      await store.dispatch(
+        postActions.deleteComment(testPostId, testCommentId)
+      );
+
+      // Execute the test.
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'POSTS_ERROR',
+          payload: {
+            msg: {
+              err: 'Failed to delete comment.',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
 });
