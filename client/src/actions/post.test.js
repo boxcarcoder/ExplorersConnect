@@ -2,7 +2,6 @@ import mockAxios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as postActions from './post';
-import { GET_POST } from './types';
 
 // Create mock store that returns payloads as promises made possible by thunk
 const middlewares = [thunk];
