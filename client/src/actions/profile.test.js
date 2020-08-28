@@ -160,4 +160,166 @@ describe('Profile Actions', () => {
       expect(actions).toEqual(expectedActions);
     });
   });
+
+  describe('getProfileById() action.', () => {
+    test('dispatches GET_PROFILE_BY_ID', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.get.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+            },
+          },
+        })
+      );
+
+      // Dispatch the action
+      let testId = 'testId';
+      await store.dispatch(profileActions.getProfileById(testId));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'GET_PROFILE_BY_ID',
+          payload: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+
+    test('dispatches PROFILE_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.get.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error fetching profile by id',
+        })
+      );
+
+      // Dispatch the action
+      let testId = 'testId';
+      await store.dispatch(profileActions.getProfileById(testId));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'PROFILE_ERROR',
+          payload: {
+            msg: {
+              err: 'Error fetching profile by id',
+            },
+          },
+        },
+      ];
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  describe('createProfile() action', () => {
+    test('dispatches CREATE_PROFILE', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+            },
+          },
+        })
+      );
+
+      // Dispatch the action
+      const historyMock = { push: jest.fn() };
+      let testProfile = {
+        user: {
+          _id: 'test id',
+        },
+        bio: 'test bio',
+        location: 'test location',
+      };
+      await store.dispatch(
+        profileActions.createProfile(testProfile, historyMock, false)
+      );
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'CREATE_PROFILE',
+          payload: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+            },
+          },
+        },
+        {
+          type: 'SET_ALERT',
+          payload: {
+            msg: 'test alert msg',
+            alertType: 'test alert type',
+            id: 'testid',
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+
+    test('dispatches PROFILE_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.post.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error creating profile.',
+        })
+      );
+
+      // Dispatch the action
+      const historyMock = { push: jest.fn() };
+      let testProfile = {
+        user: {
+          _id: 'test id',
+        },
+        bio: 'test bio',
+        location: 'test location',
+      };
+      await store.dispatch(
+        profileActions.createProfile(testProfile, historyMock, false)
+      );
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'PROFILE_ERROR',
+          payload: {
+            msg: {
+              err: 'Error creating profile.',
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+  });
 });

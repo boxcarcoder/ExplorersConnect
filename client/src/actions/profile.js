@@ -113,13 +113,6 @@ export const createProfile = (
       history.push('/dashboard');
     }
   } catch (err) {
-    // display errors such as missing bio or location
-    console.log('err: ', err);
-    //const errors = err.response.data.errors;
-    // if (errors) {
-    //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    // }
-
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err },
