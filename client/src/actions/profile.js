@@ -206,8 +206,6 @@ export const deleteDestinations = (id) => async (dispatch) => {
 
     dispatch(setAlert('Destinations removed.', 'success'));
   } catch (err) {
-    console.log('err: ', err);
-
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err },
@@ -227,8 +225,6 @@ export const deleteGears = (id) => async (dispatch) => {
 
     dispatch(setAlert('Gears removed.', 'success'));
   } catch (err) {
-    console.log('err: ', err);
-
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err },
@@ -254,8 +250,6 @@ export const deleteAccount = (history) => async (dispatch) => {
 
       dispatch(setAlert('Your account and profile removed.'));
     } catch (err) {
-      console.log('err: ', err);
-
       dispatch({
         type: PROFILE_ERROR,
         payload: { msg: err },

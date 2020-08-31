@@ -2,6 +2,7 @@ import mockAxios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as profileActions from './profile';
+import { getAllJSDocTagsOfKind } from 'typescript';
 
 // Create mock store that returns payloads as promises made possible by thunk
 const middlewares = [thunk];
@@ -323,7 +324,6 @@ describe('Profile Actions', () => {
     });
   });
 
-  //====
   describe('addDestinations() action.', () => {
     test('dispatch UPDATE_PROFILE', async () => {
       // Mock the response of the HTTP request
@@ -419,6 +419,7 @@ describe('Profile Actions', () => {
       expect(actions[0]).toEqual(expectedActions[0]);
     });
   });
+
   describe('addGears() action.', () => {
     test('dispatch UPDATE_PROFILE', async () => {
       // Mock the response of the HTTP request
@@ -508,6 +509,241 @@ describe('Profile Actions', () => {
         },
       ];
       expect(actions[0]).toEqual(expectedActions[0]);
+    });
+  });
+
+  describe('deleteDestinations() action.', () => {
+    test('dispatch UPDATE_PROFILE', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.delete.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+              destinations: [],
+            },
+          },
+        })
+      );
+
+      // Dispatch the action
+      let testId = 'testId';
+      await store.dispatch(profileActions.deleteDestinations(testId));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'UPDATE_PROFILE',
+          payload: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+              destinations: [],
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+    test('dispatch PROFILE_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.delete.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error deleting destinations.',
+        })
+      );
+
+      // Dispatch the action
+      let testId = 'testId';
+      await store.dispatch(profileActions.deleteDestinations(testId));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'PROFILE_ERROR',
+          payload: {
+            msg: {
+              err: 'Error deleting destinations.',
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+  });
+
+  describe('deleteGears() action.', () => {
+    test('dispatch UPDATE_PROFILE', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.delete.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+              gears: [],
+            },
+          },
+        })
+      );
+
+      // Dispatch the action
+      let testId = 'testId';
+      await store.dispatch(profileActions.deleteGears(testId));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'UPDATE_PROFILE',
+          payload: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+              gears: [],
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+
+    test('dispatch PROFILE_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.delete.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error deleting destinations.',
+        })
+      );
+
+      // Dispatch the action
+      let testId = 'testId';
+      await store.dispatch(profileActions.deleteGears(testId));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'PROFILE_ERROR',
+          payload: {
+            msg: {
+              err: 'Error deleting destinations.',
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+  });
+
+  describe('deleteAccount() action.', () => {
+    test('dispatch ACCOUNT_DELETED', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.delete.mockImplementationOnce(() =>
+        Promise.resolve({
+          msg: 'User and their profile deleted.',
+        })
+      );
+
+      // Dispatch the action
+      // Mock the window.confirm required in the action
+      let confirmSpy = jest.spyOn(window, 'confirm');
+      confirmSpy.mockImplementation(jest.fn(() => true));
+
+      // Mock the history.push performed in the action
+      const historyMock = { push: jest.fn() };
+      await store.dispatch(profileActions.deleteAccount(historyMock));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'ACCOUNT_DELETED',
+        },
+        {
+          type: 'CLEAR_PROFILE',
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+      confirmSpy.mockRestore();
+    });
+    test('dispatch CLEAR_PROFILE', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.delete.mockImplementationOnce(() =>
+        Promise.resolve({
+          msg: 'User and their profile deleted.',
+        })
+      );
+
+      // Dispatch the action
+      // Mock the window.confirm required in the action
+      let confirmSpy = jest.spyOn(window, 'confirm');
+      confirmSpy.mockImplementation(jest.fn(() => true));
+
+      // Mock the history.push performed in the action
+      const historyMock = { push: jest.fn() };
+      await store.dispatch(profileActions.deleteAccount(historyMock));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'ACCOUNT_DELETED',
+        },
+        {
+          type: 'CLEAR_PROFILE',
+        },
+      ];
+      expect(actions[1]).toEqual(expectedActions[1]);
+      confirmSpy.mockRestore();
+    });
+
+    test('dispatch PROFILE_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.delete.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error deleting account.',
+        })
+      );
+
+      // Dispatch the action
+      // Mock the window.confirm required in the action
+      let confirmSpy = jest.spyOn(window, 'confirm');
+      confirmSpy.mockImplementation(jest.fn(() => true));
+
+      // Mock the history.push performed in the action
+      const historyMock = { push: jest.fn() };
+      await store.dispatch(profileActions.deleteAccount(historyMock));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'PROFILE_ERROR',
+          payload: {
+            msg: {
+              err: 'Error deleting account.',
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+      confirmSpy.mockRestore();
     });
   });
 });
