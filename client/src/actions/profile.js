@@ -150,13 +150,6 @@ export const addDestinations = (formData, history) => async (dispatch) => {
     // redirecting in actions must use history.push from the component's withRouter import
     history.push('/dashboard');
   } catch (err) {
-    // display errors such as missing bio or location
-    console.log('err: ', err);
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err },
@@ -194,13 +187,6 @@ export const addGears = (formData, history) => async (dispatch) => {
     // redirecting in actions must use history.push from the component's withRouter import
     history.push('/dashboard');
   } catch (err) {
-    // display errors such as missing bio or location
-    console.log('err: ', err);
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err },

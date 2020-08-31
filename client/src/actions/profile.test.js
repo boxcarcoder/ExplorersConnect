@@ -256,7 +256,7 @@ describe('Profile Actions', () => {
         location: 'test location',
       };
       await store.dispatch(
-        profileActions.createProfile(testProfile, historyMock, false)
+        profileActions.createProfile(testProfile, historyMock)
       );
 
       // Execute the test
@@ -304,7 +304,7 @@ describe('Profile Actions', () => {
         location: 'test location',
       };
       await store.dispatch(
-        profileActions.createProfile(testProfile, historyMock, false)
+        profileActions.createProfile(testProfile, historyMock)
       );
 
       // Execute the test
@@ -315,6 +315,194 @@ describe('Profile Actions', () => {
           payload: {
             msg: {
               err: 'Error creating profile.',
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+  });
+
+  //====
+  describe('addDestinations() action.', () => {
+    test('dispatch UPDATE_PROFILE', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.put.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+              destinations: [
+                {
+                  campSites: 'test camp site.',
+                },
+              ],
+            },
+          },
+        })
+      );
+
+      // Dispatch the action
+      const historyMock = { push: jest.fn() };
+      let testDestinations = {
+        hikingTrails: '',
+        campSites: 'test camp site.',
+        waterAreas: '',
+        slopes: '',
+        crags: '',
+      };
+      await store.dispatch(
+        profileActions.addDestinations(testDestinations, historyMock)
+      );
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'UPDATE_PROFILE',
+          payload: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+              destinations: [
+                {
+                  campSites: 'test camp site.',
+                },
+              ],
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+
+    test('dispatch PROFILE_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.put.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error adding destination',
+        })
+      );
+
+      // Dispatch the action
+      const historyMock = { push: jest.fn() };
+      let testDestinations = {
+        hikingTrails: '',
+        campSites: 'test camp site.',
+        waterAreas: '',
+        slopes: '',
+        crags: '',
+      };
+      await store.dispatch(
+        profileActions.addDestinations(testDestinations, historyMock)
+      );
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'PROFILE_ERROR',
+          payload: {
+            msg: {
+              err: 'Error adding destination',
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+  });
+  describe('addGears() action.', () => {
+    test('dispatch UPDATE_PROFILE', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.put.mockImplementationOnce(() =>
+        Promise.resolve({
+          data: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+              gears: [
+                {
+                  campGear: 'test camp gear.',
+                },
+              ],
+            },
+          },
+        })
+      );
+
+      // Dispatch the action
+      const historyMock = { push: jest.fn() };
+      let testGears = {
+        hikeGear: '',
+        campGear: 'test camp gear.',
+        waterGear: '',
+        snowGear: '',
+        rockClimbingGear: '',
+      };
+      await store.dispatch(profileActions.addGears(testGears, historyMock));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'UPDATE_PROFILE',
+          payload: {
+            profile: {
+              user: {
+                _id: 'test id',
+              },
+              bio: 'test bio',
+              location: 'test location',
+              gears: [
+                {
+                  campGear: 'test camp gear.',
+                },
+              ],
+            },
+          },
+        },
+      ];
+      expect(actions[0]).toEqual(expectedActions[0]);
+    });
+
+    test('dispatch PROFILE_ERROR', async () => {
+      // Mock the response of the HTTP request
+      mockAxios.put.mockImplementationOnce(() =>
+        Promise.reject({
+          err: 'Error in updating gears.',
+        })
+      );
+
+      // Dispatch the action
+      const historyMock = { push: jest.fn() };
+      let testGears = {
+        hikeGear: '',
+        campGear: 'test camp gear.',
+        waterGear: '',
+        snowGear: '',
+        rockClimbingGear: '',
+      };
+      await store.dispatch(profileActions.addGears(testGears, historyMock));
+
+      // Execute the test
+      const actions = store.getActions();
+      const expectedActions = [
+        {
+          type: 'PROFILE_ERROR',
+          payload: {
+            msg: {
+              err: 'Error in updating gears.',
             },
           },
         },
