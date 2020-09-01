@@ -1,6 +1,17 @@
 import mockAxios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import {
+  GET_ALL_POSTS,
+  POSTS_ERROR,
+  CREATE_POST,
+  LIKE_A_POST,
+  UNLIKE_A_POST,
+  GET_POST,
+  COMMENT_ON_POST,
+  DELETE_POST,
+  DELETE_COMMENT,
+} from './types';
 import * as postActions from './post';
 
 // Create mock store that returns payloads as promises made possible by thunk
@@ -48,7 +59,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'GET_ALL_POSTS',
+          type: GET_ALL_POSTS,
           payload: {
             posts: [
               {
@@ -87,7 +98,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'POSTS_ERROR',
+          type: POSTS_ERROR,
           payload: {
             msg: {
               err: 'Error getting all posts.',
@@ -125,7 +136,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'CREATE_POST',
+          type: CREATE_POST,
           payload: {
             user: {
               _id: 'test id',
@@ -157,7 +168,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'POSTS_ERROR',
+          type: POSTS_ERROR,
           payload: {
             msg: {
               err: 'Error adding a post.',
@@ -197,7 +208,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'LIKE_A_POST',
+          type: LIKE_A_POST,
           payload: {
             id: testId,
             likes: [
@@ -234,7 +245,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'POSTS_ERROR',
+          type: POSTS_ERROR,
           payload: {
             msg: {
               err: 'Error liking a post.',
@@ -269,7 +280,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'UNLIKE_A_POST',
+          type: UNLIKE_A_POST,
           payload: {
             id: testId,
             likes: [
@@ -301,7 +312,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'POSTS_ERROR',
+          type: POSTS_ERROR,
           payload: {
             msg: {
               err: 'Error liking a post.',
@@ -338,7 +349,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'GET_POST',
+          type: GET_POST,
           payload: {
             post: {
               user: {
@@ -369,7 +380,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'POSTS_ERROR',
+          type: POSTS_ERROR,
           payload: {
             msg: {
               err: 'Error getting post.',
@@ -415,7 +426,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'COMMENT_ON_POST',
+          type: COMMENT_ON_POST,
           payload: {
             id: testId,
             comments: [
@@ -458,7 +469,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'POSTS_ERROR',
+          type: POSTS_ERROR,
           payload: {
             msg: {
               err: 'Error getting post.',
@@ -470,7 +481,6 @@ describe('Post Actions', () => {
     });
   });
 
-  // ============
   describe('deletePost() action.', () => {
     test('dispatches DELETE_POST.', async () => {
       // Mock the response of the HTTP request.
@@ -488,7 +498,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'DELETE_POST',
+          type: DELETE_POST,
           payload: {
             id: testId,
           },
@@ -513,7 +523,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'POSTS_ERROR',
+          type: POSTS_ERROR,
           payload: {
             msg: {
               err: 'Failed to remove post.',
@@ -558,7 +568,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'DELETE_COMMENT',
+          type: DELETE_COMMENT,
           payload: {
             id: testCommentId,
             comments: [
@@ -600,7 +610,7 @@ describe('Post Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'POSTS_ERROR',
+          type: POSTS_ERROR,
           payload: {
             msg: {
               err: 'Failed to delete comment.',

@@ -1,8 +1,18 @@
 import mockAxios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import {
+  GET_PROFILE,
+  PROFILE_ERROR,
+  CREATE_PROFILE,
+  UPDATE_PROFILE,
+  CLEAR_PROFILE,
+  ACCOUNT_DELETED,
+  GET_ALL_PROFILES,
+  GET_PROFILE_BY_ID,
+  SET_ALERT,
+} from './types';
 import * as profileActions from './profile';
-import { getAllJSDocTagsOfKind } from 'typescript';
 
 // Create mock store that returns payloads as promises made possible by thunk
 const middlewares = [thunk];
@@ -40,7 +50,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'GET_PROFILE',
+          type: GET_PROFILE,
           payload: {
             profile: {
               user: {
@@ -70,7 +80,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error getting current profile',
@@ -113,7 +123,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'GET_ALL_PROFILES',
+          type: GET_ALL_PROFILES,
           payload: [
             {
               user: {
@@ -150,7 +160,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error getting all profiles',
@@ -187,7 +197,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'GET_PROFILE_BY_ID',
+          type: GET_PROFILE_BY_ID,
           payload: {
             profile: {
               user: {
@@ -218,7 +228,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error fetching profile by id',
@@ -264,7 +274,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'CREATE_PROFILE',
+          type: CREATE_PROFILE,
           payload: {
             profile: {
               user: {
@@ -276,7 +286,7 @@ describe('Profile Actions', () => {
           },
         },
         {
-          type: 'SET_ALERT',
+          type: SET_ALERT,
           payload: {
             msg: 'test alert msg',
             alertType: 'test alert type',
@@ -312,7 +322,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error creating profile.',
@@ -363,7 +373,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'UPDATE_PROFILE',
+          type: UPDATE_PROFILE,
           payload: {
             profile: {
               user: {
@@ -408,7 +418,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error adding destination',
@@ -457,7 +467,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'UPDATE_PROFILE',
+          type: UPDATE_PROFILE,
           payload: {
             profile: {
               user: {
@@ -500,7 +510,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error in updating gears.',
@@ -538,7 +548,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'UPDATE_PROFILE',
+          type: UPDATE_PROFILE,
           payload: {
             profile: {
               user: {
@@ -569,7 +579,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error deleting destinations.',
@@ -607,7 +617,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'UPDATE_PROFILE',
+          type: UPDATE_PROFILE,
           payload: {
             profile: {
               user: {
@@ -639,7 +649,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error deleting destinations.',
@@ -673,15 +683,16 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'ACCOUNT_DELETED',
+          type: ACCOUNT_DELETED,
         },
         {
-          type: 'CLEAR_PROFILE',
+          type: CLEAR_PROFILE,
         },
       ];
       expect(actions[0]).toEqual(expectedActions[0]);
       confirmSpy.mockRestore();
     });
+
     test('dispatch CLEAR_PROFILE', async () => {
       // Mock the response of the HTTP request
       mockAxios.delete.mockImplementationOnce(() =>
@@ -703,10 +714,10 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'ACCOUNT_DELETED',
+          type: ACCOUNT_DELETED,
         },
         {
-          type: 'CLEAR_PROFILE',
+          type: CLEAR_PROFILE,
         },
       ];
       expect(actions[1]).toEqual(expectedActions[1]);
@@ -734,7 +745,7 @@ describe('Profile Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'PROFILE_ERROR',
+          type: PROFILE_ERROR,
           payload: {
             msg: {
               err: 'Error deleting account.',

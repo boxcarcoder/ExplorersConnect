@@ -1,6 +1,16 @@
 import mockAxios from 'axios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  CLEAR_PROFILE,
+} from './types';
 import * as authActions from './auth';
 
 // Create mock store that returns payloads as promises made possible by thunk
@@ -42,7 +52,7 @@ describe('Auth Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'USER_LOADED',
+          type: USER_LOADED,
           payload: {
             user: {
               name: 'test name',
@@ -72,7 +82,7 @@ describe('Auth Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'AUTH_ERROR',
+          type: AUTH_ERROR,
         },
       ];
       expect(actions).toEqual(expectedActions);
@@ -103,7 +113,7 @@ describe('Auth Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'REGISTER_SUCCESS',
+          type: REGISTER_SUCCESS,
           payload: {
             token: 'test token',
           },
@@ -133,7 +143,7 @@ describe('Auth Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'REGISTER_FAIL',
+          type: REGISTER_FAIL,
         },
       ];
       expect(actions).toEqual(expectedActions);
@@ -163,7 +173,7 @@ describe('Auth Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'LOGIN_SUCCESS',
+          type: LOGIN_SUCCESS,
           payload: {
             token: 'test token',
           },
@@ -192,7 +202,7 @@ describe('Auth Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'LOGIN_FAIL',
+          type: LOGIN_FAIL,
         },
       ];
       expect(actions).toEqual(expectedActions);
@@ -208,10 +218,10 @@ describe('Auth Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'CLEAR_PROFILE',
+          type: CLEAR_PROFILE,
         },
         {
-          type: 'LOGOUT',
+          type: LOGOUT,
         },
       ];
       expect(actions).toEqual(expectedActions);

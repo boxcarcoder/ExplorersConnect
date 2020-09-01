@@ -1,5 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import { SET_ALERT, REMOVE_ALERT } from './types';
 import * as alertActions from './alert';
 import uuid from 'uuid';
 jest.mock('uuid/v4');
@@ -30,7 +31,7 @@ describe('alert Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'SET_ALERT',
+          type: SET_ALERT,
           payload: {
             msg: 'test alert msg',
             alertType: 'test alert type',
@@ -57,7 +58,7 @@ describe('alert Actions', () => {
       const actions = store.getActions();
       const expectedActions = [
         {
-          type: 'REMOVE_ALERT',
+          type: REMOVE_ALERT,
           payload: 'testid',
         },
       ];
