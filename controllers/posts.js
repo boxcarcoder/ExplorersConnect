@@ -182,7 +182,6 @@ postsRouter.post(
         await post.save();
         res.json(post.comments);
       } catch (err) {
-        console.error(err.message);
         res.status(500).json('Server error.');
       }
     }
@@ -221,7 +220,6 @@ postsRouter.delete('/comment/:postID/:commentID', auth, async (req, res) => {
       res.json(post.comments);
     }
   } catch (err) {
-    console.error(err.message);
     res.status(500).json('Server error.');
   }
 });
