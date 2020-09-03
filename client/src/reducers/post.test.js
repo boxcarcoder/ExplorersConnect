@@ -11,6 +11,9 @@ import {
   DELETE_COMMENT,
 } from '../actions/types';
 
+// Global variables for tests
+let initialState = {};
+
 describe('Post reducer.', () => {
   test('The initial state is returned.', () => {
     // Create a test action to send to the reducer.
@@ -20,7 +23,7 @@ describe('Post reducer.', () => {
     const reducer = post(undefined, testAction);
 
     // Execute the test.
-    const initialState = {
+    initialState = {
       post: null,
       posts: [],
       loading: true,
@@ -147,6 +150,239 @@ describe('Post reducer.', () => {
             },
             text: 'test post.',
             name: 'test name',
+          },
+        ],
+        loading: false,
+        error: {},
+        deletedPost: false,
+      };
+      expect(reducer).toEqual(expectedState);
+    });
+  });
+
+  describe('Receives the LIKE_A_POST action.', () => {
+    // Create an initial state that has a post with a like already.
+    const testPostId = 'testId';
+    beforeEach(() => {
+      initialState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          likes: [
+            {
+              user: {
+                id: 'test id',
+              },
+            },
+          ],
+        },
+        posts: [
+          {
+            _id: testPostId,
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+            likes: [
+              {
+                user: {
+                  id: 'test id',
+                },
+              },
+            ],
+          },
+        ],
+        loading: true,
+        error: {},
+        deletedPost: false,
+      };
+    });
+
+    test('Returns the correct state', () => {
+      // Create a test action
+      let testAction = {
+        type: LIKE_A_POST,
+        payload: {
+          id: testPostId,
+          likes: [
+            {
+              user: {
+                id: 'test id',
+              },
+            },
+            {
+              user: {
+                id: 'test id2',
+              },
+            },
+          ],
+        },
+      };
+
+      // Send the test action to the reducer
+      const reducer = post(initialState, testAction);
+
+      // Execute the test
+      const expectedState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          likes: [
+            {
+              user: {
+                id: 'test id',
+              },
+            },
+            {
+              user: {
+                id: 'test id2',
+              },
+            },
+          ],
+        },
+        posts: [
+          {
+            _id: testPostId,
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+            likes: [
+              {
+                user: {
+                  id: 'test id',
+                },
+              },
+              {
+                user: {
+                  id: 'test id2',
+                },
+              },
+            ],
+          },
+        ],
+        loading: false,
+        error: {},
+        deletedPost: false,
+      };
+      expect(reducer).toEqual(expectedState);
+    });
+  });
+
+  describe('Receives the UNLIKE_A_POST action.', () => {
+    // Create an initial state that has a post with 2 likes already.
+    const testPostId = 'testId';
+    beforeEach(() => {
+      initialState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          likes: [
+            {
+              user: {
+                id: 'test id',
+              },
+            },
+            {
+              user: {
+                id: 'test id2',
+              },
+            },
+          ],
+        },
+        posts: [
+          {
+            _id: testPostId,
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+            likes: [
+              {
+                user: {
+                  id: 'test id',
+                },
+              },
+              {
+                user: {
+                  id: 'test id2',
+                },
+              },
+            ],
+          },
+        ],
+        loading: true,
+        error: {},
+        deletedPost: false,
+      };
+    });
+
+    test('Returns the correct state', () => {
+      // Create a test action
+      let testAction = {
+        type: UNLIKE_A_POST,
+        payload: {
+          id: testPostId,
+          likes: [
+            {
+              user: {
+                id: 'test id',
+              },
+            },
+          ],
+        },
+      };
+
+      // Send the test action to the reducer
+      const reducer = post(initialState, testAction);
+
+      // Execute the test
+      const expectedState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          likes: [
+            {
+              user: {
+                id: 'test id',
+              },
+            },
+          ],
+        },
+        posts: [
+          {
+            _id: testPostId,
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+            likes: [
+              {
+                user: {
+                  id: 'test id',
+                },
+              },
+            ],
           },
         ],
         loading: false,
