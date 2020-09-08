@@ -392,4 +392,134 @@ describe('Post reducer.', () => {
       expect(reducer).toEqual(expectedState);
     });
   });
+
+  describe('Receives the GET_POST action.', () => {
+    test('Returns the correct state', () => {
+      // Create a test action.
+      let testAction = {
+        type: GET_POST,
+        payload: {
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+        },
+      };
+
+      // Send the test action to the reducer
+      const reducer = post(undefined, testAction);
+
+      // Execute the test
+      const expectedState = {
+        post: {
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+        },
+        posts: [],
+        loading: false,
+        error: {},
+        deletedPost: false,
+      };
+      expect(reducer).toEqual(expectedState);
+    });
+  });
+
+  describe('Receives the COMMENT_ON_POST action.', () => {
+    // Create an initial state that has a post already to comment on.
+    const testPostId = 'testId';
+    beforeEach(() => {
+      initialState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          comments: [],
+        },
+        posts: [
+          {
+            _id: testPostId,
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+            comments: [],
+          },
+        ],
+        loading: true,
+        error: {},
+        deletedPost: false,
+      };
+    });
+
+    test('Returns the correct state', () => {
+      // Create a test action
+      let testAction = {
+        type: COMMENT_ON_POST,
+        payload: {
+          id: testPostId,
+          comments: [
+            {
+              user: {
+                _id: 'test user',
+              },
+              text: 'test comment.',
+            },
+          ],
+        },
+      };
+
+      // Send the test action to the reducer
+      const reducer = post(initialState, testAction);
+
+      // Execute the test
+      const expectedState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          comments: [
+            {
+              user: {
+                _id: 'test user',
+              },
+              text: 'test comment.',
+            },
+          ],
+        },
+        posts: [
+          {
+            _id: testPostId,
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+            comments: [
+              {
+                user: {
+                  _id: 'test user',
+                },
+                text: 'test comment.',
+              },
+            ],
+          },
+        ],
+        loading: false,
+        error: {},
+        deletedPost: false,
+      };
+      expect(reducer).toEqual(expectedState);
+    });
+  });
 });
