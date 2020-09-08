@@ -522,4 +522,121 @@ describe('Post reducer.', () => {
       expect(reducer).toEqual(expectedState);
     });
   });
+
+  describe('Receives DELETE_POST action.', () => {
+    // Create an initial state that has a post already to be deleted.
+    const testPostId = 'testId';
+    beforeEach(() => {
+      initialState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          comments: [],
+        },
+        posts: [
+          {
+            _id: testPostId,
+            user: {
+              _id: 'test id',
+            },
+            text: 'test post.',
+            name: 'test name',
+            comments: [],
+          },
+        ],
+        loading: true,
+        error: {},
+        deletedPost: false,
+      };
+    });
+
+    test('Returns the correct state', () => {
+      // Create a test action
+      let testAction = {
+        type: DELETE_POST,
+        payload: {
+          id: testPostId,
+        },
+      };
+
+      // Send the test action to the reducer
+      const reducer = post(initialState, testAction);
+
+      // Execute the test
+      const expectedState = {
+        post: null,
+        posts: [],
+        loading: false,
+        error: {},
+        deletedPost: true,
+      };
+      expect(reducer).toEqual(expectedState);
+    });
+  });
+
+  describe('Receives the DELETE_COMMENT action.', () => {
+    // Create an initial state that has a post with a comment already to delete the comment.
+    const testPostId = 'testId';
+    const testCommentId = 'testComment2Id';
+
+    beforeEach(() => {
+      initialState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          comments: [
+            {
+              _id: testCommentId,
+              user: {
+                _id: 'test user',
+              },
+              text: 'test comment.',
+            },
+          ],
+        },
+        loading: true,
+        error: {},
+        deletedPost: false,
+      };
+    });
+
+    test('Returns the correct state.', () => {
+      // Create a test action
+      let testAction = {
+        type: DELETE_COMMENT,
+        payload: {
+          id: testCommentId,
+          comments: [],
+        },
+      };
+
+      // Send the test action to the reducer
+      const reducer = post(initialState, testAction);
+
+      // Execute the test
+      const expectedState = {
+        post: {
+          _id: testPostId,
+          user: {
+            _id: 'test id',
+          },
+          text: 'test post.',
+          name: 'test name',
+          comments: [],
+        },
+        loading: false,
+        error: {},
+        deletedPost: false,
+      };
+      expect(reducer).toEqual(expectedState);
+    });
+  });
 });
