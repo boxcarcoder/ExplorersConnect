@@ -32,13 +32,11 @@ describe('Profile Actions', () => {
       mockAxios.get.mockImplementationOnce(() =>
         Promise.resolve({
           data: {
-            profile: {
-              user: {
-                _id: 'test id',
-              },
-              bio: 'test bio',
-              location: 'test location',
+            user: {
+              _id: 'test id',
             },
+            bio: 'test bio',
+            location: 'test location',
           },
         })
       );
@@ -52,13 +50,11 @@ describe('Profile Actions', () => {
         {
           type: GET_PROFILE,
           payload: {
-            profile: {
-              user: {
-                _id: 'test id',
-              },
-              bio: 'test bio',
-              location: 'test location',
+            user: {
+              _id: 'test id',
             },
+            bio: 'test bio',
+            location: 'test location',
           },
         },
       ];
@@ -246,13 +242,11 @@ describe('Profile Actions', () => {
       mockAxios.post.mockImplementationOnce(() =>
         Promise.resolve({
           data: {
-            profile: {
-              user: {
-                _id: 'test id',
-              },
-              bio: 'test bio',
-              location: 'test location',
+            user: {
+              _id: 'test id',
             },
+            bio: 'test bio',
+            location: 'test location',
           },
         })
       );
@@ -276,13 +270,11 @@ describe('Profile Actions', () => {
         {
           type: CREATE_PROFILE,
           payload: {
-            profile: {
-              user: {
-                _id: 'test id',
-              },
-              bio: 'test bio',
-              location: 'test location',
+            user: {
+              _id: 'test id',
             },
+            bio: 'test bio',
+            location: 'test location',
           },
         },
         {
