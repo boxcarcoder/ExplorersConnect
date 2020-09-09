@@ -11,8 +11,8 @@ import {
   COMMENT_ON_POST,
   DELETE_POST,
   DELETE_COMMENT,
-} from './types';
-import * as postActions from './post';
+} from '../../src/actions/types';
+import * as postActions from '../../src/actions/post';
 
 // Create mock store that returns payloads as promises made possible by thunk
 const middlewares = [thunk];

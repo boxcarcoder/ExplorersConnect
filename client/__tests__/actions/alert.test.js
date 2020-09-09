@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { SET_ALERT, REMOVE_ALERT } from './types';
-import * as alertActions from './alert';
+import { SET_ALERT, REMOVE_ALERT } from '../../src/actions/types';
+import * as alertActions from '../../src/actions/alert';
 import uuid from 'uuid';
 jest.mock('uuid/v4');
 
@@ -9,7 +9,7 @@ jest.mock('uuid/v4');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('alert Actions', () => {
+describe('alert Actions.', () => {
   let store = mockStore();
 
   beforeEach(() => {

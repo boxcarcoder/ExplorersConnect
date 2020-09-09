@@ -1,4 +1,4 @@
-import auth from './auth';
+import auth from '../../src/reducers/auth';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -7,7 +7,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} from '../actions/types';
+} from '../../src/actions/types';
 
 describe('Auth Reducer.', () => {
   test('The initial state is returned.', () => {

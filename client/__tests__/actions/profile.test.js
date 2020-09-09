@@ -11,14 +11,14 @@ import {
   GET_ALL_PROFILES,
   GET_PROFILE_BY_ID,
   SET_ALERT,
-} from './types';
-import * as profileActions from './profile';
+} from '../../src/actions/types';
+import * as profileActions from '../../src/actions/profile';
 
 // Create mock store that returns payloads as promises made possible by thunk
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('Profile Actions', () => {
+describe('Profile Actions.', () => {
   let store = mockStore();
 
   beforeEach(() => {

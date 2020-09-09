@@ -1,4 +1,4 @@
-import profile from './profile';
+import profile from '../../src/reducers/profile';
 import {
   GET_PROFILE,
   PROFILE_ERROR,
@@ -7,7 +7,7 @@ import {
   CLEAR_PROFILE,
   GET_ALL_PROFILES,
   GET_PROFILE_BY_ID,
-} from '../actions/types';
+} from '../../src/actions/types';
 
 // Global variables for tests
 let initialState = {};

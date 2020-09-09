@@ -10,14 +10,14 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_PROFILE,
-} from './types';
-import * as authActions from './auth';
+} from '../../src/actions/types';
+import * as authActions from '../../src/actions/auth';
 
 // Create mock store that returns payloads as promises made possible by thunk
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('Auth Actions', () => {
+describe('Auth Actions.', () => {
   let store = mockStore();
 
   beforeEach(() => {
@@ -119,7 +119,7 @@ describe('Auth Actions', () => {
           },
         },
       ];
-      expect(actions).toEqual(expectedActions);
+      expect(actions[0]).toEqual(expectedActions[0]);
     });
 
     test('dispatches REGISTER_FAIL.', async () => {
@@ -179,7 +179,7 @@ describe('Auth Actions', () => {
           },
         },
       ];
-      expect(actions).toEqual(expectedActions);
+      expect(actions[0]).toEqual(expectedActions[0]);
     });
 
     test('dispatches LOGIN_FAIL.', async () => {

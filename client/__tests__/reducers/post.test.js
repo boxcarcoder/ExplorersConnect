@@ -1,4 +1,4 @@
-import post from './post';
+import post from '../../src/reducers/post';
 import {
   GET_ALL_POSTS,
   POSTS_ERROR,
@@ -9,7 +9,7 @@ import {
   COMMENT_ON_POST,
   DELETE_POST,
   DELETE_COMMENT,
-} from '../actions/types';
+} from '../../src/actions/types';
 
 // Global variables for tests
 let initialState = {};

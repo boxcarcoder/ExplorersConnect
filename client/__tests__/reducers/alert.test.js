@@ -1,5 +1,5 @@
-import alert from './alert';
-import { SET_ALERT, REMOVE_ALERT } from '../actions/types';
+import alert from '../../src/reducers/alert';
+import { SET_ALERT, REMOVE_ALERT } from '../../src/actions/types';
 import uuid from 'uuid';
 jest.mock('uuid/v4');
 
