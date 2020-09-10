@@ -18,7 +18,7 @@ import * as postActions from '../../src/actions/post';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('Post Actions', () => {
+describe('Post Actions.', () => {
   let store = mockStore();
 
   beforeEach(() => {
