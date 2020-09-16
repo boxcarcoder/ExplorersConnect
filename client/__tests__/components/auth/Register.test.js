@@ -11,21 +11,45 @@ import { setAlert } from '../../../src/actions/alert';
 import { register } from '../../../src/actions/auth';
 
 const mockStore = configureMockStore();
+
+// // Mock store Attempt #1
+// let store = mockStore({
+//   setAlert: setAlert,
+//   register: register,
+//   authState: {
+//     token: localStorage.getItem('token'),
+//     isAuthenticated: false,
+//     loading: false,
+//     loggedInUser: null,
+//   },
+// });
+
+// // Mock Store Attempt #2
+// let store = mockStore({
+//   authState: {
+//     token: localStorage.getItem('token'),
+//     isAuthenticated: false,
+//     loading: false,
+//     loggedInUser: null,
+//   },
+// });
+
+// // Mock Store Attempt #3
 let initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: false,
   loading: false,
   loggedInUser: null,
 };
-const store = mockStore(initialState);
+let store = mockStore(initialState);
 
-describe('<Register /> component.', () => {
+describe('<Register /> component renders a <section> with className container.', () => {
   let props;
 
   beforeEach(() => {
     props = {
       setAlert: setAlert,
-      register2: register,
+      register: register,
       authState: {
         token: localStorage.getItem('token'),
         isAuthenticated: false,
@@ -35,57 +59,71 @@ describe('<Register /> component.', () => {
     };
   });
 
-  // Unit tests
-  test('Find the container rendered in the Register component.', () => {
-    // Attempt #5
-    const wrapper = mount(
-      <Provider store={store}>
-        <Register {...props} />
-      </Provider>
-    );
-    expect(wrapper.length).toBe(1);
-    wrapper.debug();
-    expect(wrapper.find('.container')).to.have.lengthOf(1);
-
-    // Attempt #4
+  test("Attempt #1: No dive() and .find('section')", () => {
     const wrapper = shallow(
       <Provider store={store}>
         <Register {...props} />
       </Provider>
     );
     expect(wrapper.length).toBe(1);
-    wrapper.debug();
-    expect(wrapper.find('.container')).to.have.lengthOf(1);
+    console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
+    const section = wrapper.find('section');
+    expect(section.length).toBe(1);
+  });
 
-    // Attempt #3
+  test("Attempt #2: Use dive() and .find('section')", () => {
     const wrapper = shallow(
       <Provider store={store}>
         <Register {...props} />
       </Provider>
     ).dive();
     expect(wrapper.length).toBe(1);
-    wrapper.debug();
-    expect(wrapper.hasClass('container')).toEqual(true);
+    console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
+    const section = wrapper.find('section');
+    expect(section.length).toBe(1);
+  });
 
-    // Attempt #2
+  test("Attempt #3: No dive() and .hasClass('container')", () => {
     const wrapper = shallow(
       <Provider store={store}>
         <Register {...props} />
       </Provider>
     );
     expect(wrapper.length).toBe(1);
-    wrapper.debug();
+    console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
     expect(wrapper.hasClass('container')).toEqual(true);
+  });
 
-    // Attempt #1
+  test("Attempt #4: Use dive() and .hasClass('container')", () => {
+    const wrapper = shallow(
+      <Provider store={store}>
+        <Register {...props} />
+      </Provider>
+    ).dive();
+    expect(wrapper.length).toBe(1);
+    console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
+    expect(wrapper.hasClass('container')).toEqual(true);
+  });
+
+  test('Attempt #5: No dive() and .to.have.lengthOf(1)', () => {
     const wrapper = shallow(
       <Provider store={store}>
         <Register {...props} />
       </Provider>
     );
     expect(wrapper.length).toBe(1);
-    wrapper.debug();
-    const container = wrapper.find('.container');
-    expect(container.length).toBe(1);
+    console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
+    expect(wrapper.find('.container')).to.have.lengthOf(1);
+  });
+
+  test('Attempt #6: Use dive() and .to.have.lengthOf(1)', () => {
+    const wrapper = shallow(
+      <Provider store={store}>
+        <Register {...props} />
+      </Provider>
+    ).dive();
+    expect(wrapper.length).toBe(1);
+    console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
+    expect(wrapper.find('.container')).to.have.lengthOf(1);
   });
 });
