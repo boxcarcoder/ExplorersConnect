@@ -14,7 +14,6 @@ export const Register = ({
   register,
   authState: { isAuthenticated },
 }) => {
-  console.log('begin rendering Register component.');
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
     name: '',
@@ -55,7 +54,6 @@ export const Register = ({
   };
 
   // once the user is registered, redirect to the dashboard
-  console.log('isAuthenticated: ', isAuthenticated);
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }

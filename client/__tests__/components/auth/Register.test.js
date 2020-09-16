@@ -1,8 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import toJson from 'enzyme-to-json';
-// import configureMockStore from 'redux-mock-store';
-// import { Provider } from 'react-redux'; // needed to render a component that connects to a redux store
+import { shallow } from 'enzyme';
 
 // Import the non-connected component for testing. Importing Register will import the default, which is the connected component. { Register } is non-connected.
 import { Register } from '../../../src/components/auth/Register';
@@ -10,7 +7,7 @@ import { Register } from '../../../src/components/auth/Register';
 import { setAlert } from '../../../src/actions/alert';
 import { register } from '../../../src/actions/auth';
 
-describe('<Register /> component renders a <section> with className container.', () => {
+describe('<Register /> component.', () => {
   let props;
 
   beforeEach(() => {
@@ -26,183 +23,82 @@ describe('<Register /> component renders a <section> with className container.',
     };
   });
 
-  test('Attempt #1', () => {
+  test('Successfully renders.', () => {
     const wrapper = shallow(<Register {...props} />);
-    expect(wrapper.length).toBe(1);
-    console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-    const section = wrapper.find('section');
-    expect(section.length).toBe(1);
+    expect(wrapper.exists()).toBe(true);
+  });
+
+  // Unit tests.
+  test('Text box for Name updates.', () => {
+    // Grab the shallow component in a wrapper.
+    const wrapper = shallow(<Register {...props} />);
+    // console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
+
+    // Find the input within the component to test it.
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', {
+        target: {
+          value: 'test name',
+        },
+      });
+
+    // Execute the test
+    expect(wrapper.find('input').at(0).props().value).toEqual('test name');
+  });
+
+  test('Text box for Email updates.', () => {
+    // Grab the shallow component in a wrapper.
+    const wrapper = shallow(<Register {...props} />);
+
+    // Find the input within the component to test it.
+    wrapper
+      .find('input')
+      .at(1)
+      .simulate('change', {
+        target: {
+          value: 'test@test.com',
+        },
+      });
+
+    // Execute the test
+    expect(wrapper.find('input').at(1).props().value).toEqual('test@test.com');
+  });
+
+  test('Text box for Password updates.', () => {
+    // Grab the shallow component in a wrapper.
+    const wrapper = shallow(<Register {...props} />);
+
+    // Find the input within the component to test it.
+    wrapper
+      .find('input')
+      .at(2)
+      .simulate('change', {
+        target: {
+          value: 'testpassword',
+        },
+      });
+
+    // Execute the test
+    expect(wrapper.find('input').at(2).props().value).toEqual('testpassword');
+  });
+
+  test('Text box for Confirm Password updates.', () => {
+    // Grab the shallow component in a wrapper.
+    const wrapper = shallow(<Register {...props} />);
+
+    // Find the input within the component to test it.
+    wrapper
+      .find('input')
+      .at(3)
+      .simulate('change', {
+        target: {
+          value: 'testpassword',
+        },
+      });
+
+    // Execute the test
+    expect(wrapper.find('input').at(3).props().value).toEqual('testpassword');
   });
 });
-
-// const mockStore = configureMockStore();
-
-// // // Mock store Attempt #1
-// const initialState = {
-//   // setAlert: setAlert,
-//   // register: register,
-//   // authState: {
-//   //   token: localStorage.getItem('token'),
-//   //   isAuthenticated: false,
-//   //   loading: false,
-//   //   loggedInUser: null,
-//   // },
-// };
-// let store = mockStore(initialState);
-
-// // Mock Store Attempt #2
-// let store = mockStore({
-//   authState: {
-//     token: localStorage.getItem('token'),
-//     isAuthenticated: false,
-//     loading: false,
-//     loggedInUser: null,
-//   },
-// });
-
-// // Mock Store Attempt #3
-// let initialState = {
-//   token: localStorage.getItem('token'),
-//   isAuthenticated: false,
-//   loading: false,
-//   loggedInUser: null,
-// };
-// let store = mockStore(initialState);
-
-// test("Attempt #1: No dive() and .find('section')", () => {
-//   const wrapper = shallow(
-//     <Provider store={store}>
-//       <Register {...props} />
-//     </Provider>
-//   );
-//   expect(wrapper.length).toBe(1);
-//   // console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-//   const section = wrapper.find('section');
-//   expect(section.length).toBe(1);
-// });
-
-// test("Attempt #2: Use dive() and .find('section')", () => {
-//   const wrapper = shallow(
-//     <Provider store={store}>
-//       <Register {...props} />
-//     </Provider>
-//   ).dive();
-//   expect(wrapper.length).toBe(1);
-//   // console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-//   const section = wrapper.find('section');
-//   expect(section.length).toBe(1);
-// });
-
-// test("Attempt #3: No dive() and .hasClass('container')", () => {
-//   const wrapper = shallow(
-//     <Provider store={store}>
-//       <Register {...props} />
-//     </Provider>
-//   );
-//   expect(wrapper.length).toBe(1);
-//   // console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-//   expect(wrapper.hasClass('container')).toEqual(true);
-// });
-
-// test("Attempt #4: Use dive() and .hasClass('container')", () => {
-//   const wrapper = shallow(
-//     <Provider store={store}>
-//       <Register {...props} />
-//     </Provider>
-//   ).dive();
-//   expect(wrapper.length).toBe(1);
-//   // console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-//   expect(wrapper.hasClass('container')).toEqual(true);
-// });
-
-// test('Attempt #5: No dive() and .to.have.lengthOf(1)', () => {
-//   const wrapper = shallow(
-//     <Provider store={store}>
-//       <Register {...props} />
-//     </Provider>
-//   );
-//   expect(wrapper.length).toBe(1);
-//   // console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-//   expect(wrapper.find('.container')).to.have.lengthOf(1);
-// });
-
-// test('Attempt #6: Use dive() and .to.have.lengthOf(1)', () => {
-//   const wrapper = shallow(
-//     <Provider store={store}>
-//       <Register {...props} />
-//     </Provider>
-//   ).dive();
-//   expect(wrapper.length).toBe(1);
-//   // console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-//   expect(wrapper.find('.container')).to.have.lengthOf(1);
-// });
-
-// test("Attempt #7: Use dive() and .find('section') and no <Provider>", () => {
-//   const wrapper = shallow(<Register {...props} />).dive();
-//   expect(wrapper.length).toBe(1);
-//   // console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-//   const section = wrapper.find('section');
-//   expect(section.length).toBe(1);
-// });
-
-// test("Attempt #9: Use dive() x2 and .find('section')", () => {
-//   let wrapper = shallow(
-//     <Provider store={store}>
-//       <Register {...props} />
-//     </Provider>
-//   ).dive();
-//   console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-//   wrapper = wrapper.dive();
-//   console.log('2 wrapper.debug(): ', wrapper.debug({ verbose: true }));
-
-//   const section = wrapper.find('section');
-//   expect(section.length).toBe(1);
-// });
-
-// test("Attempt #10: Use mount, no props + mock store #2, and .find('section')", () => {
-//   let wrapper = mount(
-//     <Provider store={store}>
-//       <Register />
-//     </Provider>
-//   );
-//   console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-
-//   const section = wrapper.find('section');
-//   expect(section.length).toBe(1);
-// });
-
-// test("Attempt #11: Use mount, no props + mock store #3, and .find('section')", () => {
-//   let wrapper = mount(
-//     <Provider store={store}>
-//       <Register />
-//     </Provider>
-//   );
-//   console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-
-//   const section = wrapper.find('section');
-//   expect(section.length).toBe(1);
-// });
-
-// test("Attempt #12: Use mount, no props + mock store #1, and .find('section')", () => {
-//   let wrapper = mount(
-//     <Provider store={store}>
-//       <Register />
-//     </Provider>
-//   );
-//   console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-
-//   const section = wrapper.find('section');
-//   expect(section.length).toBe(1);
-// });
-
-// test("Attempt #13: Use mount, explicit props, and .find('section')", () => {
-//   let wrapper = mount(
-//     <Provider store={store}>
-//       <Register {...props} />
-//     </Provider>
-//   );
-//   console.log('wrapper.debug(): ', wrapper.debug({ verbose: true }));
-
-//   const section = wrapper.find('section');
-//   expect(section.length).toBe(1);
-// });
