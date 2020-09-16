@@ -7,7 +7,13 @@ import { setAlert } from '../../actions/alert';
 import PropTypes from 'prop-types';
 import { register } from '../../actions/auth';
 
-const Register = ({ setAlert, register, authState: { isAuthenticated } }) => {
+// Export the unconnected version of the component for testing.
+// Testing the unconnected version because Redux testing is handled by the actions and reducer tests.
+export const Register = ({
+  setAlert,
+  register,
+  authState: { isAuthenticated },
+}) => {
   console.log('begin rendering Register component.');
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
