@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { register } from '../../actions/auth';
 
 // Export the unconnected version of the component for testing.
-// Testing the unconnected version because Redux testing is handled by the actions and reducer tests.
 export const Register = ({
   setAlert,
   register,

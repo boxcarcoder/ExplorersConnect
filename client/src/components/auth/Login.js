@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Login = ({ login, authState: { isAuthenticated } }) => {
+export const Login = ({ login, authState: { isAuthenticated } }) => {
   //each input requires a state and onChange handler
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   //destructuring: name === formData.name
@@ -18,16 +18,16 @@ const Login = ({ login, authState: { isAuthenticated } }) => {
 
   // spread operator: ...formData === copy of formData based on each attribute
 
-  const handleEmailChange = e => {
+  const handleEmailChange = (e) => {
     setFormData({ ...formData, email: e.target.value });
   };
 
-  const handlePasswordChange = e => {
+  const handlePasswordChange = (e) => {
     setFormData({ ...formData, password: e.target.value });
   };
 
   //when the form is submitted, trigger the login action
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     login({ email, password });
   };
@@ -49,7 +49,7 @@ const Login = ({ login, authState: { isAuthenticated } }) => {
             type='email'
             placeholder='Email'
             value={email}
-            onChange={e => handleEmailChange(e)}
+            onChange={(e) => handleEmailChange(e)}
             required
           />
         </div>
@@ -58,7 +58,7 @@ const Login = ({ login, authState: { isAuthenticated } }) => {
             type='password'
             placeholder='Password'
             value={password}
-            onChange={e => handlePasswordChange(e)}
+            onChange={(e) => handlePasswordChange(e)}
             minLength='6'
           />
         </div>
@@ -73,12 +73,12 @@ const Login = ({ login, authState: { isAuthenticated } }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  authState: PropTypes.object.isRequired
+  authState: PropTypes.object.isRequired,
 };
 
 //mapping the auth redux state to a usable prop to check for authentication
-const mapStateToProps = state => ({
-  authState: state.auth //propName: state
+const mapStateToProps = (state) => ({
+  authState: state.auth, //propName: state
 });
 
 export default connect(mapStateToProps, { login })(Login);
