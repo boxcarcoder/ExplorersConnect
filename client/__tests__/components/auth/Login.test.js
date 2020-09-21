@@ -62,4 +62,24 @@ describe('<Login /> component.', () => {
       expect(wrapper.find('input').at(1).props().value).toBe('testpw');
     });
   });
+
+  test('When the form is submitted, the default event is cancelled.', () => {
+    // Find the form within the component to test it.
+    let eventPrevented = false;
+    wrapper.find('form').simulate('submit', {
+      preventDefault: () => {
+        eventPrevented = true;
+      },
+    });
+    // Execute the test.
+    expect(eventPrevented).toBe(true);
+  });
+
+  test('Includes link to Register page.', () => {
+    // Find the input within the component to test it.
+    const link = wrapper.find('Link');
+
+    // Execute the test
+    expect(link.props().to).toBe('/register');
+  });
 });
