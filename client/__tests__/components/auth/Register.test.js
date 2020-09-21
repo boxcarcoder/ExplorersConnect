@@ -5,10 +5,6 @@ import { shallow } from 'enzyme';
 // Importing Register will import the default, which is the connected component. { Register } is non-connected.
 import { Register } from '../../../src/components/auth/Register';
 
-// Props for the component
-import { setAlert } from '../../../src/actions/alert';
-import { register } from '../../../src/actions/auth';
-
 // Globals for test
 let props;
 let wrapper;
@@ -16,8 +12,8 @@ let wrapper;
 describe('<Register /> component.', () => {
   beforeEach(() => {
     props = {
-      setAlert: setAlert,
-      register: register,
+      setAlert: jest.fn(),
+      register: jest.fn(),
       authState: {
         token: localStorage.getItem('token'),
         isAuthenticated: false,

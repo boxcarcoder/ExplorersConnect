@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 
-const Dashboard = ({
+export const Dashboard = ({
   getCurrentProfile,
   profileState: { profile, loading },
 }) => {

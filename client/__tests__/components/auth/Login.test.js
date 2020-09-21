@@ -3,9 +3,7 @@ import { shallow } from 'enzyme';
 
 // Import the non-connected component for testing.
 import { Login } from '../../../src/components/auth/Login';
-
-// Props for the component.
-import { login } from '../../../src/actions/auth';
+import { JsxEmit } from 'typescript';
 
 //Globals for testing
 let props;
@@ -14,7 +12,7 @@ let wrapper;
 describe('<Login /> component.', () => {
   beforeEach(() => {
     props = {
-      login: login,
+      login: jest.fn(),
       authState: {
         token: localStorage.getItem('token'),
         isAuthenticated: false,
@@ -76,7 +74,7 @@ describe('<Login /> component.', () => {
   });
 
   test('Includes link to Register page.', () => {
-    // Find the input within the component to test it.
+    // Find the link within the component to test it.
     const link = wrapper.find('Link');
 
     // Execute the test

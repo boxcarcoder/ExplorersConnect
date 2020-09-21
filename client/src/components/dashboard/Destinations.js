@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { deleteDestinations } from '../../actions/profile';
 
 // Use the profile.destinations state (from Dashboard component) for destinations data.
-const Destinations = ({ destinations, deleteDestinations }) => {
+export const Destinations = ({ destinations, deleteDestinations }) => {
   const allDestinations = destinations.map((destination) => (
     <tr key={destination._id}>
       <td>{destination.hikingTrails}</td>

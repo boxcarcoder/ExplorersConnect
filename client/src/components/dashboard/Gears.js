@@ -5,9 +5,9 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteGears } from '../../actions/profile';
 
-const Gears = ({ gears, deleteGears }) => {
+export const Gears = ({ gears, deleteGears }) => {
   // Use the profile.gears state (from Dashboard component) for gears data.
-  const allGears = gears.map(gear => (
+  const allGears = gears.map((gear) => (
     <tr key={gear._id}>
       <td>{gear.hikeGear}</td>
       <td>{gear.campGear}</td>
@@ -46,7 +46,7 @@ const Gears = ({ gears, deleteGears }) => {
 };
 
 Gears.propTypes = {
-  gears: PropTypes.array.isRequired
+  gears: PropTypes.array.isRequired,
 };
 
 export default connect(null, { deleteGears })(Gears);
