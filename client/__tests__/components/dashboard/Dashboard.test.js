@@ -133,7 +133,7 @@ describe('<Dashboard /> component.', () => {
         },
       };
       wrapper = shallow(<Dashboard {...props} />);
-      console.log(wrapper.debug({ verbose: true }));
+
       // Execute the test.
       const DestinationsChild = wrapper.find('Connect(Destinations)');
       expect(DestinationsChild.exists()).toBe(true);
