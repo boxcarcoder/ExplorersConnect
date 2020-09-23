@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Register /> component. Successfully renders. 1`] = `
+<section
+  className="container"
+>
+  <h1
+    className="large text-primary"
+  >
+    Sign up
+  </h1>
+  <p
+    className="lead"
+  >
+    <i
+      className="fas fa-user-circle"
+    >
+       Create Your Account
+    </i>
+  </p>
+  <form
+    className="form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group"
+    >
+      <input
+        onChange={[Function]}
+        placeholder="Name"
+        required={true}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        onChange={[Function]}
+        placeholder="Email"
+        required={true}
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        onChange={[Function]}
+        placeholder="Password"
+        required={true}
+        type="password"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        onChange={[Function]}
+        placeholder="Confirm Password"
+        type="password"
+        value=""
+      />
+    </div>
+    <input
+      className="btn btn-primary"
+      type="submit"
+      value="Register"
+    />
+  </form>
+  <p
+    className="vert-m-1"
+  >
+    Already have an account? 
+    <Link
+      to="/login"
+    >
+      Sign In
+    </Link>
+  </p>
+</section>
+`;

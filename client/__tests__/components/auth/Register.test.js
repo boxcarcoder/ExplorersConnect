@@ -15,10 +15,7 @@ describe('<Register /> component.', () => {
       setAlert: jest.fn(),
       register: jest.fn(),
       authState: {
-        token: localStorage.getItem('token'),
         isAuthenticated: false,
-        loading: false,
-        loggedInUser: null,
       },
     };
 
@@ -27,10 +24,17 @@ describe('<Register /> component.', () => {
   });
 
   test('Successfully renders.', () => {
-    expect(wrapper.exists()).toBe(true);
+    // Create snapshot of the DOM render.
+    expect(wrapper).toMatchSnapshot();
   });
 
-  // Unit tests.
+  test('Includes link to Login page.', () => {
+    // Find the input within the component to test it.
+    const link = wrapper.find('Link');
+
+    // Execute the test
+    expect(link.props().to).toBe('/login');
+  });
 
   describe('Text box is updated for', () => {
     test('Name.', () => {
@@ -104,15 +108,24 @@ describe('<Register /> component.', () => {
         eventPrevented = true;
       },
     });
+
     // Execute the test.
     expect(eventPrevented).toBe(true);
   });
 
-  test('Includes link to Login page.', () => {
-    // Find the input within the component to test it.
-    const link = wrapper.find('Link');
+  test('Renders Redirect to dashboard when user is authenticated.', () => {
+    props = {
+      setAlert: jest.fn(),
+      register: jest.fn(),
+      authState: {
+        isAuthenticated: true,
+      },
+    };
 
-    // Execute the test
-    expect(link.props().to).toBe('/login');
+    wrapper = shallow(<Register {...props} />);
+
+    // Execute the test.
+    const redirect = wrapper.find('Redirect');
+    expect(redirect.props().to).toBe('/dashboard');
   });
 });

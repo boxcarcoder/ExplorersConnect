@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 
 // Import the non-connected component for testing.
 import { Login } from '../../../src/components/auth/Login';
-import { JsxEmit } from 'typescript';
 
 //Globals for testing
 let props;
@@ -14,10 +13,7 @@ describe('<Login /> component.', () => {
     props = {
       login: jest.fn(),
       authState: {
-        token: localStorage.getItem('token'),
         isAuthenticated: false,
-        loading: false,
-        loggedInUser: null,
       },
     };
 
@@ -25,8 +21,17 @@ describe('<Login /> component.', () => {
     wrapper = shallow(<Login {...props} />);
   });
 
-  test('Succesfully renders.', () => {
-    expect(wrapper.exists()).toBe(true);
+  test('Successfully renders.', () => {
+    // Create snapshot of the DOM render.
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  test('Includes link to Register page.', () => {
+    // Find the link within the component to test it.
+    const link = wrapper.find('Link');
+
+    // Execute the test
+    expect(link.props().to).toBe('/register');
   });
 
   describe('Text box updates for', () => {
@@ -73,11 +78,18 @@ describe('<Login /> component.', () => {
     expect(eventPrevented).toBe(true);
   });
 
-  test('Includes link to Register page.', () => {
-    // Find the link within the component to test it.
-    const link = wrapper.find('Link');
+  test('Renders Redirect to dashboard when user is authenticated.', () => {
+    props = {
+      login: jest.fn(),
+      authState: {
+        isAuthenticated: true,
+      },
+    };
 
-    // Execute the test
-    expect(link.props().to).toBe('/register');
+    wrapper = shallow(<Login {...props} />);
+
+    // Execute the test.
+    const redirect = wrapper.find('Redirect');
+    expect(redirect.props().to).toBe('/dashboard');
   });
 });

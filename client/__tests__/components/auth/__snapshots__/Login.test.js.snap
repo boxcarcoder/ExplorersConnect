@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> component. Successfully renders. 1`] = `
+<section
+  className="container"
+>
+  <h1
+    className="large text-primary"
+  >
+    Sign In
+  </h1>
+  <p
+    className="lead"
+  >
+    <i
+      className="fas fa-user-circle"
+    >
+       Start Exploring
+    </i>
+  </p>
+  <form
+    className="form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group"
+    >
+      <input
+        onChange={[Function]}
+        placeholder="Email"
+        required={true}
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        minLength="6"
+        onChange={[Function]}
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+    </div>
+    <input
+      className="btn btn-primary"
+      type="submit"
+      value="Login"
+    />
+  </form>
+  <p
+    className="vert-m-1"
+  >
+    Don't have have an account? 
+    <Link
+      to="/register"
+    >
+      Sign Up
+    </Link>
+  </p>
+</section>
+`;
