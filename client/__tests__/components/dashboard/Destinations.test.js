@@ -10,41 +10,73 @@ let props;
 let mockDelete = jest.fn();
 
 describe('<Destinations /> component.', () => {
-  beforeEach(() => {
-    props = {
-      destinations: [
-        {
-          hikingTrails: 'test hike trail 2',
-        },
-        {
-          hikingTrails: 'test hike trail 1',
-          campSites: 'test camp site 1',
-        },
-      ],
-      deleteDestinations: mockDelete,
-    };
+  describe('Successfully renders', () => {
+    test('with 0 destinations.', () => {
+      props = {
+        destinations: [],
+        deleteDestinations: mockDelete,
+      };
 
-    wrapper = shallow(<Destinations {...props} />);
+      wrapper = shallow(<Destinations {...props} />);
+
+      // Execute the test.
+      const destinationRow = wrapper.find('td');
+      expect(destinationRow.exists()).toBe(false);
+    });
+
+    test('with existing destinations.', () => {
+      props = {
+        destinations: [
+          {
+            hikingTrails: 'test hike trail 2',
+          },
+          {
+            hikingTrails: 'test hike trail 1',
+            campSites: 'test camp site 1',
+          },
+        ],
+        deleteDestinations: mockDelete,
+      };
+      wrapper = shallow(<Destinations {...props} />);
+
+      // Execute the test.
+      // Create snapshot of the DOM render.
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 
-  test('Successfully renders.', () => {
-    expect(wrapper.exists()).toBe(true);
-  });
+  describe('If there are listed destinations,', () => {
+    beforeEach(() => {
+      props = {
+        destinations: [
+          {
+            hikingTrails: 'test hike trail 2',
+          },
+          {
+            hikingTrails: 'test hike trail 1',
+            campSites: 'test camp site 1',
+          },
+        ],
+        deleteDestinations: mockDelete,
+      };
+      wrapper = shallow(<Destinations {...props} />);
+    });
 
-  test('Includes buttons to delete destinations.', () => {
-    // Find the button in the shallow component.
-    const deleteButton = wrapper.find('button');
+    test('there are buttons to delete destinations.', () => {
+      // Find the button in the shallow component.
+      const deleteButton = wrapper.find('button');
 
-    // Execute the test.
-    expect(deleteButton.exists()).toBe(true);
-  });
+      // Execute the test.
+      expect(deleteButton.exists()).toBe(true);
+    });
 
-  test('Clicking the delete button triggers the deleteDestinations() action.', () => {
-    // Find the button in the shallow component.
-    const deleteButton = wrapper.find('button').at(0);
+    test('clicking the delete button triggers the deleteDestinations() action.', () => {
+      // Find the button in the shallow component.
+      const deleteButton = wrapper.find('button').at(0);
 
-    // Execute the test.
-    deleteButton.simulate('click');
-    expect(mockDelete).toHaveBeenCalled();
+      // Execute the test.
+      deleteButton.simulate('click');
+      expect(mockDelete).toHaveBeenCalled();
+    });
   });
 });

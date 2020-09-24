@@ -13,7 +13,8 @@ describe('<DashboardButtons /> component.', () => {
   });
 
   test('Successfully renders.', () => {
-    expect(wrapper.exists()).toBe(true);
+    // Create snapshot of the DOM render.
+    expect(wrapper).toMatchSnapshot();
   });
 
   describe('Includes a link to', () => {

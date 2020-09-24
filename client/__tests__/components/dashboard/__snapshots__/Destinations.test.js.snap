@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Destinations /> component. Successfully renders with existing destinations. 1`] = `
+<Fragment>
+  <h2
+    className="vert-m-1"
+  >
+    Explored Destinations
+  </h2>
+  <table
+    className="table"
+  >
+    <thead>
+      <tr>
+        <th>
+          Hiking
+        </th>
+        <th>
+          Camping
+        </th>
+        <th>
+          Water Sports
+        </th>
+        <th>
+          Snow Sports
+        </th>
+        <th>
+          Rock Climbing
+        </th>
+        <th>
+          Remove?
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          test hike trail 2
+        </td>
+        <td />
+        <td />
+        <td />
+        <td />
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick={[Function]}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          test hike trail 1
+        </td>
+        <td>
+          test camp site 1
+        </td>
+        <td />
+        <td />
+        <td />
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick={[Function]}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</Fragment>
+`;

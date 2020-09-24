@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DashboardButtons /> component. Successfully renders. 1`] = `
+<Fragment>
+  <div
+    className="buttons vert-m-1"
+  >
+    <Link
+      className="btn"
+      to="/edit-profile"
+    >
+      <i
+        className="fas fa-user-circle text-primary"
+      />
+       Edit profile
+    </Link>
+    <Link
+      className="btn"
+      to="/add-destinations"
+    >
+      <i
+        className="fas fa-map-signs text-primary"
+      />
+       Add Destinations
+    </Link>
+    <Link
+      className="btn"
+      to="/add-gears"
+    >
+      <i
+        className="fas fa-snowboarding text-primary"
+      />
+       Add Gear
+    </Link>
+  </div>
+</Fragment>
+`;
