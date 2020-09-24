@@ -16,32 +16,30 @@ describe('<Dashboard /> component.', () => {
         getCurrentProfile: jest.fn(),
         profileState: {
           profile: null,
-          profiles: [],
           loading: true,
-          error: {},
         },
       };
       wrapper = shallow(<Dashboard {...props} />);
 
       // Execute the test
-      expect(wrapper.exists()).toBe(true);
+      const spinner = wrapper.find('Spinner');
+      expect(spinner.exists()).toBe(true);
     });
 
-    test('a prompt to create a profile if the profile property in the Profile state is empty.', () => {
+    test('a link to create a profile if the profile property in the Profile state is empty.', () => {
       // Set profile state to render the prompt to create profile.
       props = {
         getCurrentProfile: jest.fn(),
         profileState: {
           profile: null,
-          profiles: [],
           loading: false,
-          error: {},
         },
       };
       wrapper = shallow(<Dashboard {...props} />);
 
       // Execute the test.
-      expect(wrapper.exists()).toBe(true);
+      const link = wrapper.find('Link');
+      expect(link.props().to).toBe('/create-profile');
     });
 
     test('a Dashboard if the profile property in the Profile state is populated.', () => {
@@ -56,37 +54,14 @@ describe('<Dashboard /> component.', () => {
             bio: 'test bio',
             location: 'test location',
           },
-          profiles: [],
           loading: false,
-          error: {},
         },
       };
       wrapper = shallow(<Dashboard {...props} />);
 
       // Execute the test.
-      expect(wrapper.exists()).toBe(true);
-    });
-  });
-
-  describe('If a prompt to create a profile is rendered,', () => {
-    test('it includes a link to create a profile.', () => {
-      // Set profile state to render the prompt to create profile.
-      props = {
-        getCurrentProfile: jest.fn(),
-        profileState: {
-          profile: null,
-          profiles: [],
-          loading: false,
-          error: {},
-        },
-      };
-      wrapper = shallow(<Dashboard {...props} />);
-
-      // Find the link within the component to test it.
-      const link = wrapper.find('Link');
-
-      // Execute the test.
-      expect(link.props().to).toBe('/create-profile');
+      // Create snapshot of the DOM render.
+      expect(wrapper).toMatchSnapshot();
     });
   });
 
