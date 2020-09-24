@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Gears /> component. Successfully renders with existing gears. 1`] = `
+<Fragment>
+  <h2
+    className="vert-m-1"
+  >
+    Essential Gear
+  </h2>
+  <table
+    className="table"
+  >
+    <thead>
+      <tr>
+        <th>
+          Hiking
+        </th>
+        <th>
+          Camping
+        </th>
+        <th>
+          Water Sports
+        </th>
+        <th>
+          Snow Sports
+        </th>
+        <th>
+          Rock Climbing
+        </th>
+        <th>
+          Remove?
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          test hike gear 2
+        </td>
+        <td>
+          test camp gear 1
+        </td>
+        <td />
+        <td />
+        <td />
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick={[Function]}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          test hike gear 1
+        </td>
+        <td />
+        <td />
+        <td />
+        <td />
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick={[Function]}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</Fragment>
+`;

@@ -20,8 +20,8 @@ describe('<Destinations /> component.', () => {
       wrapper = shallow(<Destinations {...props} />);
 
       // Execute the test.
-      const destinationRow = wrapper.find('td');
-      expect(destinationRow.exists()).toBe(false);
+      const firstDestination = wrapper.find('td');
+      expect(firstDestination.exists()).toBe(false);
     });
 
     test('with existing destinations.', () => {
