@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import Spinner from '../layout/Spinner';
 import { Link } from 'react-router-dom';
 import DashboardButtons from './DashboardButtons';
@@ -15,7 +15,7 @@ export const Dashboard = ({
   profileState: { profile, loading },
 }) => {
   //on the dashboard's first load, retrieve the logged in user's profile and save it into the profile redux state
-  useEffect(() => {
+  React.useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]); //*** */
 

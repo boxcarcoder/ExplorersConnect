@@ -8,12 +8,14 @@ import { Register } from '../../../src/components/auth/Register';
 // Globals for test
 let props;
 let wrapper;
+let mockSetAlert = jest.fn();
+let mockRegister = jest.fn();
 
 describe('<Register /> component.', () => {
   beforeEach(() => {
     props = {
-      setAlert: jest.fn(),
-      register: jest.fn(),
+      setAlert: mockSetAlert,
+      register: mockRegister,
       authState: {
         isAuthenticated: false,
       },
@@ -100,23 +102,99 @@ describe('<Register /> component.', () => {
     });
   });
 
-  test('When the form is submitted, the default event is cancelled.', () => {
-    // Find the form within the component to test it.
-    let eventPrevented = false;
-    wrapper.find('form').simulate('submit', {
-      preventDefault: () => {
-        eventPrevented = true;
-      },
+  describe('When the form is submitted,', () => {
+    beforeEach(() => {
+      props = {
+        setAlert: mockSetAlert,
+        register: mockRegister,
+        authState: {
+          isAuthenticated: false,
+        },
+      };
+
+      // Grab the shallow component in a wrapper.
+      wrapper = shallow(<Register {...props} />);
     });
 
-    // Execute the test.
-    expect(eventPrevented).toBe(true);
+    test('the default event is cancelled.', () => {
+      // Find the form within the component to test it.
+      let eventPrevented = false;
+      wrapper.find('form').simulate('submit', {
+        preventDefault: () => {
+          eventPrevented = true;
+        },
+      });
+
+      // Execute the test.
+      expect(eventPrevented).toBe(true);
+    });
+
+    test('set an alert if the password and confirmation password do not match.', () => {
+      // Set the password.
+      wrapper
+        .find('input')
+        .at(2)
+        .simulate('change', {
+          target: {
+            value: 'testpassword',
+          },
+        });
+      expect(wrapper.find('input').at(2).props().value).toEqual('testpassword');
+
+      // Set the confirmation password.
+      wrapper
+        .find('input')
+        .at(3)
+        .simulate('change', {
+          target: {
+            value: 'badpassword',
+          },
+        });
+      expect(wrapper.find('input').at(3).props().value).toEqual('badpassword');
+
+      // Execute the test.
+      wrapper.find('form').simulate('submit', {
+        preventDefault: () => {}, //simulate the submit request's need for an event object which contains a preventDefault function.
+      });
+      expect(mockSetAlert).toHaveBeenCalled();
+    });
+
+    test('call the register action if the password and confirmation passwords match.', () => {
+      // Set the password.
+      wrapper
+        .find('input')
+        .at(2)
+        .simulate('change', {
+          target: {
+            value: 'testpassword',
+          },
+        });
+      expect(wrapper.find('input').at(2).props().value).toEqual('testpassword');
+
+      // Set the confirmation password.
+      wrapper
+        .find('input')
+        .at(3)
+        .simulate('change', {
+          target: {
+            value: 'testpassword',
+          },
+        });
+      expect(wrapper.find('input').at(3).props().value).toEqual('testpassword');
+
+      // Execute the test.
+
+      wrapper.find('form').simulate('submit', {
+        preventDefault: () => {}, //simulate the submit request's need for an event object which contains a preventDefault function.
+      });
+      expect(mockRegister).toHaveBeenCalled();
+    });
   });
 
   test('Renders Redirect to dashboard when user is authenticated.', () => {
     props = {
-      setAlert: jest.fn(),
-      register: jest.fn(),
+      setAlert: mockSetAlert,
+      register: mockRegister,
       authState: {
         isAuthenticated: true,
       },

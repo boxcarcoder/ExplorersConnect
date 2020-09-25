@@ -7,13 +7,14 @@ import { Dashboard } from '../../../src/components/dashboard/Dashboard';
 // Globals for tests
 let props;
 let wrapper;
+let mockGetCurrentProfile = jest.fn();
 
 describe('<Dashboard /> component.', () => {
   describe('Successfully renders', () => {
     test('a spinner while the loading property in the Profile state is true.', () => {
       // Set profile state to render a spinner.
       props = {
-        getCurrentProfile: jest.fn(),
+        getCurrentProfile: mockGetCurrentProfile,
         profileState: {
           profile: null,
           loading: true,
@@ -29,7 +30,7 @@ describe('<Dashboard /> component.', () => {
     test('a link to create a profile if the profile property in the Profile state is empty.', () => {
       // Set profile state to render the prompt to create profile.
       props = {
-        getCurrentProfile: jest.fn(),
+        getCurrentProfile: mockGetCurrentProfile,
         profileState: {
           profile: null,
           loading: false,
@@ -45,7 +46,7 @@ describe('<Dashboard /> component.', () => {
     test('a Dashboard if the profile property in the Profile state is populated.', () => {
       // Set profile state to render the dashboard.
       props = {
-        getCurrentProfile: jest.fn(),
+        getCurrentProfile: mockGetCurrentProfile,
         profileState: {
           profile: {
             user: {
@@ -65,11 +66,42 @@ describe('<Dashboard /> component.', () => {
     });
   });
 
+  test('Calls the getCurrentProfile action on render.', () => {
+    // Convert an existing method of an object into a mock function.
+    let useEffect = jest.spyOn(React, 'useEffect');
+
+    // Wrap the mock function into a function to control how many times we can call it.
+    const mockUseEffect = () => {
+      // Re-define the useEffect method to take the callback function f, and call it synchronously.
+      useEffect.mockImplementationOnce((f) => f());
+    };
+
+    props = {
+      getCurrentProfile: mockGetCurrentProfile,
+      profileState: {
+        profile: {
+          user: {
+            _id: 'test id',
+          },
+          bio: 'test bio',
+          location: 'test location',
+        },
+        loading: false,
+      },
+    };
+
+    // Call the useEffect mock function once.
+    mockUseEffect();
+    wrapper = shallow(<Dashboard {...props} />);
+
+    expect(mockGetCurrentProfile).toHaveBeenCalled();
+  });
+
   describe('If a dashboard is rendered, ', () => {
-    test('it wraps the <DashboardButtons /> component', () => {
+    beforeEach(() => {
       // Set profile state to render the dashboard.
       props = {
-        getCurrentProfile: jest.fn(),
+        getCurrentProfile: mockGetCurrentProfile,
         profileState: {
           profile: {
             user: {
@@ -78,62 +110,22 @@ describe('<Dashboard /> component.', () => {
             bio: 'test bio',
             location: 'test location',
           },
-          profiles: [],
           loading: false,
-          error: {},
         },
       };
       wrapper = shallow(<Dashboard {...props} />);
-
-      // Execute the test.
+    });
+    test('it wraps the <DashboardButtons /> component', () => {
       const DashboardButtonsChild = wrapper.find('DashboardButtons');
       expect(DashboardButtonsChild.exists()).toBe(true);
     });
 
     test('it wraps the <Destinations /> component', () => {
-      // Set profile state to render the dashboard.
-      props = {
-        getCurrentProfile: jest.fn(),
-        profileState: {
-          profile: {
-            user: {
-              _id: 'test id',
-            },
-            bio: 'test bio',
-            location: 'test location',
-          },
-          profiles: [],
-          loading: false,
-          error: {},
-        },
-      };
-      wrapper = shallow(<Dashboard {...props} />);
-
-      // Execute the test.
       const DestinationsChild = wrapper.find('Connect(Destinations)');
       expect(DestinationsChild.exists()).toBe(true);
     });
 
     test('it wraps the <Gears /> component', () => {
-      // Set profile state to render the dashboard.
-      props = {
-        getCurrentProfile: jest.fn(),
-        profileState: {
-          profile: {
-            user: {
-              _id: 'test id',
-            },
-            bio: 'test bio',
-            location: 'test location',
-          },
-          profiles: [],
-          loading: false,
-          error: {},
-        },
-      };
-      wrapper = shallow(<Dashboard {...props} />);
-
-      // Execute the test.
       const GearsChild = wrapper.find('Connect(Gears)');
       expect(GearsChild.exists()).toBe(true);
     });
