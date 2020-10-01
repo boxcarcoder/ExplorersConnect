@@ -10,6 +10,6 @@ let wrapper;
 describe('<Spinner /> component.', () => {
   test('Successfully renders.', () => {
     wrapper = shallow(<Spinner />);
-    expect(wrapper.toExist()).toBe(true);
+    expect(wrapper.exists()).toBe(true);
   });
 });
