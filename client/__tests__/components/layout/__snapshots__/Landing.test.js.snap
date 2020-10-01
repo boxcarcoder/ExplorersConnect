@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Landing /> component. Successfully renders 1`] = `
+<section
+  className="landing"
+>
+  <div
+    className="dark-overlay"
+  >
+    <div
+      className="landing-inner"
+    >
+      <h1
+        className="large"
+      >
+        Explorers Connect
+      </h1>
+      <p
+        className="lead"
+      >
+        Create an explorer profile to share your gear and favorite adventures.
+      </p>
+      <div
+        className="buttons"
+      >
+        <Link
+          className="btn btn-primary"
+          to="/register"
+        >
+          Register
+        </Link>
+        <Link
+          className="btn btn"
+          to="/login"
+        >
+          Login
+        </Link>
+      </div>
+    </div>
+  </div>
+  <a
+    className="credit-box-abs"
+    href="https://unsplash.com/@wanderingteddybear?utm_medium=referral&utm_campaign=photographer-credit&utm_content=creditBadge"
+    rel="noopener noreferrer"
+    style={
+      Object {
+        "backgroundColor": "black",
+        "borderRadius": "3px",
+        "color": "white",
+        "display": "inline-block",
+        "fontFamily": "-apple-system , BlinkMacSystemFont, \\"San Francisco\\", \\"Helvetica Neue\\", Helvetica, Ubuntu, Roboto, Noto, \\"Segoe UI\\", Arial, sans-serif ",
+        "fontSize": "8px",
+        "fontWeight": "bold",
+        "lineHeight": "1",
+        "padding": "4px 6px",
+        "textDecoration": "none",
+      }
+    }
+    target="_blank"
+    title="High-resolution photos from Ted Bryan Yu on Unsplash"
+  >
+    <span
+      style={
+        Object {
+          "display": "inline-block",
+          "fontSize": "11px",
+          "padding": "2px 3px",
+        }
+      }
+    >
+      <i
+        className="fas fa-camera-retro"
+      />
+    </span>
+    <span
+      style={
+        Object {
+          "display": "inline-block",
+          "padding": "2px 3px",
+        }
+      }
+    >
+      Ted Bryan Yu
+    </span>
+  </a>
+</section>
+`;

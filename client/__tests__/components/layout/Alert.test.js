@@ -13,12 +13,15 @@ describe('<Alert /> component.', () => {
     props = {
       alertsState: [],
     };
+
+    wrapper = shallow(<Alert {...props} />);
   });
+
   describe('Successfully renders', () => {
     test('with no alerts in alertsState.', () => {
-      wrapper = shallow(<Alert {...props} />);
-      expect(wrapper.exists()).toBe(true);
+      expect(wrapper).toMatchSnapshot();
     });
+
     test('with alerts in alertsState.', () => {
       // Create an alert for the alertsState.
       props = {

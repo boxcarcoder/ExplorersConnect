@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const Landing = ({ authState: { isAuthenticated } }) => {
+export const Landing = ({ authState: { isAuthenticated } }) => {
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
@@ -41,7 +41,7 @@ const Landing = ({ authState: { isAuthenticated } }) => {
           fontWeight: 'bold',
           lineHeight: '1',
           display: 'inline-block',
-          borderRadius: '3px'
+          borderRadius: '3px',
         }}
         href='https://unsplash.com/@wanderingteddybear?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge'
         target='_blank'
@@ -53,7 +53,7 @@ const Landing = ({ authState: { isAuthenticated } }) => {
           style={{
             display: 'inline-block',
             padding: '2px 3px',
-            fontSize: '11px'
+            fontSize: '11px',
           }}
         >
           <i className='fas fa-camera-retro'></i>
@@ -67,11 +67,11 @@ const Landing = ({ authState: { isAuthenticated } }) => {
 };
 
 Landing.propTypes = {
-  authState: PropTypes.object.isRequired
+  authState: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  authState: state.auth
+const mapStateToProps = (state) => ({
+  authState: state.auth,
 });
 
 export default connect(mapStateToProps)(Landing);

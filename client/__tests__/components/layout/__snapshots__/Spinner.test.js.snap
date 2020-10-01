@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Spinner /> component. Successfully renders. 1`] = `
+<Fragment>
+  <img
+    alt="Loading..."
+    src=""
+    style={
+      Object {
+        "display": "block",
+        "margin": "auto",
+        "width": "200px",
+      }
+    }
+  />
+</Fragment>
+`;
