@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1600993917288" clover="3.2.0">
-  <project timestamp="1600993917288" name="All files">
-    <metrics statements="289" coveredstatements="274" conditionals="80" coveredconditionals="62" methods="83" coveredmethods="77" elements="452" coveredelements="413" complexity="0" loc="289" ncloc="289" packages="6" files="17" classes="17"/>
+<coverage generated="1601587881803" clover="3.2.0">
+  <project timestamp="1601587881804" name="All files">
+    <metrics statements="289" coveredstatements="275" conditionals="80" coveredconditionals="62" methods="83" coveredmethods="78" elements="452" coveredelements="415" complexity="0" loc="289" ncloc="289" packages="6" files="17" classes="17"/>
     <package name="actions">
       <metrics statements="181" coveredstatements="170" conditionals="30" coveredconditionals="16" methods="45" coveredmethods="45"/>
       <file name="alert.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/actions/alert.js">
@@ -290,11 +290,11 @@
       </file>
     </package>
     <package name="components.layout">
-      <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="Spinner.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/components/layout/Spinner.js">
-        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
       </file>
     </package>
     <package name="reducers">
