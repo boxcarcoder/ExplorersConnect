@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom'; // to redirect from actions using history.push
+import { Link, withRouter } from 'react-router-dom'; //withRouter: to pass the history object to components as props
 import { setAlert } from '../../actions/alert';
 
 //redux
@@ -8,30 +8,32 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const AddDestinations = ({ addDestinations, history, setAlert }) => {
-  //user inputs must have corresponding states
+  // The history object is passed by React within the default props. We are destructuring props.history.
+
+  // user inputs must have corresponding states
   const [formData, setFormData] = useState({
     hikingTrails: '',
     campSites: '',
     waterAreas: '',
     slopes: '',
-    crags: ''
+    crags: '',
   });
 
   const { hikingTrails, campSites, waterAreas, slopes, crags } = formData;
 
   // e.target.name is the name of the input
   // e.target.value is the user input
-  const onChange = e => {
+  const onChange = (e) => {
     // console.log('[e.target.name]', [e.target.name]);
     // console.log('e.target.value', e.target.value);
 
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!hikingTrails && !campSites && !waterAreas && !slopes && !crags) {
       setAlert('Please fill in some destinations.', 'danger');
@@ -57,7 +59,7 @@ const AddDestinations = ({ addDestinations, history, setAlert }) => {
             placeholder='Trail Name'
             name='hikingTrails'
             value={hikingTrails}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -67,7 +69,7 @@ const AddDestinations = ({ addDestinations, history, setAlert }) => {
             placeholder='Camp Site'
             name='campSites'
             value={campSites}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -77,7 +79,7 @@ const AddDestinations = ({ addDestinations, history, setAlert }) => {
             placeholder='Body of Water'
             name='waterAreas'
             value={waterAreas}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -87,7 +89,7 @@ const AddDestinations = ({ addDestinations, history, setAlert }) => {
             placeholder='Slopes'
             name='slopes'
             value={slopes}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -97,7 +99,7 @@ const AddDestinations = ({ addDestinations, history, setAlert }) => {
             placeholder='Rock faces'
             name='crags'
             value={crags}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
 
@@ -113,7 +115,7 @@ const AddDestinations = ({ addDestinations, history, setAlert }) => {
 };
 
 AddDestinations.propTypes = {
-  addDestinations: PropTypes.func.isRequired
+  addDestinations: PropTypes.func.isRequired,
 };
 
 export default connect(null, { addDestinations, setAlert })(

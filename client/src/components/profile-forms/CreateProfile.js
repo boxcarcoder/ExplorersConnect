@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { withRouter, Link } from 'react-router-dom'; // to redirect from actions using history.push
+import { withRouter, Link } from 'react-router-dom'; // withRouter: to pass the history object to components as props
 
 //redux
 import PropTypes from 'prop-types';
@@ -7,7 +7,9 @@ import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 
 const CreateProfile = ({ createProfile, history }) => {
-  //user inputs must have corresponding states
+  // The history object is passed by React within the default props. We are destructuring props.history.
+
+  // user inputs must have corresponding states
   const [formData, setFormData] = useState({
     Hiking: false,
     Camping: false,
@@ -23,7 +25,7 @@ const CreateProfile = ({ createProfile, history }) => {
     twitter: '',
     facebook: '',
     youtube: '',
-    instagram: ''
+    instagram: '',
   });
 
   const {
@@ -41,30 +43,30 @@ const CreateProfile = ({ createProfile, history }) => {
     twitter,
     facebook,
     youtube,
-    instagram
+    instagram,
   } = formData;
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   // e.target.name is the name of the input
   // e.target.value is the user input
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   // e.target.checked is the user clicking the check box
-  const handleClick = e => {
+  const handleClick = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.checked
+      [e.target.name]: e.target.checked,
     });
   };
 
   // when the form is submitted, fire the createProfile action
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     createProfile(formData, history, false);
   };
@@ -89,7 +91,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Hiking'
             checked={Hiking}
-            onChange={e => handleClick(e)}
+            onChange={(e) => handleClick(e)}
           />{' '}
           Hiking
           <br />
@@ -97,7 +99,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Camping'
             checked={Camping}
-            onChange={e => handleClick(e)}
+            onChange={(e) => handleClick(e)}
           />{' '}
           Camping
           <br />
@@ -105,7 +107,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Kayaking'
             checked={Kayaking}
-            onChange={e => handleClick(e)}
+            onChange={(e) => handleClick(e)}
           />{' '}
           Kayaking
           <br />
@@ -113,7 +115,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Rafting'
             checked={Rafting}
-            onChange={e => handleClick(e)}
+            onChange={(e) => handleClick(e)}
           />{' '}
           Rafting
           <br />
@@ -121,7 +123,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Skiing'
             checked={Skiing}
-            onChange={e => handleClick(e)}
+            onChange={(e) => handleClick(e)}
           />{' '}
           Skiing
           <br />
@@ -129,7 +131,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Snowboarding'
             checked={Snowboarding}
-            onChange={e => handleClick(e)}
+            onChange={(e) => handleClick(e)}
           />{' '}
           Snowboarding
           <br />
@@ -137,7 +139,7 @@ const CreateProfile = ({ createProfile, history }) => {
             type='checkbox'
             name='Rockclimbing'
             checked={Rockclimbing}
-            onChange={e => handleClick(e)}
+            onChange={(e) => handleClick(e)}
           />{' '}
           Rock Climbing
           <br />
@@ -149,7 +151,7 @@ const CreateProfile = ({ createProfile, history }) => {
           <select
             name='faveRecreation'
             value={faveRecreation}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           >
             <option value='0'>* Favorite Outdoor Recreation</option>
             <option value='HikingFave'>Hiking</option>
@@ -172,7 +174,7 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder='Personal Website'
             name='website'
             value={website}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
             Have a blog for adventures or gear reviews?
@@ -185,7 +187,7 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder='A short bio of yourself'
             name='bio'
             value={bio}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           ></textarea>
           <small className='form-text'>Tell us a little about yourself</small>
         </div>
@@ -197,7 +199,7 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder='* Location'
             name='location'
             value={location}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
             City & state (eg. Los Angeles, CA)
@@ -225,7 +227,7 @@ const CreateProfile = ({ createProfile, history }) => {
                 placeholder='Twitter URL'
                 name='twitter'
                 value={twitter}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className='form-group social-input'>
@@ -236,7 +238,7 @@ const CreateProfile = ({ createProfile, history }) => {
                 placeholder='Facebook URL'
                 name='facebook'
                 value={facebook}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className='form-group social-input'>
@@ -247,7 +249,7 @@ const CreateProfile = ({ createProfile, history }) => {
                 placeholder='YouTube URL'
                 name='youtube'
                 value={youtube}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
             <div className='form-group social-input'>
@@ -258,7 +260,7 @@ const CreateProfile = ({ createProfile, history }) => {
                 placeholder='Instagram URL'
                 name='instagram'
                 value={instagram}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
               />
             </div>
           </Fragment>
@@ -277,7 +279,7 @@ const CreateProfile = ({ createProfile, history }) => {
 };
 
 CreateProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired
+  createProfile: PropTypes.func.isRequired,
 };
 
 export default connect(null, { createProfile })(withRouter(CreateProfile));

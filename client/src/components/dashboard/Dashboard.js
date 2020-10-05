@@ -17,7 +17,7 @@ export const Dashboard = ({
   //on the dashboard's first load, retrieve the logged in user's profile and save it into the profile redux state
   React.useEffect(() => {
     getCurrentProfile();
-  }, [getCurrentProfile]); //*** */
+  }); //*** */
 
   if (loading) {
     return <Spinner />;

@@ -19,7 +19,7 @@ import Posts from './components/posts/Posts';
 import Comment from './components/posts/Comment';
 
 //redux
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './store';
 
 // To verify token at each initial load,
@@ -80,8 +80,3 @@ const App = () => {
   );
 };
 export default App;
-
-// const mapDispatchToProps = (dispatch) => ({
-//   loadUser: () => dispatch(loadUser()),
-// });
-// export default connect(mapDispatchToProps)(App);

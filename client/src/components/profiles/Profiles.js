@@ -11,7 +11,7 @@ const Profiles = ({ getAllProfiles, profileState: { profiles, loading } }) => {
   //on the Profiles page's first load, retrieve all profiles and save it into the profile redux state
   useEffect(() => {
     getAllProfiles();
-  }, [getAllProfiles]); //*** */
+  }); //*** */
 
   if (!profiles.length || loading) {
     return <Spinner />;

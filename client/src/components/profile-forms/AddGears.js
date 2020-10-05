@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom'; // to redirect from actions using history.push
+import { Link, withRouter } from 'react-router-dom'; // withRouter: to pass the history object to components as props
 import { setAlert } from '../../actions/alert';
 
 //redux
@@ -8,13 +8,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const AddGears = ({ addGears, history, setAlert }) => {
-  //user inputs must have corresponding states
+  // The history object is passed by React within the default props. We are destructuring props.history.
+
+  // user inputs must have corresponding states
   const [formData, setFormData] = useState({
     hikeGear: '',
     campGear: '',
     waterGear: '',
     snowGear: '',
-    rockClimbingGear: ''
+    rockClimbingGear: '',
   });
 
   const {
@@ -22,19 +24,19 @@ const AddGears = ({ addGears, history, setAlert }) => {
     campGear,
     waterGear,
     snowGear,
-    rockClimbingGear
+    rockClimbingGear,
   } = formData;
 
   // e.target.name is the name of the input
   // e.target.value is the user input
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (
       !hikeGear &&
@@ -66,7 +68,7 @@ const AddGears = ({ addGears, history, setAlert }) => {
             placeholder='Hiking Gear'
             name='hikeGear'
             value={hikeGear}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -76,7 +78,7 @@ const AddGears = ({ addGears, history, setAlert }) => {
             placeholder='Camping Gear'
             name='campGear'
             value={campGear}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -86,7 +88,7 @@ const AddGears = ({ addGears, history, setAlert }) => {
             placeholder='Water Gear'
             name='waterGear'
             value={waterGear}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -96,7 +98,7 @@ const AddGears = ({ addGears, history, setAlert }) => {
             placeholder='Snow Gear'
             name='snowGear'
             value={snowGear}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -106,7 +108,7 @@ const AddGears = ({ addGears, history, setAlert }) => {
             placeholder='Rock Climbing Gear'
             name='rockClimbingGear'
             value={rockClimbingGear}
-            onChange={e => onChange(e)}
+            onChange={(e) => onChange(e)}
           />
         </div>
 
@@ -122,7 +124,7 @@ const AddGears = ({ addGears, history, setAlert }) => {
 };
 
 AddGears.propTypes = {
-  addGears: PropTypes.func.isRequired
+  addGears: PropTypes.func.isRequired,
 };
 
 export default connect(null, { addGears, setAlert })(withRouter(AddGears));

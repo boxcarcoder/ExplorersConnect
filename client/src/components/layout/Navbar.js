@@ -7,11 +7,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
-const Navbar = ({ logout, authState: { isAuthenticated }, setAlert }) => {
+export const Navbar = ({
+  logout,
+  authState: { isAuthenticated },
+  setAlert,
+}) => {
   const handleLogout = (e) => {
     logout();
     setAlert('Logged out succesfully', 'success');
   };
+
   const authenticatedLinks = (
     <h5>
       <ul>

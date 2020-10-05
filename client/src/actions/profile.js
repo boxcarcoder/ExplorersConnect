@@ -79,7 +79,7 @@ export const getProfileById = (id) => async (dispatch) => {
 // Create or update profile.
 export const createProfile = (
   formData,
-  history, // The history object has the push method to redirect. Actions use push to redirect as opposed to using <Redirect />
+  history, // The history object is passed by React within the default props. We are destructuring props.history. It has the push method to redirect. Actions use push to redirect as opposed to using <Redirect />
   edit = false
 ) => async (dispatch) => {
   // set the token as the header to gain access to the protected route /api/profiles/me
@@ -107,7 +107,7 @@ export const createProfile = (
     // display an alert to notify the user of what they just did
     dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
-    // if the user created, not updated a profile, redirect to the dashboard page after their profile is created.
+    // if the user created, not update, a profile, redirect to the dashboard page after their profile is created.
     // redirecting in actions must use history.push from the component's withRouter import
     if (!edit) {
       history.push('/dashboard');

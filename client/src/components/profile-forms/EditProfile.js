@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import { withRouter, Link } from 'react-router-dom'; // to redirect from actions using history.push
+import { withRouter, Link } from 'react-router-dom'; // withRouter: to pass the history object to components as props
 
 //redux
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ import {
 const EditProfile = ({
   profileState: { profile, loading },
   createProfile,
-  history,
+  history, // The history object is passed by React within the default props. We are destructuring props.history.
   getCurrentProfile,
   deleteAccount,
 }) => {
@@ -82,7 +82,8 @@ const EditProfile = ({
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram,
     });
-  }, [loading, getCurrentProfile, profile]); //*** */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]); //*** */
 
   // e.target.name is the name of the input
   // e.target.value is the user input

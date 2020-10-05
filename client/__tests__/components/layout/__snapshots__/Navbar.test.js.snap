@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navbar /> component. Successfully renders. 1`] = `
+<nav
+  className="navbar bg-dark"
+>
+  <h1>
+    <Link
+      to="/"
+    >
+      <i
+        className="fas fa-hiking"
+      />
+       ExplorersConnect
+    </Link>
+  </h1>
+  <h5>
+    <ul>
+      <li>
+        <Link
+          to="/profiles"
+        >
+          Explorers
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/posts"
+        >
+          Posts
+        </Link>
+      </li>
+      <li>
+        <a
+          href="#!"
+          onClick={[Function]}
+        >
+          <i
+            className="fas fa-sign-out-alt"
+          />
+           
+          <span>
+            Logout
+          </span>
+        </a>
+      </li>
+    </ul>
+  </h5>
+</nav>
+`;
