@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1601920018104" clover="3.2.0">
-  <project timestamp="1601920018105" name="All files">
-    <metrics statements="312" coveredstatements="295" conditionals="88" coveredconditionals="69" methods="92" coveredmethods="82" elements="492" coveredelements="446" complexity="0" loc="312" ncloc="312" packages="6" files="20" classes="20"/>
+<coverage generated="1601933295585" clover="3.2.0">
+  <project timestamp="1601933295586" name="All files">
+    <metrics statements="312" coveredstatements="298" conditionals="88" coveredconditionals="70" methods="92" coveredmethods="84" elements="492" coveredelements="452" complexity="0" loc="312" ncloc="312" packages="6" files="20" classes="20"/>
     <package name="actions">
       <metrics statements="181" coveredstatements="170" conditionals="30" coveredconditionals="16" methods="45" coveredmethods="45"/>
       <file name="alert.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/actions/alert.js">
@@ -290,7 +290,7 @@
       </file>
     </package>
     <package name="components.layout">
-      <metrics statements="25" coveredstatements="22" conditionals="8" coveredconditionals="7" methods="10" coveredmethods="5"/>
+      <metrics statements="25" coveredstatements="25" conditionals="8" coveredconditionals="8" methods="10" coveredmethods="7"/>
       <file name="Alert.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/components/layout/Alert.js">
         <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="2"/>
         <line num="5" count="1" type="stmt"/>
@@ -311,15 +311,15 @@
         <line num="73" count="1" type="stmt"/>
       </file>
       <file name="Navbar.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/components/layout/Navbar.js">
-        <metrics statements="10" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="1"/>
+        <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="3"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
       </file>

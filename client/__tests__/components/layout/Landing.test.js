@@ -41,7 +41,7 @@ describe('<Landing /> component.', () => {
       expect(link.props().to).toBe('/login');
     });
 
-    test('a credit for the landing page background.', () => {
+    test('a hyperlink credit for the landing page background.', () => {
       const a = wrapper.find('a');
       expect(a.props().href).toBe(
         'https://unsplash.com/@wanderingteddybear?utm_medium=referral&utm_campaign=photographer-credit&utm_content=creditBadge'
@@ -59,7 +59,7 @@ describe('<Landing /> component.', () => {
 
       wrapper = shallow(<Landing {...props} />);
     });
-    test('redirect to the dashboard.', () => {
+    test('render a redirect to the dashboard.', () => {
       const redirect = wrapper.find('Redirect');
       expect(redirect.props().to).toBe('/dashboard');
     });
