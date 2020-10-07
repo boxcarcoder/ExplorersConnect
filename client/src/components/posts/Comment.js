@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { getPost, commentOnPost } from '../../actions/post';
 import Spinner from '../layout/Spinner';
@@ -8,7 +8,7 @@ import PostItem from './PostItem';
 import CommentItem from './CommentItem';
 import { Link, Redirect } from 'react-router-dom';
 
-const Comment = ({
+export const Comment = ({
   postState: { post, loading, deletedPost },
   getPost,
   match,
@@ -17,9 +17,9 @@ const Comment = ({
   setAlert,
 }) => {
   //when comment component first loads, load post redux state with post data
-  useEffect(() => {
+  React.useEffect(() => {
     getPost(match.params.id);
-  }, [getPost, match.params.id]);
+  }, [match.params.id]);
 
   const [formData, setFormData] = useState({
     text: '',
@@ -54,7 +54,6 @@ const Comment = ({
     return <Redirect to='/posts' />;
   }
   // case 3: when getPost has populated the post redux state.
-  // else if (post !== null) {
   else {
     return (
       <Fragment>
@@ -100,13 +99,7 @@ const Comment = ({
         </div>
       </Fragment>
     );
-  } //else {
-  //   return (
-  //     <Fragment>
-  //       <h1>wtf</h1>
-  //     </Fragment>
-  //   );
-  // }
+  }
 };
 
 Comment.propTypes = {

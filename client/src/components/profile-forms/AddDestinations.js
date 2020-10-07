@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom'; //withRouter: to pass the history object to components as props
+import { Link, withRouter } from 'react-router-dom'; //withRouter: to get access to the history object's properties
 import { setAlert } from '../../actions/alert';
 
 //redux

@@ -8,7 +8,7 @@ import Spinner from '../layout/Spinner';
 import { setAlert } from '../../actions/alert';
 import { likePost, unlikePost, deletePost } from '../../actions/post';
 
-const PostItem = ({
+export const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date },
   postState: { loading },
   likePost,

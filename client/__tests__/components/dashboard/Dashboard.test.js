@@ -67,7 +67,7 @@ describe('<Dashboard /> component.', () => {
   });
 
   test('Calls the getCurrentProfile action on render.', () => {
-    // Convert an existing method of an object into a mock function.
+    // Spy on React's useEffect method so we can mock it.
     let useEffect = jest.spyOn(React, 'useEffect');
 
     // Wrap the mock function into a function to control how many times we can call it.
@@ -76,6 +76,7 @@ describe('<Dashboard /> component.', () => {
       useEffect.mockImplementationOnce((f) => f());
     };
 
+    // Render the component to test if the action is fired.
     props = {
       getCurrentProfile: mockGetCurrentProfile,
       profileState: {
@@ -115,17 +116,17 @@ describe('<Dashboard /> component.', () => {
       };
       wrapper = shallow(<Dashboard {...props} />);
     });
-    test('it wraps the <DashboardButtons /> component', () => {
+    test('it renders the <DashboardButtons /> component', () => {
       const DashboardButtonsChild = wrapper.find('DashboardButtons');
       expect(DashboardButtonsChild.exists()).toBe(true);
     });
 
-    test('it wraps the <Destinations /> component', () => {
+    test('it renders the <Destinations /> component', () => {
       const DestinationsChild = wrapper.find('Connect(Destinations)');
       expect(DestinationsChild.exists()).toBe(true);
     });
 
-    test('it wraps the <Gears /> component', () => {
+    test('it renders the <Gears /> component', () => {
       const GearsChild = wrapper.find('Connect(Gears)');
       expect(GearsChild.exists()).toBe(true);
     });

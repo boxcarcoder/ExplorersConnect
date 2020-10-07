@@ -34,8 +34,8 @@ describe('<Login /> component.', () => {
     expect(link.props().to).toBe('/register');
   });
 
-  describe('Text box updates for', () => {
-    test('Email.', () => {
+  describe('Text updates for', () => {
+    test('Email input box.', () => {
       // Find the input within the component
       wrapper
         .find('input')
@@ -50,7 +50,7 @@ describe('<Login /> component.', () => {
       expect(wrapper.find('input').at(0).props().value).toBe('test@test.com');
     });
 
-    test('Password.', () => {
+    test('Password input box.', () => {
       // Find the input within the component
       wrapper
         .find('input')

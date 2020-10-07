@@ -38,8 +38,8 @@ describe('<Register /> component.', () => {
     expect(link.props().to).toBe('/login');
   });
 
-  describe('Text box is updated for', () => {
-    test('Name.', () => {
+  describe('Text updates for', () => {
+    test('Name input box.', () => {
       // Find the input within the component to test it.
       wrapper
         .find('input')
@@ -54,7 +54,7 @@ describe('<Register /> component.', () => {
       expect(wrapper.find('input').at(0).props().value).toEqual('test name');
     });
 
-    test('Email.', () => {
+    test('Email input box.', () => {
       // Find the input within the component to test it.
       wrapper
         .find('input')
@@ -71,7 +71,7 @@ describe('<Register /> component.', () => {
       );
     });
 
-    test('Password.', () => {
+    test('Password input box.', () => {
       // Find the input within the component to test it.
       wrapper
         .find('input')
@@ -86,7 +86,7 @@ describe('<Register /> component.', () => {
       expect(wrapper.find('input').at(2).props().value).toEqual('testpassword');
     });
 
-    test('Confirm Password.', () => {
+    test('Confirm Password input box.', () => {
       // Find the input within the component to test it.
       wrapper
         .find('input')

@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Comment /> component. Successfully renders the Comment component for the existing post. 1`] = `
+<Fragment>
+  <Link
+    className="btn"
+    to="/posts"
+  >
+    Go Back
+  </Link>
+  <Connect(PostItem)
+    post={
+      Object {
+        "comments": Array [
+          Object {
+            "text": "test comment text.",
+            "user": "test user2",
+          },
+          Object {
+            "text": "test comment text2.",
+            "user": "test user3",
+          },
+        ],
+        "text": "test post text.",
+        "user": "test user",
+      }
+    }
+    showCommentBtn={false}
+  />
+  <div
+    className="post-form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="bg-primary post-form-header "
+    >
+      <h4>
+        Leave a Comment
+      </h4>
+    </div>
+    <form
+      className="form vert-m-1"
+    >
+      <textarea
+        cols="30"
+        name="text"
+        onChange={[Function]}
+        placeholder="Comment on this post"
+        rows="5"
+        value=""
+      />
+      <input
+        className="btn btn-dark vert-m-1"
+        type="submit"
+        value="Submit"
+      />
+    </form>
+    <div
+      className="comments"
+    >
+      <Connect(CommentItem)
+        comment={
+          Object {
+            "text": "test comment text.",
+            "user": "test user2",
+          }
+        }
+      />
+      <Connect(CommentItem)
+        comment={
+          Object {
+            "text": "test comment text2.",
+            "user": "test user3",
+          }
+        }
+      />
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`<Comment /> component. Successfully renders the Comment component if a post exists. 1`] = `
+<Fragment>
+  <Link
+    className="btn"
+    to="/posts"
+  >
+    Go Back
+  </Link>
+  <Connect(PostItem)
+    post={
+      Object {
+        "comments": Array [
+          Object {
+            "text": "test comment text.",
+            "user": "test user2",
+          },
+          Object {
+            "text": "test comment text2.",
+            "user": "test user3",
+          },
+        ],
+        "text": "test post text.",
+        "user": "test user",
+      }
+    }
+    showCommentBtn={false}
+  />
+  <div
+    className="post-form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="bg-primary post-form-header "
+    >
+      <h4>
+        Leave a Comment
+      </h4>
+    </div>
+    <form
+      className="form vert-m-1"
+    >
+      <textarea
+        cols="30"
+        name="text"
+        onChange={[Function]}
+        placeholder="Comment on this post"
+        rows="5"
+        value=""
+      />
+      <input
+        className="btn btn-dark vert-m-1"
+        type="submit"
+        value="Submit"
+      />
+    </form>
+    <div
+      className="comments"
+    >
+      <Connect(CommentItem)
+        comment={
+          Object {
+            "text": "test comment text.",
+            "user": "test user2",
+          }
+        }
+      />
+      <Connect(CommentItem)
+        comment={
+          Object {
+            "text": "test comment text2.",
+            "user": "test user3",
+          }
+        }
+      />
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`<Comment /> component. Successfully renders the Comment component. 1`] = `
+<Fragment>
+  <Link
+    className="btn"
+    to="/posts"
+  >
+    Go Back
+  </Link>
+  <Connect(PostItem)
+    post={
+      Object {
+        "comments": Array [
+          Object {
+            "text": "test comment text.",
+            "user": "test user2",
+          },
+          Object {
+            "text": "test comment text2.",
+            "user": "test user3",
+          },
+        ],
+        "text": "test post text.",
+        "user": "test user",
+      }
+    }
+    showCommentBtn={false}
+  />
+  <div
+    className="post-form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="bg-primary post-form-header "
+    >
+      <h4>
+        Leave a Comment
+      </h4>
+    </div>
+    <form
+      className="form vert-m-1"
+    >
+      <textarea
+        cols="30"
+        name="text"
+        onChange={[Function]}
+        placeholder="Comment on this post"
+        rows="5"
+        value=""
+      />
+      <input
+        className="btn btn-dark vert-m-1"
+        type="submit"
+        value="Submit"
+      />
+    </form>
+    <div
+      className="comments"
+    >
+      <Connect(CommentItem)
+        comment={
+          Object {
+            "text": "test comment text.",
+            "user": "test user2",
+          }
+        }
+      />
+      <Connect(CommentItem)
+        comment={
+          Object {
+            "text": "test comment text2.",
+            "user": "test user3",
+          }
+        }
+      />
+    </div>
+  </div>
+</Fragment>
+`;
