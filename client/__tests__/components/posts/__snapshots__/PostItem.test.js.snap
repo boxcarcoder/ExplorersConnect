@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PostItem /> component. Successfully renders the PostItem component. 1`] = `
+<Fragment>
+  <div
+    className="post bg-white vert-m-1 p-1"
+  >
+    <div>
+      <Link
+        to="/profile/test post user"
+      >
+        <img
+          alt="avatar"
+          className="round-img"
+          src="test post avatar"
+        />
+        <h4 />
+      </Link>
+    </div>
+    <div>
+      <p
+        className="vert-m-1"
+      >
+        test post name
+      </p>
+      <p
+        className="x-small"
+      >
+        <t
+          ago={false}
+          calendar={false}
+          decimal={false}
+          element={null}
+          filter={[Function]}
+          format="YYYY/MM/DD"
+          fromNow={false}
+          interval={60000}
+          local={false}
+          onChange={[Function]}
+          titleFormat=""
+          toNow={false}
+          unit={null}
+          unix={false}
+          utc={false}
+          withTitle={false}
+        >
+          test post date
+        </t>
+      </p>
+      <button
+        className="btn"
+        onClick={[Function]}
+      >
+        <i
+          className="fas fa-thumbs-up"
+        />
+         
+        <span>
+          15
+        </span>
+      </button>
+      <button
+        className="btn"
+        onClick={[Function]}
+      >
+        <i
+          className="fas fa-thumbs-down"
+        />
+      </button>
+      <div>
+        <Link
+          className="btn btn-primary btn-small vert-m-1"
+          to="/posts/test post id"
+        >
+          Comment (
+          18
+          )
+        </Link>
+      </div>
+    </div>
+  </div>
+</Fragment>
+`;

@@ -22,11 +22,7 @@ describe('<CommentItem /> component.', () => {
       },
       authState: {
         isAuthenticated: false,
-        loggedInUser: {
-          name: 'test logged in user name',
-          email: 'test logged in user email',
-          password: 'test logged in user password',
-        },
+        loggedInUser: {},
       },
       deleteComment: mockDeleteComment,
       postId: 'test post id',
