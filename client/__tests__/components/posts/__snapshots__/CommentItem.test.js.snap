@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CommentItem /> component. Successfully renders 1`] = `
+<Fragment>
+  <div
+    className="post bg-white vert-m-1 p-1"
+  >
+    <div>
+      <Link
+        to="/profile/test comment user"
+      >
+        <img
+          alt="avatar"
+          className="round-img"
+          src="test comment avatar"
+        />
+        <h4>
+          test comment name
+        </h4>
+      </Link>
+    </div>
+    <div>
+      <p
+        className="vert-m-1"
+      >
+        test comment text.
+      </p>
+      <p
+        className="x-small"
+      >
+        <t
+          ago={false}
+          calendar={false}
+          decimal={false}
+          element={null}
+          filter={[Function]}
+          format="YYYY/MM/DD"
+          fromNow={false}
+          interval={60000}
+          local={false}
+          onChange={[Function]}
+          titleFormat=""
+          toNow={false}
+          unit={null}
+          unix={false}
+          utc={false}
+          withTitle={false}
+        >
+          test comment date
+        </t>
+      </p>
+      <div />
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`<CommentItem /> component. Successfully renders. 1`] = `
+<Fragment>
+  <div
+    className="post bg-white vert-m-1 p-1"
+  >
+    <div>
+      <Link
+        to="/profile/test comment user"
+      >
+        <img
+          alt="avatar"
+          className="round-img"
+          src="test comment avatar"
+        />
+        <h4>
+          test comment name
+        </h4>
+      </Link>
+    </div>
+    <div>
+      <p
+        className="vert-m-1"
+      >
+        test comment text.
+      </p>
+      <p
+        className="x-small"
+      >
+        <t
+          ago={false}
+          calendar={false}
+          decimal={false}
+          element={null}
+          filter={[Function]}
+          format="YYYY/MM/DD"
+          fromNow={false}
+          interval={60000}
+          local={false}
+          onChange={[Function]}
+          titleFormat=""
+          toNow={false}
+          unit={null}
+          unix={false}
+          utc={false}
+          withTitle={false}
+        >
+          test comment date
+        </t>
+      </p>
+      <div />
+    </div>
+  </div>
+</Fragment>
+`;

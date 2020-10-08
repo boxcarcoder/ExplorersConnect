@@ -5,13 +5,13 @@ import { deleteComment } from '../../actions/post';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 
-const CommentItem = ({
+export const CommentItem = ({
   comment: { _id, user, avatar, name, text, date },
   authState: { isAuthenticated, loggedInUser },
   deleteComment,
-  postId
+  postId,
 }) => {
-  const handleDeleteComment = e => {
+  const handleDeleteComment = (e) => {
     deleteComment(postId, _id);
   };
 
@@ -20,7 +20,7 @@ const CommentItem = ({
       return (
         <button
           className='btn btn-danger btn-small vert-m-1'
-          onClick={e => handleDeleteComment(e)}
+          onClick={(e) => handleDeleteComment(e)}
         >
           x
         </button>
@@ -50,11 +50,11 @@ const CommentItem = ({
 };
 
 CommentItem.propTypes = {
-  authState: PropTypes.object.isRequired
+  authState: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  authState: state.auth
+const mapStateToProps = (state) => ({
+  authState: state.auth,
 });
 
 export default connect(mapStateToProps, { deleteComment })(CommentItem);
