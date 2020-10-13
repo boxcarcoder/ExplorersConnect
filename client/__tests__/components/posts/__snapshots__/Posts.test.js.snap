@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Posts /> component. Successfully renders the Posts component. 1`] = `
+<Fragment>
+  <h1
+    className="large text-primary"
+  >
+    Posts
+  </h1>
+  <p
+    className="lead"
+  >
+    <i
+      className="fas fa-user"
+    />
+     Welcome to the community
+  </p>
+  <div
+    className="post-form"
+  >
+    <div
+      className="bg-primary post-form-header "
+    >
+      <h4>
+        Start a Discussion
+      </h4>
+    </div>
+    <form
+      className="form vert-m-1"
+      onSubmit={[Function]}
+    >
+      <textarea
+        cols="30"
+        onChange={[Function]}
+        placeholder="Create a post"
+        rows="5"
+        value=""
+      />
+      <input
+        className="btn btn-primary vert-m-1"
+        type="submit"
+        value="Submit"
+      />
+    </form>
+  </div>
+  <div
+    className="posts"
+  >
+    <Connect(PostItem)
+      post={
+        Object {
+          "text": "test post 2",
+          "user": "test post user2",
+        }
+      }
+      showCommentBtn={true}
+    />
+    <Connect(PostItem)
+      post={
+        Object {
+          "text": "test post 1",
+          "user": "test post user1",
+        }
+      }
+      showCommentBtn={true}
+    />
+  </div>
+</Fragment>
+`;

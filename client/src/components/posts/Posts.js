@@ -1,23 +1,21 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import PostItem from './PostItem';
 import Spinner from '../layout/Spinner';
 import { getAllPosts, addPost } from '../../actions/post';
-import { setAlert } from '../../actions/alert';
 
-const Posts = ({
+export const Posts = ({
   getAllPosts,
   addPost,
   postState: { posts, loading },
   authState: { isAuthenticated },
-  setAlert,
 }) => {
   //on initial load, populate post redux state with all posts
-  useEffect(() => {
+  React.useEffect(() => {
     getAllPosts();
-  }, [getAllPosts]);
+  });
 
   // create state to handle input
   const [formData, setFormData] = useState({
@@ -28,14 +26,11 @@ const Posts = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isAuthenticated) {
-      addPost(formData);
-      setFormData({
-        text: '',
-      });
-    } else {
-      setAlert('Please log in or register to create a post.', 'danger');
-    }
+
+    addPost(formData);
+    setFormData({
+      text: '',
+    });
   };
 
   const onChange = (e) => {
@@ -75,7 +70,6 @@ const Posts = ({
               cols='30'
               rows='5'
               placeholder='Create a post'
-              name='text'
               value={text}
               onChange={(e) => onChange(e)}
             ></textarea>
@@ -116,6 +110,4 @@ const mapStateToProps = (state) => ({
   authState: state.auth,
 });
 
-export default connect(mapStateToProps, { getAllPosts, addPost, setAlert })(
-  Posts
-);
+export default connect(mapStateToProps, { getAllPosts, addPost })(Posts);

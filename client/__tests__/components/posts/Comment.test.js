@@ -204,8 +204,6 @@ describe('<Comment /> component.', () => {
       expect(postItem.exists()).toBe(true);
     });
 
-    //=====================
-
     test('text updates for the comment input box.', () => {
       // Find the textarea within the component
       wrapper.find('textarea').simulate('change', {

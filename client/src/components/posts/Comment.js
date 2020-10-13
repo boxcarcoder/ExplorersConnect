@@ -41,7 +41,7 @@ export const Comment = ({
 
   const onChange = (e) => {
     setFormData({
-      [e.target.name]: e.target.value,
+      text: e.target.value,
     });
   };
 
@@ -75,7 +75,6 @@ export const Comment = ({
               cols='30'
               rows='5'
               placeholder='Comment on this post'
-              name='text'
               value={text}
               onChange={(e) => onChange(e)}
             ></textarea>
