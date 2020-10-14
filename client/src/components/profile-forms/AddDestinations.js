@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom'; //withRouter: to get access to the history object's properties
 import { setAlert } from '../../actions/alert';
 
@@ -7,11 +7,11 @@ import { addDestinations } from '../../actions/profile';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const AddDestinations = ({ addDestinations, history, setAlert }) => {
+export const AddDestinations = ({ addDestinations, history, setAlert }) => {
   // The history object is passed by React within the default props. We are destructuring props.history.
 
   // user inputs must have corresponding states
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = React.useState({
     hikingTrails: '',
     campSites: '',
     waterAreas: '',
@@ -24,9 +24,6 @@ const AddDestinations = ({ addDestinations, history, setAlert }) => {
   // e.target.name is the name of the input
   // e.target.value is the user input
   const onChange = (e) => {
-    // console.log('[e.target.name]', [e.target.name]);
-    // console.log('e.target.value', e.target.value);
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,

@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddDestinations /> component. Successfully renders the component. 1`] = `
+<Fragment>
+  <h1
+    className="large text-primary"
+  >
+    Add Destinations
+  </h1>
+  <p
+    className="lead"
+  >
+    <i
+      className="fas fa-map-signs text-primary"
+    />
+     Add where you've explored during your favorite trips.
+  </p>
+  <form
+    className="form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="line"
+    />
+    <div
+      className="form-group"
+    >
+      <h5>
+        Hiking Trails
+      </h5>
+      <input
+        name="hikingTrails"
+        onChange={[Function]}
+        placeholder="Trail Name"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <h5>
+        Campsites
+      </h5>
+      <input
+        name="campSites"
+        onChange={[Function]}
+        placeholder="Camp Site"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <h5>
+        Lakes, Rivers, or Oceans
+      </h5>
+      <input
+        name="waterAreas"
+        onChange={[Function]}
+        placeholder="Body of Water"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <h5>
+        Snow Resorts
+      </h5>
+      <input
+        name="slopes"
+        onChange={[Function]}
+        placeholder="Slopes"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <h5>
+        Crags
+      </h5>
+      <input
+        name="crags"
+        onChange={[Function]}
+        placeholder="Rock faces"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="vert-m-1"
+    >
+      <input
+        className="btn btn-primary my-1"
+        type="submit"
+      />
+      <Link
+        className="btn btn-light my-1"
+        to="/dashboard"
+      >
+        Go Back
+      </Link>
+    </div>
+  </form>
+</Fragment>
+`;
