@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddGears /> component. Successfully renders the component. 1`] = `
+<Fragment>
+  <h1
+    className="large text-primary"
+  >
+    Add Gear
+  </h1>
+  <p
+    className="lead"
+  >
+    <i
+      className="fas fa-map-signs text-primary"
+    />
+     Add all your essential gear for an adventure.
+  </p>
+  <form
+    className="form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="line"
+    />
+    <div
+      className="form-group"
+    >
+      <h5>
+        Hiking
+      </h5>
+      <input
+        name="hikeGear"
+        onChange={[Function]}
+        placeholder="Hiking Gear"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <h5>
+        Camping
+      </h5>
+      <input
+        name="campGear"
+        onChange={[Function]}
+        placeholder="Camping Gear"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <h5>
+        Water Sports
+      </h5>
+      <input
+        name="waterGear"
+        onChange={[Function]}
+        placeholder="Water Gear"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <h5>
+        Snow Sports
+      </h5>
+      <input
+        name="snowGear"
+        onChange={[Function]}
+        placeholder="Snow Gear"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <h5>
+        Rock Climbing
+      </h5>
+      <input
+        name="rockClimbingGear"
+        onChange={[Function]}
+        placeholder="Rock Climbing Gear"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="vert-m-1"
+    >
+      <input
+        className="btn btn-primary my-1"
+        type="submit"
+      />
+      <Link
+        className="btn btn-light my-1"
+        to="/dashboard"
+      >
+        Go Back
+      </Link>
+    </div>
+  </form>
+</Fragment>
+`;
