@@ -1,0 +1,245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CreateProfile /> component. Successfully renders the component. 1`] = `
+<Fragment>
+  <h1
+    className="large text-primary"
+  >
+    Create Your Profile
+  </h1>
+  <p
+    className="lead"
+  >
+    <i
+      className="fas fa-user"
+    />
+     Let's personalize your profile.
+  </p>
+  <div
+    className="line"
+  />
+  <form
+    className="form"
+    onSubmit={[Function]}
+  >
+    <p
+      className="lead"
+    >
+      Outdoor Recreations
+    </p>
+    <small
+      className="form-text"
+    >
+      What outdoor recreations do you enjoy?
+    </small>
+    <div
+      className="form-group"
+    >
+      <input
+        checked={false}
+        name="Hiking"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      Hiking
+      <br />
+      <input
+        checked={false}
+        name="Camping"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      Camping
+      <br />
+      <input
+        checked={false}
+        name="Kayaking"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      Kayaking
+      <br />
+      <input
+        checked={false}
+        name="Rafting"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      Rafting
+      <br />
+      <input
+        checked={false}
+        name="Skiing"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      Skiing
+      <br />
+      <input
+        checked={false}
+        name="Snowboarding"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      Snowboarding
+      <br />
+      <input
+        checked={false}
+        name="Rockclimbing"
+        onChange={[Function]}
+        type="checkbox"
+      />
+       
+      Rock Climbing
+      <br />
+    </div>
+    <small
+      className="form-text"
+    >
+      Which is your favorite recreation?
+    </small>
+    <div
+      className="form-group"
+    >
+      <select
+        name="faveRecreation"
+        onChange={[Function]}
+        value=""
+      >
+        <option
+          value="0"
+        >
+          * Favorite Outdoor Recreation
+        </option>
+        <option
+          value="HikingFave"
+        >
+          Hiking
+        </option>
+        <option
+          value="CampingFave"
+        >
+          Camping
+        </option>
+        <option
+          value="KayakingFave"
+        >
+          Kayaking
+        </option>
+        <option
+          value="RaftingFave"
+        >
+          Rafting
+        </option>
+        <option
+          value="SkiingFave"
+        >
+          Skiing
+        </option>
+        <option
+          value="SnowboardingFave"
+        >
+          Snowboarding
+        </option>
+        <option
+          value="RockClimbingFave"
+        >
+          Rock Climbing
+        </option>
+      </select>
+    </div>
+    <div
+      className="line"
+    />
+    <p
+      className="lead"
+    >
+      Bio
+    </p>
+    <div
+      className="form-group"
+    >
+      <input
+        name="website"
+        onChange={[Function]}
+        placeholder="Personal Website"
+        type="text"
+        value=""
+      />
+      <small
+        className="form-text"
+      >
+        Have a blog for adventures or gear reviews?
+      </small>
+    </div>
+    <div
+      className="form-group"
+    >
+      <textarea
+        name="bio"
+        onChange={[Function]}
+        placeholder="A short bio of yourself"
+        value=""
+      />
+      <small
+        className="form-text"
+      >
+        Tell us a little about yourself
+      </small>
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        name="location"
+        onChange={[Function]}
+        placeholder="* Location"
+        type="text"
+        value=""
+      />
+      <small
+        className="form-text"
+      >
+        City & state (eg. Los Angeles, CA)
+      </small>
+    </div>
+    <div
+      className="my-2"
+    >
+      <button
+        className="btn"
+        onClick={[Function]}
+        type="button"
+      >
+        Add Social Network Links
+      </button>
+      <small>
+        Optional
+      </small>
+    </div>
+    <small>
+      * = required fields
+    </small>
+    <div
+      className="vert-m-1"
+    >
+      <input
+        className="btn btn-primary my-1"
+        type="submit"
+      />
+      <Link
+        className="btn btn-light my-1"
+        to="/dashboard"
+      >
+        Go Back
+      </Link>
+    </div>
+  </form>
+</Fragment>
+`;

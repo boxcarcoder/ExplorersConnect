@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 
-const CreateProfile = ({ createProfile, history }) => {
+export const CreateProfile = ({ createProfile, history }) => {
   // The history object is passed by React within the default props. We are destructuring props.history.
 
   // user inputs must have corresponding states
