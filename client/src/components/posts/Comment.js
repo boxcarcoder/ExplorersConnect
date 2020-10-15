@@ -11,7 +11,7 @@ import { Link, Redirect } from 'react-router-dom';
 export const Comment = ({
   postState: { post, loading, deletedPost },
   getPost,
-  match,
+  match, //match is an object passed by React within the default props. The object contains route params.
   commentOnPost,
   authState: { isAuthenticated },
   setAlert,

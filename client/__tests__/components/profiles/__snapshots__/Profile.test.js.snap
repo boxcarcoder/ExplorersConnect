@@ -1,0 +1,314 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Profile /> component. Successfully renders the Profile component. 1`] = `
+<Fragment>
+  <Link
+    className="btn"
+    to="/profiles"
+  >
+    Back to Profiles
+  </Link>
+  <div
+    className="vert-m-1 profile-grid"
+  >
+    <div
+      className="bg-primary p-2 profile-top"
+    >
+      <img
+        alt="profilePic"
+        className="curved-img vert-m-1"
+      />
+      <h1
+        className="large"
+      />
+      <p>
+        test user location
+      </p>
+      <div
+        className="vert-m-1 icons-list"
+      >
+        <div
+          className="valid-icon"
+        >
+          <a
+            href="test instagram link"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i
+              className="fab fa-instagram fa-2x"
+            />
+          </a>
+        </div>
+        <div
+          className="valid-icon"
+        >
+          <a
+            href="test twitter link"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i
+              className="fab fa-twitter fa-2x"
+            />
+          </a>
+        </div>
+        <div
+          className="valid-icon"
+        >
+          <a
+            href="test facebook link"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i
+              className="fab fa-facebook fa-2x"
+            />
+          </a>
+        </div>
+        <div
+          className="valid-icon"
+        >
+          <a
+            href="test youtube link"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i
+              className="fab fa-youtube fa-2x"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="bg-light p-2 profile-about"
+    >
+      <h2
+        className="text-primary"
+      >
+        Bio
+      </h2>
+      <p>
+        test user bio
+      </p>
+      <div
+        className="line"
+      />
+      <h2
+        className="text-primary"
+      >
+        Passions
+      </h2>
+      <div
+        className="passions"
+      >
+        <div
+          className="p-1"
+        >
+          <i
+            className="fas fa-hiking"
+          />
+           Hiking
+        </div>
+        <div
+          className="p-1"
+        >
+          <i
+            className="fas fa-campground"
+          />
+           Camping
+        </div>
+        <div
+          className="p-1"
+        >
+          <i
+            className="fas fa-water"
+          />
+           Kayaking
+        </div>
+        <div
+          className="p-1"
+        >
+          <i
+            className="fas fa-tint"
+          />
+           Rafting
+        </div>
+        <div
+          className="p-1"
+        >
+          <i
+            className="fas fa-skiing"
+          />
+           Skiing
+        </div>
+        <div
+          className="p-1"
+        >
+          <i
+            className="fas fa-snowboarding"
+          />
+           Snowboarding
+        </div>
+        <div
+          className="p-1"
+        >
+          <i
+            className="fas fa-mountain"
+          />
+           Rockclimbing
+        </div>
+      </div>
+    </div>
+    <div
+      className="bg-light p-2 profile-location"
+    >
+      <h2
+        className="text-primary"
+      >
+        Explored
+      </h2>
+      <p>
+        <strong>
+          Hike Trails
+        </strong>
+        <ul>
+          <li>
+            test hike trail
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+      <p>
+        <strong>
+          Campsites
+        </strong>
+        <ul>
+          <li>
+            test camp site
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+      <p>
+        <strong>
+          Lakes, Rivers, or Oceans
+        </strong>
+        <ul>
+          <li>
+            test water area
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+      <p>
+        <strong>
+          Slopes
+        </strong>
+        <ul>
+          <li>
+            test slope
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+      <p>
+        <strong>
+          Crags
+        </strong>
+        <ul>
+          <li>
+            test cliff
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+    </div>
+    <div
+      className="bg-light p-2 profile-gear"
+    >
+      <h2
+        className="text-primary"
+      >
+        Gear
+      </h2>
+      <p>
+        <strong>
+          Hiking
+        </strong>
+        <ul>
+          <li>
+            test hike gear
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+      <p>
+        <strong>
+          Camping
+        </strong>
+        <ul>
+          <li>
+            test camp gear
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+      <p>
+        <strong>
+          Lakes, Rivers, or Oceans
+        </strong>
+        <ul>
+          <li>
+            test water gear
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+      <p>
+        <strong>
+          Slopes
+        </strong>
+        <ul>
+          <li>
+            test snow gear
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+      <p>
+        <strong>
+          Rock Climbing
+        </strong>
+        <ul>
+          <li>
+            test rock gear
+          </li>
+        </ul>
+      </p>
+      <div
+        className="line"
+      />
+    </div>
+  </div>
+</Fragment>
+`;

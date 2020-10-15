@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -7,15 +7,15 @@ import { getProfileById } from '../../actions/profile';
 
 import Spinner from '../layout/Spinner';
 
-const Profile = ({
+export const Profile = ({
   profileState: { profile, loading },
   getProfileById,
-  match,
+  match, //match is an object passed by React within the default props. The object contains route params.
 }) => {
   //when a user's profile page is first loaded, retrieve the profile and store it in the profile redux state
-  useEffect(() => {
+  React.useEffect(() => {
     getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
+  }, [match.params.id]);
 
   //for async operation. need to wait for profile to be loaded into the profile redux state before proceeding
   if (profile === null || loading) {
@@ -47,7 +47,7 @@ const Profile = ({
     if (Hiking) {
       return (
         <div className='p-1'>
-          <i className='fas fa-campground'></i> Camping
+        <i className='fas fa-hiking'></i> Hiking
         </div>
       );
     }
@@ -57,7 +57,7 @@ const Profile = ({
     if (Camping) {
       return (
         <div className='p-1'>
-          <i className='fas fa-hiking'></i> Hiking
+          <i className='fas fa-campground'></i> Camping
         </div>
       );
     }
@@ -303,7 +303,7 @@ const Profile = ({
           <i className='fab fa-instagram fa-2x'></i>
         </div>
       );
-    } else if (social.instagram) {
+    } else {
       return (
         <div className='valid-icon'>
           <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
@@ -321,7 +321,7 @@ const Profile = ({
           <i className='fab fa-twitter fa-2x'></i>
         </div>
       );
-    } else if (social.twitter) {
+    } else {
       return (
         <div className='valid-icon'>
           <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
@@ -339,7 +339,7 @@ const Profile = ({
           <i className='fab fa-facebook fa-2x'></i>
         </div>
       );
-    } else if (social.facebook) {
+    } else {
       return (
         <div className='valid-icon'>
           <a href={social.facebook} target='_blank' rel='noopener noreferrer'>
@@ -357,7 +357,7 @@ const Profile = ({
           <i className='fab fa-youtube fa-2x'></i>
         </div>
       );
-    } else if (social.youtube) {
+    } else {
       return (
         <div className='valid-icon'>
           <a href={social.youtube} target='_blank' rel='noopener noreferrer'>
