@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import { withRouter, Link } from 'react-router-dom'; // withRouter: to get access to the history object's properties
 
 //redux
@@ -10,7 +10,7 @@ import {
   deleteAccount,
 } from '../../actions/profile';
 
-const EditProfile = ({
+export const EditProfile = ({
   profileState: { profile, loading },
   createProfile,
   history, // The history object is passed by React within the default props. We are destructuring props.history.
@@ -57,7 +57,7 @@ const EditProfile = ({
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   // run getCurrentProfile to fetch profile data for the state
-  useEffect(() => {
+  React.useEffect(() => {
     getCurrentProfile();
 
     // prefill the form data with the current profile values (from getCurrentProfile)
