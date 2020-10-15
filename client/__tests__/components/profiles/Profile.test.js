@@ -293,12 +293,6 @@ describe('<Profile /> component.', () => {
             test('youtube if the profile has a youtube link.', () => {
                 expect(wrapper.find('div').at(6).find('a').props().href).toBe('test youtube link');       
             });
-        });
-    
-    }); 
-
- 
+        });    
+    });  
 });
-
-// const shit = wrapper.find('div').at(3).find('i');
-// console.log(shit.debug({verbose: true}));
