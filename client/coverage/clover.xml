@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1602805611349" clover="3.2.0">
-  <project timestamp="1602805611349" name="All files">
-    <metrics statements="580" coveredstatements="566" conditionals="265" coveredconditionals="247" methods="218" coveredmethods="204" elements="1063" coveredelements="1017" complexity="0" loc="580" ncloc="580" packages="9" files="29" classes="29"/>
+<coverage generated="1603488523287" clover="3.2.0">
+  <project timestamp="1603488523288" name="All files">
+    <metrics statements="618" coveredstatements="604" conditionals="293" coveredconditionals="275" methods="226" coveredmethods="212" elements="1137" coveredelements="1091" complexity="0" loc="618" ncloc="618" packages="9" files="30" classes="30"/>
     <package name="actions">
       <metrics statements="181" coveredstatements="170" conditionals="30" coveredconditionals="16" methods="45" coveredmethods="45"/>
       <file name="alert.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/actions/alert.js">
@@ -540,7 +540,7 @@
       </file>
     </package>
     <package name="components.profiles">
-      <metrics statements="88" coveredstatements="88" conditionals="62" coveredconditionals="62" methods="35" coveredmethods="34"/>
+      <metrics statements="126" coveredstatements="126" conditionals="90" coveredconditionals="90" methods="43" coveredmethods="42"/>
       <file name="Profile.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/components/profiles/Profile.js">
         <metrics statements="88" coveredstatements="88" conditionals="62" coveredconditionals="62" methods="35" coveredmethods="34"/>
         <line num="10" count="1" type="stmt"/>
@@ -631,6 +631,47 @@
         <line num="384" count="30" type="stmt"/>
         <line num="441" count="1" type="stmt"/>
         <line num="445" count="1" type="stmt"/>
+      </file>
+      <file name="ProfileItem.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/components/profiles/ProfileItem.js">
+        <metrics statements="38" coveredstatements="38" conditionals="28" coveredconditionals="28" methods="8" coveredmethods="8"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="21" count="16" type="stmt"/>
+        <line num="22" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="30" count="13" type="stmt"/>
+        <line num="39" count="16" type="stmt"/>
+        <line num="40" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="48" count="13" type="stmt"/>
+        <line num="57" count="16" type="stmt"/>
+        <line num="58" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="66" count="13" type="stmt"/>
+        <line num="75" count="16" type="stmt"/>
+        <line num="76" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="77" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="84" count="13" type="stmt"/>
+        <line num="93" count="16" type="stmt"/>
+        <line num="94" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="95" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="102" count="13" type="stmt"/>
+        <line num="111" count="16" type="stmt"/>
+        <line num="112" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="113" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="120" count="13" type="stmt"/>
+        <line num="129" count="16" type="stmt"/>
+        <line num="130" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="131" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="132" count="1" type="stmt"/>
+        <line num="138" count="13" type="stmt"/>
+        <line num="147" count="16" type="stmt"/>
+        <line num="173" count="1" type="stmt"/>
       </file>
     </package>
     <package name="reducers">

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileItem /> component. Successfully renders the component. 1`] = `
+<Fragment>
+  <div
+    className="profile bg-light"
+  >
+    <img
+      alt="hiker"
+      className="round-img"
+      src="test profile avatar"
+    />
+    <div
+      className="m-3"
+    >
+      <h2>
+        test profile name
+      </h2>
+      <p>
+        test location
+      </p>
+      <p>
+        test bio
+      </p>
+      <Link
+        className="btn btn-primary"
+        to="/profile/test profile user id"
+      >
+        View Profile
+      </Link>
+    </div>
+    <ul />
+  </div>
+</Fragment>
+`;

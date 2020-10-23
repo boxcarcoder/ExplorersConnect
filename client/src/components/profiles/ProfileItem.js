@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
-const ProfileItem = ({
+export const ProfileItem = ({
   profile: {
     user: { _id, name, avatar },
     Hiking,
@@ -23,7 +23,7 @@ const ProfileItem = ({
       if (faveRecreation === 'HikingFave') {
         return (
           <li className='text-primary'>
-            <i class='fas fa-heart'></i> Hiking
+            <i className='fas fa-heart'></i> Hiking
           </li>
         );
       } else {
@@ -41,7 +41,7 @@ const ProfileItem = ({
       if (faveRecreation === 'CampingFave') {
         return (
           <li className='text-primary'>
-            <i class='fas fa-heart'></i> Camping
+            <i className='fas fa-heart'></i> Camping
           </li>
         );
       } else {
@@ -59,7 +59,7 @@ const ProfileItem = ({
       if (faveRecreation === 'KayakingFave') {
         return (
           <li className='text-primary'>
-            <i class='fas fa-heart'></i> Kayaking
+            <i className='fas fa-heart'></i> Kayaking
           </li>
         );
       } else {
@@ -77,7 +77,7 @@ const ProfileItem = ({
       if (faveRecreation === 'RaftingFave') {
         return (
           <li className='text-primary'>
-            <i class='fas fa-heart'></i> Rafting
+            <i className='fas fa-heart'></i> Rafting
           </li>
         );
       } else {
@@ -95,7 +95,7 @@ const ProfileItem = ({
       if (faveRecreation === 'SkiingFave') {
         return (
           <li className='text-primary'>
-            <i class='fas fa-heart'></i> Skiing
+            <i className='fas fa-heart'></i> Skiing
           </li>
         );
       } else {
@@ -113,7 +113,7 @@ const ProfileItem = ({
       if (faveRecreation === 'SnowboardingFave') {
         return (
           <li className='text-primary'>
-            <i class='fas fa-heart'></i> Snowboarding
+            <i className='fas fa-heart'></i> Snowboarding
           </li>
         );
       } else {
@@ -131,7 +131,7 @@ const ProfileItem = ({
       if (faveRecreation === 'RockClimbingFave') {
         return (
           <li className='text-primary'>
-            <i class='fas fa-heart'></i> Rock Climbing
+            <i className='fas fa-heart'></i> Rock Climbing
           </li>
         );
       } else {

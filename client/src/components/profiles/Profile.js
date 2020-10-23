@@ -47,7 +47,7 @@ export const Profile = ({
     if (Hiking) {
       return (
         <div className='p-1'>
-        <i className='fas fa-hiking'></i> Hiking
+          <i className='fas fa-hiking'></i> Hiking
         </div>
       );
     }
