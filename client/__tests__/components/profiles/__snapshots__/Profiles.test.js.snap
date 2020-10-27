@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Profiles /> component. Successfully renders the component. 1`] = `
+<Fragment>
+  <h1
+    className="large text-primary"
+  >
+    Explorers
+  </h1>
+  <p
+    className="lead"
+  >
+    <i
+      className="fab fa-connectdevelop"
+    />
+     Browse and connect with explorers
+  </p>
+  <div
+    className="profiles"
+  >
+    <ProfileItem
+      profile={
+        Object {
+          "bio": "test user bio",
+          "location": "test user location",
+          "user": "test user id",
+        }
+      }
+    />
+    <ProfileItem
+      profile={
+        Object {
+          "bio": "test user2 bio",
+          "location": "test user2 location",
+          "user": "test user2 id",
+        }
+      }
+    />
+  </div>
+</Fragment>
+`;

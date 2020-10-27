@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import ProfileItem from './ProfileItem';
 import Spinner from '../layout/Spinner';
 
@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 import { getAllProfiles } from '../../actions/profile';
 import PropTypes from 'prop-types';
 
-const Profiles = ({ getAllProfiles, profileState: { profiles, loading } }) => {
+export const Profiles = ({ getAllProfiles, profileState: { profiles, loading } }) => {
   //on the Profiles page's first load, retrieve all profiles and save it into the profile redux state
-  useEffect(() => {
+  React.useEffect(() => {
     getAllProfiles();
   }); //*** */
 

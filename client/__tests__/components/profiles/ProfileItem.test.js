@@ -59,7 +59,7 @@ describe('<ProfileItem /> component.', () => {
             },
     
             wrapper = shallow(<ProfileItem {...props}/>);
-            
+
             const link = wrapper.find('Link');
             expect(link.props().to).toBe('/profile/test profile user id');
         });
@@ -334,4 +334,3 @@ describe('<ProfileItem /> component.', () => {
 });
 
 
-// console.log(wrapper.find('div').at(0).find('ul').find('li').at(0).debug({verbose:true}));
