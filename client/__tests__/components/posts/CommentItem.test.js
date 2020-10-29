@@ -67,7 +67,6 @@ describe('<CommentItem /> component.', () => {
     };
 
     wrapper = shallow(<CommentItem {...props} />);
-    console.log(wrapper.debug({ verbose: true }));
 
     // Execute the test.
     const button = wrapper.find('button');

@@ -163,6 +163,7 @@ describe('Post reducer.', () => {
   describe('Receives the LIKE_A_POST action.', () => {
     // Create an initial state that has a post with a like already.
     const testPostId = 'testId';
+    const testPostId2 = 'testId2';
     beforeEach(() => {
       initialState = {
         post: {
@@ -192,6 +193,21 @@ describe('Post reducer.', () => {
               {
                 user: {
                   id: 'test id',
+                },
+              },
+            ],
+          },
+          {
+            _id: testPostId2,
+            user: {
+              _id: 'test id2',
+            },
+            text: 'test post2.',
+            name: 'test name2',
+            likes: [
+              {
+                user: {
+                  id: 'test id2',
                 },
               },
             ],
@@ -263,6 +279,21 @@ describe('Post reducer.', () => {
                   id: 'test id',
                 },
               },
+              {
+                user: {
+                  id: 'test id2',
+                },
+              },
+            ],
+          },
+          {
+            _id: testPostId2,
+            user: {
+              _id: 'test id2',
+            },
+            text: 'test post2.',
+            name: 'test name2',
+            likes: [
               {
                 user: {
                   id: 'test id2',
@@ -431,6 +462,7 @@ describe('Post reducer.', () => {
   describe('Receives the COMMENT_ON_POST action.', () => {
     // Create an initial state that has a post already to comment on.
     const testPostId = 'testId';
+    const testPostId2 = 'testId2';
     beforeEach(() => {
       initialState = {
         post: {
@@ -451,6 +483,21 @@ describe('Post reducer.', () => {
             text: 'test post.',
             name: 'test name',
             comments: [],
+          },
+          {
+            _id: testPostId2,
+            user: {
+              _id: 'test id2',
+            },
+            text: 'test post2.',
+            name: 'test name2',
+            likes: [
+              {
+                user: {
+                  id: 'test id2',
+                },
+              },
+            ],
           },
         ],
         loading: true,
@@ -511,6 +558,21 @@ describe('Post reducer.', () => {
                   _id: 'test user',
                 },
                 text: 'test comment.',
+              },
+            ],
+          },
+          {
+            _id: testPostId2,
+            user: {
+              _id: 'test id2',
+            },
+            text: 'test post2.',
+            name: 'test name2',
+            likes: [
+              {
+                user: {
+                  id: 'test id2',
+                },
               },
             ],
           },
