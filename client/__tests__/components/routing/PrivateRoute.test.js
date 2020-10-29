@@ -25,7 +25,7 @@ describe('<PrivateRoute /> component.', () => {
                 <MemoryRouter> 
                     <PrivateRoute {...props} />
                 </MemoryRouter>);
-            expect(wrapper).toMatchSnapshot();
+            expect(wrapper.exists(mockComponent)).toBe(true);
         });
 
         test('a Redirect to the login page if isAuthenticated and loading are false in the Auth redux state.', () => {
