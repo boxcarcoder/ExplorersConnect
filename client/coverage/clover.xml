@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1603904885186" clover="3.2.0">
-  <project timestamp="1603904885187" name="All files">
-    <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1" elements="7" coveredelements="7" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
-    <file name="setAuthToken.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/utils/setAuthToken.js">
-      <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-      <line num="7" count="1" type="stmt"/>
-      <line num="8" count="2" type="cond" truecount="2" falsecount="0"/>
-      <line num="10" count="1" type="stmt"/>
-      <line num="12" count="1" type="stmt"/>
+<coverage generated="1603993682138" clover="3.2.0">
+  <project timestamp="1603993682138" name="All files">
+    <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="2" elements="12" coveredelements="11" complexity="0" loc="5" ncloc="5" packages="1" files="1" classes="1"/>
+    <file name="PrivateRoute.js" path="/Users/brendan/Documents/development/portfolio/explorersConnect/client/src/components/routing/PrivateRoute.js">
+      <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="2"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="16" count="3" type="cond" truecount="4" falsecount="0"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
