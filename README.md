@@ -18,6 +18,8 @@ This application is written following ES6+ conventions, including arrow function
 ## Testing
 This application's backend has been tested through integration testing. The application's REST API along with a test database is tested using Supertest and Jest. These tests can be found in ./tests which contains tests for each API route.
 
+This application's frontend has been tested through unit testing. The application's Redux actions, reducers, and components is tested with Jest and Enzyme. These tests can be found in ./client/__tests__, which contains tests for each action, reducer, and component.
+
 ## Demo
 This application is deployed to Heroku:
 https://thawing-ridge-40357.herokuapp.com/
