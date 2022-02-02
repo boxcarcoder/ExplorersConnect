@@ -22,6 +22,7 @@ export const PostItem = ({
     if (isAuthenticated) {
       likePost(_id);
     } else {
+      window.scrollTo(0, 0);
       setAlert('Please log in to like or dislike post.', 'danger');
     }
   };
@@ -30,6 +31,7 @@ export const PostItem = ({
     if (isAuthenticated) {
       unlikePost(_id);
     } else {
+      window.scrollTo(0, 0);
       setAlert('Please log in to like or dislike post.', 'danger');
     }
   };

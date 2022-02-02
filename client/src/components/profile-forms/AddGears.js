@@ -19,13 +19,8 @@ export const AddGears = ({ addGears, history, setAlert }) => {
     rockClimbingGear: '',
   });
 
-  const {
-    hikeGear,
-    campGear,
-    waterGear,
-    snowGear,
-    rockClimbingGear,
-  } = formData;
+  const { hikeGear, campGear, waterGear, snowGear, rockClimbingGear } =
+    formData;
 
   // e.target.name is the name of the input
   // e.target.value is the user input
@@ -45,6 +40,7 @@ export const AddGears = ({ addGears, history, setAlert }) => {
       !snowGear &&
       !rockClimbingGear
     ) {
+      window.scrollTo(0, 0);
       setAlert('Please fill in some gear.', 'danger');
     } else {
       addGears(formData, history);

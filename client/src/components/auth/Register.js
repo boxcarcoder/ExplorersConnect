@@ -46,6 +46,7 @@ export const Register = ({
     if (password !== confirmPassword) {
       // after connecting the setAlert action, we can use it by passing a prop to the component.
       // pass a message and alert type to the setAlert action.
+      window.scrollTo(0, 0);
       setAlert('Passwords did not match.', 'danger');
     } else {
       register({ name, email, password });

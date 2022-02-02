@@ -7,11 +7,14 @@ import { connect } from 'react-redux';
 import { getAllProfiles } from '../../actions/profile';
 import PropTypes from 'prop-types';
 
-export const Profiles = ({ getAllProfiles, profileState: { profiles, loading } }) => {
+export const Profiles = ({
+  getAllProfiles,
+  profileState: { profiles, loading },
+}) => {
   //on the Profiles page's first load, retrieve all profiles and save it into the profile redux state
   React.useEffect(() => {
     getAllProfiles();
-  }); //*** */
+  }, []); //*** */
 
   if (!profiles.length || loading) {
     return <Spinner />;

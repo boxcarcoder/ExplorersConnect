@@ -33,6 +33,7 @@ export const AddDestinations = ({ addDestinations, history, setAlert }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!hikingTrails && !campSites && !waterAreas && !slopes && !crags) {
+      window.scrollTo(0, 0);
       setAlert('Please fill in some destinations.', 'danger');
     } else {
       addDestinations(formData, history);

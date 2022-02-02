@@ -30,11 +30,13 @@ export const Comment = ({
     e.preventDefault();
     if (isAuthenticated) {
       commentOnPost(match.params.id, formData);
+      window.scrollTo(0, 0);
       setAlert('Commented successfully.', 'success');
       setFormData({
         text: '',
       });
     } else {
+      window.scrollTo(0, 0);
       setAlert('Please log in to comment on post.', 'danger');
     }
   };
@@ -87,13 +89,15 @@ export const Comment = ({
 
           {/* Comments list section */}
           <div className='comments'>
-            {post.comments.map((comment) => (
-              <CommentItem
-                key={comment._id}
-                comment={comment}
-                postId={post._id}
-              />
-            ))}
+            {post.comments
+              ? post.comments.map((comment) => (
+                  <CommentItem
+                    key={comment._id}
+                    comment={comment}
+                    postId={post._id}
+                  />
+                ))
+              : null}
           </div>
         </div>
       </Fragment>

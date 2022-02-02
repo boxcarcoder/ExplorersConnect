@@ -77,48 +77,62 @@ export const getProfileById = (id) => async (dispatch) => {
 };
 
 // Create or update profile.
-export const createProfile = (
-  formData,
-  history, // The history object is passed by React within the default props. We are destructuring props.history. It has the push method to redirect. Actions use push to redirect as opposed to using <Redirect />
-  edit = false
-) => async (dispatch) => {
-  // set the token as the header to gain access to the protected route /api/profiles/me
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
-
-  // configuration of the HTTP request to the backend
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  try {
-    // the backend returns the created or updated profile
-    const res = await axios.post('/api/profiles', formData, config);
-
-    // dispatch the profile data to the reducer to save it into the profile redux state
-    dispatch({
-      type: CREATE_PROFILE,
-      payload: res.data,
-    });
-
-    // display an alert to notify the user of what they just did
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
-
-    // if the user created, not update, a profile, redirect to the dashboard page after their profile is created.
-    // redirecting in actions must use history.push from the component's withRouter import
-    if (!edit) {
-      history.push('/dashboard');
+export const createProfile =
+  (
+    formData,
+    history, // The history object is passed by React within the default props. We are destructuring props.history. It has the push method to redirect. Actions use push to redirect as opposed to using <Redirect />
+    edit = false
+  ) =>
+  async (dispatch) => {
+    // set the token as the header to gain access to the protected route /api/profiles/me
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
     }
-  } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err },
-    });
-  }
-};
+
+    // configuration of the HTTP request to the backend
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      // the backend returns the created or updated profile
+
+      console.log('running create profile action');
+      const res = await axios.post('/api/profiles', formData, config);
+
+      console.log('res in create profile action: ', res);
+
+      // dispatch the profile data to the reducer to save it into the profile redux state
+      dispatch({
+        type: CREATE_PROFILE,
+        payload: res.data,
+      });
+
+      // display an alert to notify the user of what they just did
+      dispatch(
+        setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
+      );
+
+      // if the user created, not update, a profile, redirect to the dashboard page after their profile is created.
+      // redirecting in actions must use history.push from the component's withRouter import
+      if (!edit) {
+        history.push('/dashboard');
+      }
+    } catch (err) {
+      console.log('create profile action returned 400.');
+
+      window.scrollTo(0, 0);
+      dispatch(
+        setAlert('Please make sure bio and location are filled in.', 'danger')
+      );
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err },
+      });
+    }
+  };
 
 // Add Favorite Destinations to Profile
 export const addDestinations = (formData, history) => async (dispatch) => {

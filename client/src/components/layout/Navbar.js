@@ -14,6 +14,7 @@ export const Navbar = ({
 }) => {
   const handleLogout = (e) => {
     logout();
+    window.scrollTo(0, 0);
     setAlert('Logged out succesfully', 'success');
   };
 

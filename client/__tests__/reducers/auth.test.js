@@ -27,7 +27,7 @@ describe('Auth Reducer.', () => {
     expect(reducer).toEqual(initialState);
   });
 
-  describe('Receive the the REGISTER_SUCCESS action.', () => {
+  describe('Receive the REGISTER_SUCCESS action.', () => {
     test('Returns the correct state.', () => {
       // Create a test action to send to the reducer.
       let testAction = {
