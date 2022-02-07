@@ -111,6 +111,7 @@ export const createProfile =
       });
 
       // display an alert to notify the user of what they just did
+      window.scrollTo(0, 0);
       dispatch(
         setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
       );

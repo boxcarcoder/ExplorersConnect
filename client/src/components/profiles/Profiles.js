@@ -17,22 +17,27 @@ export const Profiles = ({
   }, []); //*** */
 
   if (!profiles.length || loading) {
+    console.log('profiles state not loaded yet');
     return <Spinner />;
+  } else {
+    console.log('profiles loaded: ', profiles);
+    return (
+      <Fragment>
+        <h1 className='large text-primary'>Explorers</h1>
+        <p className='lead'>
+          <i className='fab fa-connectdevelop'></i> Browse and connect with
+          explorers
+        </p>
+        <div className='profiles'>
+          {profiles.map((profile) => {
+            if (profile.user !== null) {
+              return <ProfileItem key={profile._id} profile={profile} />;
+            }
+          })}
+        </div>
+      </Fragment>
+    );
   }
-  return (
-    <Fragment>
-      <h1 className='large text-primary'>Explorers</h1>
-      <p className='lead'>
-        <i className='fab fa-connectdevelop'></i> Browse and connect with
-        explorers
-      </p>
-      <div className='profiles'>
-        {profiles.map((profile) => (
-          <ProfileItem key={profile._id} profile={profile} />
-        ))}
-      </div>
-    </Fragment>
-  );
 };
 
 Profiles.propTypes = {
